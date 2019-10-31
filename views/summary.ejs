@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<title>Test Summary</title>
+	<link rel="stylesheet" href="/stylesheets/summary.css">
+	<link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+
+</head>
+<body>
+	<h1> Test Summary</h1>
+	
+	<div class="wrapper">
+		<div>
+			<h2>SYSTEM 420 </h2>
+			<div id="bloque1" class="agrupado">
+
+				<div id="row1"class="row">
+					<div class="title">Relays tested</div>
+					<div class="dots"></div>
+					<div id="v1" class="value">A</div>
+				</div>
+
+				<div class="row">
+					<div class="title">Relays passed</div>
+					<div class="dots"></div>
+					<div id="v2" class="value">.</div>
+				</div>
+
+				<div class="row">
+					<div class="title">Relays failed</div>
+					<div class="dots"></div>
+					<div id="v3" class="value">.</div>
+				</div>
+
+				<div class="row">
+					<div class="title">Yield</div>
+					<div class="dots"></div>
+					<div id ="v4" class="value">.</div>
+				</div>
+
+
+			</div>
+		</div>
+
+		<div>
+			<h2>FINAL YIELD</h2>
+			<div id="bloque2" class="agrupado">
+
+
+				<div class="row">
+					<div class="title">Total quantity</div>
+					<div class="dots"></div>
+					<div id="v5" class="value">.</div>
+				</div>
+
+				<div class="row">
+					<div class="title">Reject quantity</div>
+					<div class="dots"></div>
+					<div id="v6" class="value">.</div>
+				</div>
+
+				<div class="row">
+					<div class="title">Final yield</div>
+					<div class="dots"></div>
+					<div id="v7"class="value">.</div>
+				</div>
+			</div>
+		</div>
+
+		<div>
+			<h2>ISSUE YIELD</h2>
+			<div id="bloque3" class="agrupado">				
+				<div class="row">
+					<div class="title">Issue quantity</div>
+					<div class="dots"></div>
+					<div id="v8" class="value">.</div>
+				</div>
+
+				<div class="row">
+					<div class="title">Issue yield</div>
+					<div class="dots"></div>
+					<div id="v9" class="value">.</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div>
+			<h2>TIME & RATE</h2>
+			<div id="bloque4" class="agrupado">				
+				<div class="row">
+					<div class="title">Elapsed time</div>
+					<div class="dots"></div>
+					<div id="v10"class="value">.</div>
+				</div>
+
+				<div class="row">
+					<div class="title">Test time</div>
+					<div class="dots"></div>
+					<div id="v11" class="value">.</div>
+				</div>
+
+				<div class="row">
+					<div class="title">Actual rate (RPH)</div>
+					<div class="dots"></div>
+					<div id="v12" class="value">.</div>
+				</div>
+
+				<div class="row">
+					<div class="title">Avg. test rate (RPH)</div>
+					<div class="dots"></div>
+					<div id="v13" class="value">.</div>
+				</div>
+			</div>
+		</div>
+	
+	</div>
+
+        <h3>HOME</h3>
+        <div class="logom col-12">
+            <a href="/"> 
+		        <img src="/assets/cotoLogoHeader.png" href="/" alt="Home">
+            </a>
+        </div>
+
+	<!--codigo de javascript en html-->
+	<!--referencia en archivo de html
+	referencia en cdn
+	referncia en un archivo local-->
+	<script>
+		let json = {
+			"Rtested": 174,
+			"Rpassed": 172,
+			"Rfailed": 2,
+			"Yield": 98.85,
+			"Tquantity": 175,
+			"Rquantity": 3,
+			"FinalYield": 98.29,
+			"Iquantity": 200,
+			"IYield": 86,
+			"ElapsedTime": 5627,
+			"Ttime": 1906,
+			"Arate": 111,
+			"Atrate": 329
+		}
+
+		var elapsedtime = json.ElapsedTime
+		var ethours= Math.floor(elapsedtime/3600)
+		var etmins= Math.floor(elapsedtime/60)-(ethours*60)
+		var etsecs= elapsedtime-(ethours*3600)-(etmins*60)
+
+		var ttime = json.Ttime
+		var tthours = Math.floor(ttime / 3600)
+		var ttmins = Math.floor(ttime / 60) - (tthours * 60)
+		var ttsecs = ttime - (tthours * 3600) - (ttmins * 60)
+
+		var rtested = document.getElementById("v1");
+		rtested.innerHTML = json.Rtested;
+
+		var rpassed = document.getElementById("v2");
+		rpassed.innerHTML = json.Rpassed;
+
+		var rfailed = document.getElementById("v3");
+		rfailed.innerHTML = json.Rfailed;
+
+		var yield = document.getElementById("v4");
+		yield.innerHTML = json.Yield+"%";
+
+		var tquantity = document.getElementById("v5");
+		tquantity.innerHTML = json.Tquantity;
+
+		var rquantity = document.getElementById("v6");
+		rquantity.innerHTML = json.Rquantity;
+
+		var fyield = document.getElementById("v7");
+		fyield.innerHTML = json.FinalYield+"%";
+
+		var iquantity = document.getElementById("v8");
+		iquantity.innerHTML = json.Iquantity;
+
+		var iyield = document.getElementById("v9");
+		iyield.innerHTML = json.IYield;
+
+		var etime = document.getElementById("v10");
+		etime.innerHTML = ethours + " hrs " + etmins + " mins " + etsecs + " secs"
+
+		var rtested = document.getElementById("v11");
+		rtested.innerHTML = tthours + " hrs " + ttmins + " mins " + ttsecs + " secs"
+
+		var arate = document.getElementById("v12");
+		arate.innerHTML = json.Arate;
+
+		var atrate = document.getElementById("v13");
+		atrate.innerHTML = json.Atrate;
+
+
+
+		//let division1 = document.querySelector("#bloque1")
+		//division1.children[0].innerText = division1.children[0].innerText + dots() +json.Rtested
+		//division1.children[1].innerText = division1.children[1].innerText + dots() +json.Rpassed
+		//division1.children[2].innerText = division1.children[2].innerText + dots() +json.Rfailed
+		//division1.children[3].innerText = division1.children[3].innerText + dots() +json.Yield + " %"
+
+
+		//let division2 = document.querySelector("#bloque2")
+		//division2.children[0].innerText = division2.children[0].innerText + dots() + json.Tquantity
+		//division2.children[1].innerText = division2.children[1].innerText + dots() + json.Rquantity
+		//division2.children[2].innerText = division2.children[2].innerText + dots() + json.FinalYield+" %"
+
+
+		//let division3 = document.querySelector("#bloque3")
+		//division3.children[0].innerText = division3.children[0].innerText + dots() + json.Iquantity
+		//division3.children[1].innerText = division3.children[1].innerText + dots() + json.IYield + " %"
+
+
+		//let division4 = document.querySelector("#bloque4")
+		//division4.children[0].innerText = division4.children[0].innerText + dots() + ethours +" hours " + etmins+" mins " + etsecs +" secs"
+		//division4.children[1].innerText = division4.children[1].innerText + dots() + tthours + " hours " + ttmins + " mins " + ttsecs + " secs"
+		//division4.children[2].innerText = division4.children[2].innerText + dots() + json.Arate
+		//division4.children[3].innerText = division4.children[3].innerText + dots() + json.Atrate
+
+		
+		function dots() {
+			var x=""
+			return x
+		}
+
+		//console.log("hola mundo");
+		//console.log(json)
+		//dom manipulation javascript
+		//let objeto = document.querySelector("#bloque-especial")
+		//console.log(objeto.children[0])
+
+
+		//let string = `elapsed time.......${json.dato1}`
+		//objeto.children[0].innerText = string
+
+
+	</script>
+
+</body>
+</html>
+
+<!-- font-size, color, background-color -->
