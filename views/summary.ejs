@@ -35,7 +35,7 @@
 		}
 	</script>
 </head>
-<body>
+<body id="testDiv">
 	<%- include(navbar) %>
 	<!-- <h1> Test Summary</h1> -->
 	<div class="newtitle">
@@ -149,6 +149,8 @@
 		</div>
 	
 	</div>
+	<button id="printpagebutton" type="button" onclick="javascript:genPDF()" style="width: 100px; height: 75px;">Download PDF</button>
+
 <script>
 	let json = {
 		"Rtested": 174,
