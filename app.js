@@ -60,6 +60,7 @@ app.get("/api",(req,res)=>{
     // https://github.com/EvaReal/sistema-html/
     // https://github.com/ManuelRM47/Caliz/blob/master/Coto.rar
     // https://dashboard.heroku.com/apps/coto-mobile/deploy/heroku-git
+    // "D:\Program Files\heroku\bin\heroku" open
     var connection = mysql.createConnection({
         host     : 'coto1.cbsgdvm2kjtb.us-west-1.rds.amazonaws.com',
         post:'3306',
