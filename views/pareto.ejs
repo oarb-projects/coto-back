@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=s, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pareto</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/pareto.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <script src="js/DateTime.js"></script>
+    
+
+</head>
+<body  onload = "startTime()">
+	<%- include(navbar) %>
+
+    <div class="wrapper">
+        <div class="newtitle">
+            <h1 style="text-align: center">Pareto Analysis</h1>
+        </div>
+        <div>
+            <hr class="line2">
+        </div>
+        <div id="content">
+            <p>Cantidad de piezas analizadas: <span>35</span></p>
+        </div>
+            <div id="tableContainer">
+                <table id="example" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Defecto</th>
+                            <th>Cantidad de piezas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Falla Operate Voltage</td>
+                            <td>20</td>
+                        </tr>
+                        <tr>
+                            <td>Falla DCR</td>
+                            <td>27</td>
+                        </tr>
+                        <tr>
+                            <td>Defectos Visuales</td>
+                            <td>15</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <%-include(footer)%>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+        $('#example').DataTable({
+            "order": [[1, "desc" ]],
+            "lengthChange": false
+        });
+    } );
+    </script>
+</body>
+</html>

@@ -12,15 +12,26 @@ body
 	background-color:white;
 }
 
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0,0,0,.1);
+}
+
 h1{
 	color:black;
 	text-align:center;
-	font-family:'Berlin Sans FB';
-	border-top:solid;
+	font-size: 2.5rem;
+	margin-bottom: .5rem;
+    font-weight: 500;
+    line-height: 1.2;
+	/* font-family:'Berlin Sans FB'; */
+	/* border-top:solid;
 	border-top-color: darkgrey;
 	border-bottom: solid;
 	border-bottom-color: darkgrey;
-	margin-top: 30px;
+	margin-top: 30px; */
 	
 }
 
@@ -38,38 +49,21 @@ h3{
 	font-family: 'Berlin Sans FB';
 }
 
-p {
-	/*margin:5px 5px 5px 5px;
-	font-family:Comfortaa;	*/
-	font-family: Comfortaa;
-	background: inherit;
-	width: 70%;
-	max-width: 40rem;
-	min-width: 300px;
-	margin: 0 auto;
-	font-size: 1.2rem;
-	line-height: 1.5rem;
-	color: black;
-	padding-right: 5rem;
-	margin-bottom: .5rem;
-	border-bottom:1px dotted ;
-}
-
 .new {
 	font-family: Comfortaa;
 	background: inherit;
 }
 
-.row { <!--
-	www . j a v a 2s . c o m--> display: table;
+.row { 
+	display: table;
 }
 
-.title, .dots, .value {
+.parameter, .dots, .value {
 	display: table-cell;
 	font-family: Comfortaa;
 }
 
-.title, .value {
+.parameter, .value {
 	white-space: nowrap;
 }
 
@@ -144,7 +138,7 @@ img{
 }
 
 
-div{
+div.row{
 	background: #C4C4C4;
 	margin:5px 15px 5px 15px;
 	padding:6px 6px 6px 6px;	

@@ -1,3 +1,44 @@
-<div class="logom col-12">
-    <a href="/"> <img src = "/assets/cotoLogoHeader.png" alt = "Logo"></a>
-  </div>
+
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Document</title>
+      <link rel="stylesheet" type="text/css" href="/stylesheets/testinfo.css">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <script src="js/DateTime.js"></script>
+
+    </head>
+  <body  onload = "startTime()">
+    <%- include(navbar) %>
+    <div class="wrapper">
+      <div class="newtitle">
+        <h1 style="text-align: center">Test Information</h1>
+      </div>
+      <div>
+        <hr class="line2">
+    </div>
+
+    <div id="content">
+        <p>Filename: <span>D5900733</span></p>
+        <p>TEST DATE: <span>8/27/19</span></p>
+        <p>START TIME: <span>10:33:23</span></p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-5">
+                <p>PN: <span>5000-0124</span></p>
+                <p>APPL: <span>FINAL</span></p>
+                <p>REV#: <span>7</span></p>
+                <p>PLT: <span>1916-110</span></p>
+                <p>LOT: <span>1/15/19</span></p>
+                <p>DC: <span>1916</span></p>
+        </div>
+    </div>
+</div>
+<%- include(footer) %>
+
+  </body>
+  </html>
