@@ -117,4 +117,23 @@ app.get("/api/:testparam",(req,res)=>{
         res.json(rows)
     });
 })
+
+app.get("/api/:testparam",(req,res)=>{
+    var connection = mysql.createConnection({
+        host     : 'coto1.cbsgdvm2kjtb.us-west-1.rds.amazonaws.com',
+        post:'3306',
+        user     : 'admin',
+        password : 'Cfpfk5qf',
+        database : 'Coto1'
+      });
+      console.log(param)
+      connection.query(`SELECT * FROM Coto1.users;`, function (error, rows, fields) {
+        if (error){
+            console.log("Failed to query "+ err)
+            res.end()
+            return
+        } 
+        res.json(rows)
+    });
+})
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
