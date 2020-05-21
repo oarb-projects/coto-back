@@ -89,4 +89,32 @@ app.get("/api",(req,res)=>{
     
 })
 
+app.get("/api/:testparam",(req,res)=>{
+    let param=req.params.testparam
+    var connection = mysql.createConnection({
+        host     : 'coto1.cbsgdvm2kjtb.us-west-1.rds.amazonaws.com',
+        post:'3306',
+        user     : 'admin',
+        password : 'Cfpfk5qf',
+        database : 'Coto1'
+      });
+      console.log(param)
+    // connection.connect(function(err) {
+    //     if (err) {
+    //         console.error('error connecting: ' + err.stack);
+    //         return;
+    //     }
+    
+    //     console.log('connected as id ' + connection.threadId);
+    // });
+    
+    connection.query(`SELECT * FROM Coto1.${param};`, function (error, rows, fields) {
+        if (error){
+            console.log("Failed to query "+ err)
+            res.end()
+            return
+        } 
+        res.json(rows)
+    });
+})
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
