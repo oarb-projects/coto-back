@@ -84,7 +84,7 @@ app.post("/login",(req,res)=>{
                 // res.json({
                 //     succes:"succesful"
                 // })
-                res.redirect("/summary")
+                res.redirect("/filter")
             }
             else{
                 // res.json({
@@ -100,6 +100,15 @@ app.post("/login",(req,res)=>{
         console.log("there was an error")
         res.end()
     })
+})
+
+
+app.get('/filter', (req, res) => {
+    res.render ( "filter.ejs",{
+        navbar:'navbar.ejs',
+        footer:'footer.ejs'
+    });	
+    // res.send('Hello World!'))
 })
 
 app.get('/testinfo', (req, res) => {
