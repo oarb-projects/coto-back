@@ -174,7 +174,7 @@ app.get("/api/:testparam",(req,res)=>{
     connection.query(`SELECT * FROM Coto.${param};`, function (error, rows, fields) {
         if (error){
             console.log("Failed to query "+ error)
-            res.end()
+            res.status(404).render('dberr.ejs');
             return
         } 
         res.json(rows)
@@ -187,10 +187,15 @@ app.get("/api/users",(req,res)=>{
       connection.query(`SELECT * FROM Coto.users;`, function (error, rows, fields) {
         if (error){
             console.log("Failed to query "+ error)
-            res.end()
-            return
+            res.status(404).render('dberr.ejs');
+            // return
         } 
         res.json(rows)
     });
+})
+
+//The 404 Route (ALWAYS Keep this as the last route)
+app.get('*', function(req, res){
+    res.status(404).render('404.ejs');
 })
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
