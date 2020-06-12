@@ -4,7 +4,7 @@ body
 }
 
 
-div {
+div.div1 {
 	/*min-height: 200px;*/
 	display: block;
 	width: 100%;
@@ -22,12 +22,12 @@ div {
 	border: none;
 }
 
-	.wrapper > div {
-		box-sizing: border-box;
-		width: calc(50% - 32px);
-		float: left;
-		margin: 0 16px;
-	}
+.wrapper > div.div1,.wrapper > div.div2 {
+	box-sizing: border-box;
+	width: calc(50% - 32px);
+	float: left;
+	margin: 0 16px;
+}
 
 .div1{
 	border: none;
@@ -59,17 +59,16 @@ p{
 
 }
 
-h1 {
+/* h1 {
 	color: black;
 	text-align: center;
-	/*font-family: 'Berlin Sans FB';*/
 	border-top: solid;
 	border-top-color: darkgrey;
 	border-bottom: solid;
 	border-bottom-color: darkgrey;
 	margin-top: .8em;
 	font-size: 3.25vw;
-}
+} */
 
 .fsbox{
 	width: 40%;
@@ -138,4 +137,22 @@ h1 {
 	border: none;
 	text-align: center;
 	padding: 1px 1px 10px 1px;
+}
+
+div.div1{
+	border: none;
+}
+
+@media screen and (max-width: 767px) {
+	.fsbox{
+		width: 80%;
+		/* margin-left:auto;
+		margin-right:auto;
+		background: #C4C4C4;	
+		padding: 6px 6px 6px 6px;
+		font-size: 1.2vw; */
+	}
+	div.title h1{
+		font-size: 1em;
+	}
 }

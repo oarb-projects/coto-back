@@ -3,19 +3,24 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta charset="utf-8" />
+	<meta name="viewport" content="width=s, initial-scale=1.0">
 	<title>File Selection Criteria</title>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/header.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/footer.css">
 	<link rel="stylesheet" href="stylesheets/filter.css">
+	<script src="js/DateTime.js"></script>
 </head>
 
-<body>
-	
-	<div class="top_image">
-		<img src="assets/cotoLogoHeader.png" alt="Home" align="middle">
+<body onload = "startTime()">
+	<!-- <body id="testDiv"> -->
+	<%- include(navbar) %>
+	<div class="newtitle">
+		<h1 style="text-align: center">File Selection Criteria</h1>
 	</div>
-
-	<h1> File Selection Criteria</h1>
-
-	<div class="fsbox">
+	<div>
+		<hr class="line2">
+	</div>
+	<div class="fsbox" style="margin-bottom:20px">
 		<div class="wrapper">
 			<div class="div1">
 				<p>Part number</p>
@@ -40,12 +45,9 @@
 			</div>
 		</div>
 		<div class="divbtn"><input class="btn" type="button" name="" value="OK" onclick="stuff()" /></div>
-		
-
-
 	</div>
-		
-	</div>
+	<%- include(footer) %>
+
 	<script>
 		function stuff(){
 			window.location.href="/summary"

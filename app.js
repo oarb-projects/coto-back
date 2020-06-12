@@ -94,7 +94,7 @@ app.get('/filter', (req, res) => {
     res.render ( "filter.ejs",{
         navbar:'navbar.ejs',
         footer:'footer.ejs',
-        title:'Filter'
+        title:'File Selection Criteria'
     });	
     
 })
