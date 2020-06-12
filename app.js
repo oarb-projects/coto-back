@@ -15,6 +15,13 @@ app.use(express.json());       // to support JSON-encoded bodies
 app.use(express.urlencoded()); // to support URL-encoded bodies
 app.use(express.static(__dirname + '/public'));
 
+var connection = mysql.createConnection({
+    host     : 'coto-1.cjlxz9e5sgts.us-west-1.rds.amazonaws.com',
+    post:'3306',
+    user     : 'admin',
+    password : 'cfpfk5qf',
+    database : 'Coto'
+  });
 
 // const instance = axios.create({
 //     baseURL: 'http://localhost/',
@@ -131,13 +138,6 @@ app.get("/api",(req,res)=>{
     // https://github.com/ManuelRM47/Caliz/blob/master/Coto.rar
     // https://dashboard.heroku.com/apps/coto-mobile/deploy/heroku-git
     // "D:\Program Files\heroku\bin\heroku" open
-    var connection = mysql.createConnection({
-        host     : 'coto1.cbsgdvm2kjtb.us-west-1.rds.amazonaws.com',
-        post:'3306',
-        user     : 'admin',
-        password : 'Cfpfk5qf',
-        database : 'Coto1'
-      });
       
     // connection.connect(function(err) {
     //     if (err) {
@@ -148,9 +148,9 @@ app.get("/api",(req,res)=>{
     //     console.log('connected as id ' + connection.threadId);
     // });
     
-    connection.query('SELECT * FROM Coto1.coil_resistance;', function (error, rows, fields) {
+    connection.query('SELECT * FROM Coto.coil_resistance;', function (error, rows, fields) {
         if (error){
-            console.log("Failed to query "+ err)
+            console.log("Failed to query "+ error)
             res.end()
             return
         } 
@@ -161,13 +161,6 @@ app.get("/api",(req,res)=>{
 
 app.get("/api/:testparam",(req,res)=>{
     let param=req.params.testparam
-    var connection = mysql.createConnection({
-        host     : 'coto1.cbsgdvm2kjtb.us-west-1.rds.amazonaws.com',
-        post:'3306',
-        user     : 'admin',
-        password : 'Cfpfk5qf',
-        database : 'Coto1'
-      });
       console.log(param)
     // connection.connect(function(err) {
     //     if (err) {
@@ -178,9 +171,9 @@ app.get("/api/:testparam",(req,res)=>{
     //     console.log('connected as id ' + connection.threadId);
     // });
     
-    connection.query(`SELECT * FROM Coto1.${param};`, function (error, rows, fields) {
+    connection.query(`SELECT * FROM Coto.${param};`, function (error, rows, fields) {
         if (error){
-            console.log("Failed to query "+ err)
+            console.log("Failed to query "+ error)
             res.end()
             return
         } 
@@ -189,17 +182,11 @@ app.get("/api/:testparam",(req,res)=>{
 })
 
 app.get("/api/users",(req,res)=>{
-    var connection = mysql.createConnection({
-        host     : 'coto1.cbsgdvm2kjtb.us-west-1.rds.amazonaws.com',
-        post:'3306',
-        user     : 'admin',
-        password : 'Cfpfk5qf',
-        database : 'Coto1'
-      });
+
       console.log(param)
-      connection.query(`SELECT * FROM Coto1.users;`, function (error, rows, fields) {
+      connection.query(`SELECT * FROM Coto.users;`, function (error, rows, fields) {
         if (error){
-            console.log("Failed to query "+ err)
+            console.log("Failed to query "+ error)
             res.end()
             return
         } 
