@@ -14,13 +14,8 @@ app.use( bodyParser.json() );
 app.use(express.json());       
 app.use(express.urlencoded()); 
 app.use(express.static(__dirname + '/public'));
-let objConnection={
-    host     : process.env.HOST,
-    post:'3306',
-    user     : process.env.USER,
-    password : process.env.PASSWORD,
-    database : 'Coto'
-}
+let objConnection = require('./config/db.config.js').objConnection;
+
 var connection = mysql.createConnection(objConnection);
 console.log(objConnection)
 
@@ -39,7 +34,8 @@ app.get('/pareto', (req, res) => {
 app.get('/summary', (req, res) => {
     res.render ( "summary.ejs",{
         navbar:'navbar.ejs',
-        footer:'footer.ejs'
+        footer:'footer.ejs',
+        title:'Summary'
     } );	
     
 })
@@ -47,7 +43,8 @@ app.get('/summary', (req, res) => {
 app.get('/charts', (req, res) => {
     res.render ( "charts.ejs",{
         navbar:'navbar.ejs',
-        footer:'footer.ejs'
+        footer:'footer.ejs',
+        title:'Chart'
     });	
     
 })
@@ -55,7 +52,8 @@ app.get('/charts', (req, res) => {
 app.get('/login', (req, res) => {
     res.render ( "login.ejs",{
         navbar:'navbar.ejs',
-        footer:'footer.ejs'
+        footer:'footer.ejs',
+        title:'Login'
     });	
     
 })
@@ -94,7 +92,8 @@ app.post("/login",(req,res)=>{
 app.get('/filter', (req, res) => {
     res.render ( "filter.ejs",{
         navbar:'navbar.ejs',
-        footer:'footer.ejs'
+        footer:'footer.ejs',
+        title:'Filter'
     });	
     
 })
@@ -102,7 +101,8 @@ app.get('/filter', (req, res) => {
 app.get('/testinfo', (req, res) => {
     res.render ( "testinfo.ejs" ,{
         navbar:'navbar.ejs',
-        footer:'footer.ejs'
+        footer:'footer.ejs',
+        title:'Test Information'
     });	
     
 })
@@ -131,8 +131,8 @@ app.get("/api/users",(req,res)=>{
     });
 })
 
-
-app.get('*', function(req, res){
+app.use(function(req,res){
     res.status(404).render('404.ejs');
-})
+});
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
