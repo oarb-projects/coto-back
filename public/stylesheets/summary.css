@@ -7,10 +7,10 @@ type selectors
 	src: local("C:\Users\DELL\source\repos\BRLNSDB.ttf");
 }
 
-body
+/* body
 {
 	background-color:white;
-}
+} */
 
 hr {
     margin-top: 1rem;

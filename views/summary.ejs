@@ -1,41 +1,18 @@
 <!DOCTYPE html>
-
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
 	<meta charset="utf-8" />
+	<meta name="viewport" content="width=s, initial-scale=1.0">
 	<Title>Test Summary</Title>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/header.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/footer.css">
 	<link rel="stylesheet" href="/stylesheets/summary.css">
 	<link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet">
-	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<script type="text/javascript" src="js/jspdf.min.js"></script>
-	<script type="text/javascript" src="js/html2canvas.js"></script>
-
-	<script type="text/javascript">
-
-		function genPDF() {
-			var printButton = document.getElementById("printpagebutton");
-			printButton.style.visibility = 'hidden';
-			html2canvas(document.querySelector("#testDiv")).then(canvas => {
-				var img = canvas.toDataURL("image/png");
-
-				if (canvas.width > canvas.height) {
-					//doc = new jsPDF('p');
-					doc = new jsPDF('p', 'pt', [canvas.width, canvas.height]);
-				}
-				else {
-					doc = new jsPDF('p', 'mm', [canvas.height, canvas.width]);
-				}
-
-				//var doc = new jsPDF();
-				doc.addImage(img, 'JPEG', 120, 10); //60,10
-				doc.save("test.pdf");
-				printButton.style.visibility = 'visible';
-			});
-		}
-	</script>
+    <script src="js/DateTime.js"></script>
 </head>
-<body id="testDiv">
+<body id="testDiv" onload = "startTime()">
+<!-- <body id="testDiv"> -->
 	<%- include(navbar) %>
 	<!-- <h1> Test Summary</h1> -->
 	<div class="newtitle">
@@ -79,20 +56,16 @@
 		<div>
 			<h2>FINAL YIELD</h2>
 			<div id="bloque2" class="agrupado">
-
-
 				<div class="row">
 					<div class="parameter">Total quantity</div>
 					<div class="dots"></div>
 					<div id="v5" class="value">.</div>
 				</div>
-
 				<div class="row">
 					<div class="parameter">Reject quantity</div>
 					<div class="dots"></div>
 					<div id="v6" class="value">.</div>
 				</div>
-
 				<div class="row">
 					<div class="parameter">Final yield</div>
 					<div class="dots"></div>
@@ -100,7 +73,6 @@
 				</div>
 			</div>
 		</div>
-
 		<div>
 			<h2>ISSUE YIELD</h2>
 			<div id="bloque3" class="agrupado">				
@@ -151,81 +123,107 @@
 	</div>
 	<button id="printpagebutton" type="button" onclick="javascript:genPDF()" style="width: 100px; height: 75px;">Download PDF</button>
 
-<script>
-	let json = {
-		"Rtested": 174,
-		"Rpassed": 172,
-		"Rfailed": 2,
-		"Yield": 98.85,
-		"Tquantity": 175,
-		"Rquantity": 3,
-		"FinalYield": 98.29,
-		"Iquantity": 200,
-		"IYield": 86,
-		"ElapsedTime": 5627,
-		"Ttime": 1906,
-		"Arate": 111,
-		"Atrate": 329
-	}
 
-	var elapsedtime = json.ElapsedTime
-	var ethours= Math.floor(elapsedtime/3600)
-	var etmins= Math.floor(elapsedtime/60)-(ethours*60)
-	var etsecs= elapsedtime-(ethours*3600)-(etmins*60)
-
-	var ttime = json.Ttime
-	var tthours = Math.floor(ttime / 3600)
-	var ttmins = Math.floor(ttime / 60) - (tthours * 60)
-	var ttsecs = ttime - (tthours * 3600) - (ttmins * 60)
-
-	var rtested = document.getElementById("v1");
-	rtested.innerHTML = json.Rtested;
-
-	var rpassed = document.getElementById("v2");
-	rpassed.innerHTML = json.Rpassed;
-
-	var rfailed = document.getElementById("v3");
-	rfailed.innerHTML = json.Rfailed;
-
-	var yield = document.getElementById("v4");
-	yield.innerHTML = json.Yield+"%";
-
-	var tquantity = document.getElementById("v5");
-	tquantity.innerHTML = json.Tquantity;
-
-	var rquantity = document.getElementById("v6");
-	rquantity.innerHTML = json.Rquantity;
-
-	var fyield = document.getElementById("v7");
-	fyield.innerHTML = json.FinalYield+"%";
-
-	var iquantity = document.getElementById("v8");
-	iquantity.innerHTML = json.Iquantity;
-
-	var iyield = document.getElementById("v9");
-	iyield.innerHTML = json.IYield;
-
-	var etime = document.getElementById("v10");
-	etime.innerHTML = ethours + " hrs " + etmins + " mins " + etsecs + " secs"
-
-	var rtested = document.getElementById("v11");
-	rtested.innerHTML = tthours + " hrs " + ttmins + " mins " + ttsecs + " secs"
-
-	var arate = document.getElementById("v12");
-	arate.innerHTML = json.Arate;
-
-	var atrate = document.getElementById("v13");
-	atrate.innerHTML = json.Atrate;
-	
-	function dots() {
-		var x=""
-		return x
-	}
-</script>
 
 <%- include(footer) %>
+
+	<script>
+		let json = {
+			"Rtested": 174,
+			"Rpassed": 172,
+			"Rfailed": 2,
+			"Yield": 98.85,
+			"Tquantity": 175,
+			"Rquantity": 3,
+			"FinalYield": 98.29,
+			"Iquantity": 200,
+			"IYield": 86,
+			"ElapsedTime": 5627,
+			"Ttime": 1906,
+			"Arate": 111,
+			"Atrate": 329
+		}
+
+		var elapsedtime = json.ElapsedTime
+		var ethours= Math.floor(elapsedtime/3600)
+		var etmins= Math.floor(elapsedtime/60)-(ethours*60)
+		var etsecs= elapsedtime-(ethours*3600)-(etmins*60)
+
+		var ttime = json.Ttime
+		var tthours = Math.floor(ttime / 3600)
+		var ttmins = Math.floor(ttime / 60) - (tthours * 60)
+		var ttsecs = ttime - (tthours * 3600) - (ttmins * 60)
+
+		var rtested = document.getElementById("v1");
+		rtested.innerHTML = json.Rtested;
+
+		var rpassed = document.getElementById("v2");
+		rpassed.innerHTML = json.Rpassed;
+
+		var rfailed = document.getElementById("v3");
+		rfailed.innerHTML = json.Rfailed;
+
+		var yield = document.getElementById("v4");
+		yield.innerHTML = json.Yield+"%";
+
+		var tquantity = document.getElementById("v5");
+		tquantity.innerHTML = json.Tquantity;
+
+		var rquantity = document.getElementById("v6");
+		rquantity.innerHTML = json.Rquantity;
+
+		var fyield = document.getElementById("v7");
+		fyield.innerHTML = json.FinalYield+"%";
+
+		var iquantity = document.getElementById("v8");
+		iquantity.innerHTML = json.Iquantity;
+
+		var iyield = document.getElementById("v9");
+		iyield.innerHTML = json.IYield;
+
+		var etime = document.getElementById("v10");
+		etime.innerHTML = ethours + " hrs " + etmins + " mins " + etsecs + " secs"
+
+		var rtested = document.getElementById("v11");
+		rtested.innerHTML = tthours + " hrs " + ttmins + " mins " + ttsecs + " secs"
+
+		var arate = document.getElementById("v12");
+		arate.innerHTML = json.Arate;
+
+		var atrate = document.getElementById("v13");
+		atrate.innerHTML = json.Atrate;
+		
+		function dots() {
+			var x=""
+			return x
+		}
+	</script>
+	<script type="text/javascript" src="js/jspdf.min.js"></script>
+	<script type="text/javascript" src="js/html2canvas.js"></script>
+	<script type="text/javascript">
+
+		function genPDF() {
+			var printButton = document.getElementById("printpagebutton");
+			printButton.style.visibility = 'hidden';
+			html2canvas(document.querySelector("#testDiv")).then(canvas => {
+				var img = canvas.toDataURL("image/png");
+
+				if (canvas.width > canvas.height) {
+					//doc = new jsPDF('p');
+					doc = new jsPDF('p', 'pt', [canvas.width, canvas.height]);
+				}
+				else {
+					doc = new jsPDF('p', 'mm', [canvas.height, canvas.width]);
+				}
+
+				//var doc = new jsPDF();
+				doc.addImage(img, 'JPEG', 120, 10); //60,10
+				doc.save("test.pdf");
+				printButton.style.visibility = 'visible';
+			});
+		}
+	</script>
 
 </body>
 </html>
 
-<!-- font-size, color, background-color -->

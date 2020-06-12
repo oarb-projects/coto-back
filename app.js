@@ -27,7 +27,8 @@ app.get('/', (req, res) => {
 app.get('/pareto', (req, res) => {
     res.render ( "pareto.ejs",{
         navbar:'navbar.ejs',
-        footer:'footer.ejs'
+        footer:'footer.ejs',
+        title:'Pareto Analysis'
     } );	
 })
 
