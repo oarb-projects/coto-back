@@ -1,5 +1,7 @@
 const express = require('express')
 const app = express()
+require('dotenv').config()
+
 const hostname = '127.0.0.1';
 var port = process.env.PORT || 8080;
 var mysql      = require('mysql');
@@ -8,21 +10,19 @@ const axios = require('axios');
 // body parser
 var bodyParser = require('body-parser')
 app.use( bodyParser.json() );       
-app.use(bodyParser.urlencoded({     
-  extended: true
-})); 
 
 app.use(express.json());       
 app.use(express.urlencoded()); 
 app.use(express.static(__dirname + '/public'));
-
-var connection = mysql.createConnection({
-    host     : 'coto-1.cjlxz9e5sgts.us-west-1.rds.amazonaws.com',
+let objConnection={
+    host     : process.env.HOST,
     post:'3306',
-    user     : 'admin',
-    password : 'cfpfk5qf',
+    user     : process.env.USER,
+    password : process.env.PASSWORD,
     database : 'Coto'
-});
+}
+var connection = mysql.createConnection(objConnection);
+console.log(objConnection)
 
 app.get('/', (req, res) => {
     res.render ( "menu.ejs" );	
