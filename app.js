@@ -2,17 +2,18 @@ const express = require('express')
 const app = express()
 const hostname = '127.0.0.1';
 var port = process.env.PORT || 8080;
-/*https://www.npmjs.com/package/mysql*/
 var mysql      = require('mysql');
 const axios = require('axios');
+
+// body parser
 var bodyParser = require('body-parser')
-app.use( bodyParser.json() );       // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+app.use( bodyParser.json() );       
+app.use(bodyParser.urlencoded({     
   extended: true
 })); 
 
-app.use(express.json());       // to support JSON-encoded bodies
-app.use(express.urlencoded()); // to support URL-encoded bodies
+app.use(express.json());       
+app.use(express.urlencoded()); 
 app.use(express.static(__dirname + '/public'));
 
 var connection = mysql.createConnection({
@@ -21,18 +22,11 @@ var connection = mysql.createConnection({
     user     : 'admin',
     password : 'cfpfk5qf',
     database : 'Coto'
-  });
-
-// const instance = axios.create({
-//     baseURL: 'http://localhost/',
-//     timeout: 1000,
-//     port:3000,
-//     headers: {'X-Custom-Header': 'foobar'}
-//   });
+});
 
 app.get('/', (req, res) => {
     res.render ( "menu.ejs" );	
-    // res.send('Hello World!'))
+    
 })
 
 app.get('/pareto', (req, res) => {
@@ -47,7 +41,7 @@ app.get('/summary', (req, res) => {
         navbar:'navbar.ejs',
         footer:'footer.ejs'
     } );	
-    // res.send('Hello World!'))
+    
 })
 
 app.get('/charts', (req, res) => {
@@ -55,7 +49,7 @@ app.get('/charts', (req, res) => {
         navbar:'navbar.ejs',
         footer:'footer.ejs'
     });	
-    // res.send('Hello World!'))
+    
 })
 
 app.get('/login', (req, res) => {
@@ -63,59 +57,46 @@ app.get('/login', (req, res) => {
         navbar:'navbar.ejs',
         footer:'footer.ejs'
     });	
-    // res.send('Hello World!'))
+    
 })
 
 app.post("/login",(req,res)=>{
     var fullUrl = req.protocol + '://' + req.get('host') 
     let requestUrl=`${fullUrl}/api/users`
-    // console.log(req.body)
     console.log("=====requestUrl")
     console.log(requestUrl)
-    // console.log(fullUrl)
     axios.get(requestUrl)
     .then(function (response) {
-      // handle success
         let arr=response.data
         var item = arr.findIndex(item => item.username === req.body.name);
         console.log(item)
-        if(item==-1){
-            // res.json({
-            //     succes:"unsuccesful"
-            // })
+        if(item==-1){      
             res.redirect("/login")
         }
         else{
             console.log(arr[item].passwords)
             if(arr[item].passwords==req.body.pass){
-                // res.json({
-                //     succes:"succesful"
-                // })
                 res.redirect("/filter")
             }
             else{
-                // res.json({
-                //     succes:"unsuccesful"
-                // })
+
                 res.redirect("/login")
             }
         }
     })
     .catch(function (error) {
-      // handle error
-          console.log(error);
+        console.log(error);
         console.log("there was an error")
         res.end()
     })
 })
-
 
 app.get('/filter', (req, res) => {
     res.render ( "filter.ejs",{
         navbar:'navbar.ejs',
         footer:'footer.ejs'
     });	
-    // res.send('Hello World!'))
+    
 })
 
 app.get('/testinfo', (req, res) => {
@@ -123,54 +104,12 @@ app.get('/testinfo', (req, res) => {
         navbar:'navbar.ejs',
         footer:'footer.ejs'
     });	
-    // res.send('Hello World!'))
-})
-
-app.get("/api",(req,res)=>{
-    // https://www.youtube.com/watch?v=mLLUqMpf5H0
-    // https://www.npmjs.com/package/morgan
-    // https://www.npmjs.com/package/mysql
-    // file:///C:/Users/oscar/Desktop/coto/Coto/Graficas.html
-    // http://localhost:3000/login
-    // http://localhost:3000/charts
-    // https://www.letsbuildthatapp.com/course_video?id=3042
-    // https://github.com/EvaReal/sistema-html/
-    // https://github.com/ManuelRM47/Caliz/blob/master/Coto.rar
-    // https://dashboard.heroku.com/apps/coto-mobile/deploy/heroku-git
-    // "D:\Program Files\heroku\bin\heroku" open
-      
-    // connection.connect(function(err) {
-    //     if (err) {
-    //         console.error('error connecting: ' + err.stack);
-    //         return;
-    //     }
-    
-    //     console.log('connected as id ' + connection.threadId);
-    // });
-    
-    connection.query('SELECT * FROM Coto.coil_resistance;', function (error, rows, fields) {
-        if (error){
-            console.log("Failed to query "+ error)
-            res.end()
-            return
-        } 
-        res.json(rows)
-    });
     
 })
 
 app.get("/api/:testparam",(req,res)=>{
     let param=req.params.testparam
-      console.log(param)
-    // connection.connect(function(err) {
-    //     if (err) {
-    //         console.error('error connecting: ' + err.stack);
-    //         return;
-    //     }
-    
-    //     console.log('connected as id ' + connection.threadId);
-    // });
-    
+    console.log(param)    
     connection.query(`SELECT * FROM Coto.${param};`, function (error, rows, fields) {
         if (error){
             console.log("Failed to query "+ error)
@@ -182,19 +121,17 @@ app.get("/api/:testparam",(req,res)=>{
 })
 
 app.get("/api/users",(req,res)=>{
-
       console.log(param)
       connection.query(`SELECT * FROM Coto.users;`, function (error, rows, fields) {
         if (error){
             console.log("Failed to query "+ error)
-            res.status(404).render('dberr.ejs');
-            // return
+            res.status(404).render('dberr.ejs');    
         } 
         res.json(rows)
     });
 })
 
-//The 404 Route (ALWAYS Keep this as the last route)
+
 app.get('*', function(req, res){
     res.status(404).render('404.ejs');
 })
