@@ -68,42 +68,15 @@ h3{
 }
 
 
-
 .dots {
 	border-bottom: 1px dotted gray;
 	width: 100%;
-}
-
-
-
-.descripcion {
-	background-color: darkcyan;
-	display: inline;
-	z-index: 1;
-	padding-right: .2rem;
-}
-
-.precio {
-	background-color: darkcyan;
-	position: absolute;
-	min-width: 4rem;
-	bottom: 0;
-	right: 0;
-	padding-left: .2rem;
-	text-align: right;
-	z-index: 2;
-}
-
-img{
-	margin-left:15px;
 }
 
 .wrapper{
 	display:grid;
 	grid-template-columns: 1fr 1fr;
 	background-color: white;
-	
-	
 }
 
 
@@ -112,40 +85,30 @@ img{
 	padding:1em;
 }
 
-
-.agrupado{
-	background-color:#C4C4C4;
+.agrupado {
+	/*background-color:#C4C4C4;*/
+	background-color: white;
 }
 
 .row {
-	background-color: #C4C4C4;
+	/*background-color: #C4C4C4;*/
+	background-color: white;
 }
 
 
-/*
-	class selectors
-*/
-.resaltar{
-	background-color:aqua;
-}
-
-/*
-	Id selectors
-*/
-#especial {
-	/*font-size:40px;*/
-	background-color:white;
-}
-
-
-div.row{
-	background: #C4C4C4;
-	margin:5px 15px 5px 15px;
-	padding:6px 6px 6px 6px;	
+div.row {
+	/*background: #C4C4C4;*/
+	background-color: white;
+	margin: 5px 15px 5px 15px;
+	padding: 6px 6px 6px 6px;
 	font-size: 16px;
 }
 
-
+#testDiv{
+	background-color:white;
+	margin:0px 0px 0px 0px;
+	padding:0px 0px 0px 0px;
+}
 
 @media (max-width: 1024px) {
 	
@@ -157,3 +120,23 @@ div.row{
 	}
 }
 
+#container-testinfo {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.column {
+	width: 30%;
+	text-align: center;
+}
+
+@media screen and (max-width: 480px) {
+	.column {
+		width: 100%;
+	}
+}
+
+button {	
+	margin-left: 2%;
+}
