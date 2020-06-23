@@ -16,26 +16,24 @@
 <body>
     <%- include(navbar) %>
         <div class="l grafica1 grafica" id="CR">
-            <script src="Graficas/CoilR.js"></script>
+            <script src="/js/Graficas/CoilR.js"></script>
         </div>
         <div class="r grafica" id="OV">
-            <script src="Graficas/OpV.js"></script>
+            <script src="/js/Graficas/OpV.js"></script>
         </div>
         <div class="l grafica" id="RV">
-            <script src="Graficas/ReV.js"></script>
+            <script src="/js/Graficas/ReV.js"></script>
         </div>
         <div class="r grafica" id="SCR">
-            <script src="Graficas/SCRe.js"></script>
+            <script src="/js/Graficas/SCRe.js"></script>
         </div>
         <div class="l grafica" id="OT">
-            <script src="Graficas/OpT.js"></script>
+            <script src="/js/Graficas/OpT.js"></script>
         </div>
         <div class="r grafica" id="RT">
-            <script src="Graficas/RelT.js"></script>
+            <script src="/js/Graficas/RelT.js"></script>
         </div>
-        <div id="test">
 
-        </div>
         <div class="scontainer">
             <div class="square1"></div>
             <div class="results results1" id="Mean">
@@ -67,6 +65,11 @@
         </div>
 
         <script src="/js/legend.js">
+        </script>
+        <script>
+            $(window).resize(function() {
+                location.reload();
+            });
         </script>
         <%- include(footer) %>
             <!-- <div class="footer col-12">

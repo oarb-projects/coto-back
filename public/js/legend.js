@@ -3,7 +3,7 @@ $(function() {
     console.log(lnd);
     switch (lnd) {
         case 'CR':
-            getScript('Graficas/CoilR.js', function() {
+            getScript('/js/Graficas/CoilR.js', function() {
                 retrieveData(function(results) {
                     $('#mean').text(results.mean.toFixed(4));
                 });
@@ -23,42 +23,42 @@ $(function() {
             console.log(lnd);
             switch (lnd) {
                 case 'CR':
-                    getScript('Graficas/CoilR.js', function() {
+                    getScript('/js/Graficas/CoilR.js', function() {
                         retrieveData(function(results) {
                             $('#mean').text(results.mean.toFixed(4));
                         });
                     });
                     break;
                 case 'OV':
-                    getScript('Graficas/OpV.js', function() {
+                    getScript('/js/Graficas/OpV.js', function() {
                         retrieveData(function(results) {
                             $('#mean').text(results.mean.toFixed(4));
                         });
                     });
                     break;
                 case 'RV':
-                    getScript('Graficas/ReV.js', function() {
+                    getScript('/js/Graficas/ReV.js', function() {
                         retrieveData(function(results) {
                             $('#mean').text(results.mean.toFixed(4));
                         });
                     });
                     break;
                 case 'OT':
-                    getScript('Graficas/OpT.js', function() {
+                    getScript('/js/Graficas/OpT.js', function() {
                         retrieveData(function(results) {
                             $('#mean').text(results.mean.toFixed(4));
                         });
                     });
                     break;
                 case 'RT':
-                    getScript('Graficas/RelT.js', function() {
+                    getScript('/js/Graficas/RelT.js', function() {
                         retrieveData(function(results) {
                             $('#mean').text(results.mean.toFixed(4));
                         });
                     });
                     break;
                 case 'SCR':
-                    getScript('Graficas/SCRe.js', function() {
+                    getScript('/js/Graficas/SCRe.js', function() {
                         retrieveData(function(results) {
                             $('#mean').text(results.mean.toFixed(4));
                         });
@@ -86,42 +86,42 @@ $(function() {
                 console.log(lnd);
                 switch (lnd) {
                     case 'CR':
-                        getScript('Graficas/CoilR.js', function() {
+                        getScript('/js/Graficas/CoilR.js', function() {
                             retrieveData(function(results) {
                                 $('#mean').text(results.mean.toFixed(4));
                             });
                         });
                         break;
                     case 'OV':
-                        getScript('Graficas/OpV.js', function() {
+                        getScript('/js/Graficas/OpV.js', function() {
                             retrieveData(function(results) {
                                 $('#mean').text(results.mean.toFixed(4));
                             });
                         });
                         break;
                     case 'RV':
-                        getScript('Graficas/ReV.js', function() {
+                        getScript('/js/Graficas/ReV.js', function() {
                             retrieveData(function(results) {
                                 $('#mean').text(results.mean.toFixed(4));
                             });
                         });
                         break;
                     case 'OT':
-                        getScript('Graficas/OpT.js', function() {
+                        getScript('/js/Graficas/OpT.js', function() {
                             retrieveData(function(results) {
                                 $('#mean').text(results.mean.toFixed(4));
                             });
                         });
                         break;
                     case 'RT':
-                        getScript('Graficas/RelT.js', function() {
+                        getScript('/js/Graficas/RelT.js', function() {
                             retrieveData(function(results) {
                                 $('#mean').text(results.mean.toFixed(4));
                             });
                         });
                         break;
                     case 'SCR':
-                        getScript('Graficas/SCRe.js', function() {
+                        getScript('/js/Graficas/SCRe.js', function() {
                             retrieveData(function(results) {
                                 $('#mean').text(results.mean.toFixed(4));
                             });
