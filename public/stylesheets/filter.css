@@ -8,6 +8,7 @@ div.div1 {
 	/*min-height: 200px;*/
 	display: block;
 	width: 100%;
+	margin: 0px 0px 0px 0px;
 	/*background: rgba(0,0,0,0.8);*/
 	border: 1px solid #fff;
 	background: #C4C4C4;
@@ -22,12 +23,12 @@ div.div1 {
 	border: none;
 }
 
-.wrapper > div.div1,.wrapper > div.div2 {
+/*.wrapper > div.div1,.wrapper > div.div2 {
 	box-sizing: border-box;
 	width: calc(50% - 32px);
 	float: left;
 	margin: 0 16px;
-}
+}*/
 
 .div1{
 	border: none;
@@ -54,9 +55,12 @@ div.div1 {
 p{
 	margin-top:7px;
 	margin-bottom:7px;
-	font-size:22px;
+	font-size:1em;
 	color: white;
+}
 
+.des{
+	margin-top:8px;
 }
 
 /* h1 {
@@ -76,7 +80,7 @@ p{
 	margin-right:auto;
 	background: #C4C4C4;	
 	padding: 6px 6px 6px 6px;
-	font-size: 1.2vw;
+	font-size: 1.2em;
 }
 
 .top_image {
@@ -101,7 +105,7 @@ p{
 	border: none;
 	outline: none;
 	background: none;*/
-	font-size: 20px;
+	font-size: 1em;
 }
 
 .title{
@@ -114,12 +118,12 @@ p{
 	border: 2px solid crimson;
 	color: white;
 	padding: 5px;
-	font-size: 18px;
+	font-size: 1em;
 	cursor: pointer;
 }
 
 .txt2{
-	width: 46%;
+	width: 40%;
 }
 
 .btn {
@@ -129,7 +133,7 @@ p{
 	border: 2px solid crimson;
 	color: white;
 	padding: 5px;
-	font-size: 18px;
+	font-size: 1em;
 	cursor: pointer;
 }
 
@@ -143,7 +147,7 @@ div.div1{
 	border: none;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 822px) {
 	.fsbox{
 		width: 80%;
 		/* margin-left:auto;
@@ -154,5 +158,45 @@ div.div1{
 	}
 	div.title h1{
 		font-size: 1em;
+	}
+	p{
+		font-size:.8em;
+	}
+	.des {
+		font-size: .84em;
+		margin-top: 7px;
+	}
+}
+
+@media screen and (max-width: 350px) {
+	.fsbox {
+		width: 80%;
+		/* margin-left:auto;
+		margin-right:auto;
+		background: #C4C4C4;	
+		padding: 6px 6px 6px 6px;
+		font-size: 1.2vw; */
+	}
+
+	div.title h1 {
+		font-size: 1em;
+	}
+
+	p {
+		font-size: .7em;
+	}
+
+	.des {
+		font-size: .74em;
+		margin-top: 9px;
+		margin-bottom: 11px;
+	}
+
+	.txt {
+		width: 85%;
+	}
+
+	.txt2 {
+		width: 35%;
 	}
 }
