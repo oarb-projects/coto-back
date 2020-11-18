@@ -11,117 +11,171 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script src="js/DateTime.js"></script>
 </head>
-<body id="testDiv" onload = "startTime()">
+
+<body onload = "startTime()">
 <!-- <body id="testDiv"> -->
 	<%- include(navbar) %>
 	<!-- <h1> Test Summary</h1> -->
-	<div class="newtitle">
-		<h1 style="text-align: center">Test Summary</h1>
-	</div>
-	<div>
-		<hr class="line2">
-	</div>
-	<div class="wrapper">
+	<button id="printpagebutton" type="button" onclick="javascript:genPDF()" style="width: 150px; height: 60px;">Download PDF</button>
 
-		<div>
-			<h2>SYSTEM 420 </h2>
-			<div id="bloque1" class="agrupado">
+	<div id="testDiv">
 
-				<div id="row1"class="row">
-					<div class="parameter">Relays tested</div>
-					<div class="dots"></div>
-					<div id="v1" class="value">A</div>
-				</div>
-
-				<div class="row">
-					<div class="parameter">Relays passed</div>
-					<div class="dots"></div>
-					<div id="v2" class="value">.</div>
-				</div>
-
-				<div class="row">
-					<div class="parameter">Relays failed</div>
-					<div class="dots"></div>
-					<div id="v3" class="value">.</div>
-				</div>
-
-				<div class="row">
-					<div class="parameter">Yield</div>
-					<div class="dots"></div>
-					<div id ="v4" class="value">.</div>
-				</div>
+		<div id="container-testinfo">
+			<div class="column">
+				<p>COTO SYSTEM 420</p>
+				<p>PN: <span id="hd1">.</span></p>
+				<p>APPL: <span id="hd2">.</span></p>
+				<p>REV#: <span id="hd3">.</span></p>
 			</div>
+
+			<div class="column">
+				<p>Normal Production Test</p>
+				<p>PLT: <span id="hd4">.</span></p>
+				<p>LOT: <span id="hd5">.</span></p>
+				<p>DC: <span id="hd6">.</span></p>	
+			</div>
+
+			<div class="column">
+				<p>COTO Technology</p>
+				<p>FILENAME: <span id="hd7">.</span></p>
+				<p>TEST DATE: <span id="hd8">.</span></p>
+				<p>START TIME: <span id="hd9">.</span></p>
+
+			</div>	
 		</div>
 
-		<div>
-			<h2>FINAL YIELD</h2>
-			<div id="bloque2" class="agrupado">
-				<div class="row">
-					<div class="parameter">Total quantity</div>
-					<div class="dots"></div>
-					<div id="v5" class="value">.</div>
-				</div>
-				<div class="row">
-					<div class="parameter">Reject quantity</div>
-					<div class="dots"></div>
-					<div id="v6" class="value">.</div>
-				</div>
-				<div class="row">
-					<div class="parameter">Final yield</div>
-					<div class="dots"></div>
-					<div id="v7"class="value">.</div>
-				</div>
-			</div>
+		<div class="newtitle">
+			<h1 style="text-align: center">Test Summary</h1>
 		</div>
 		<div>
-			<h2>ISSUE YIELD</h2>
-			<div id="bloque3" class="agrupado">				
-				<div class="row">
-					<div class="parameter">Issue quantity</div>
-					<div class="dots"></div>
-					<div id="v8" class="value">.</div>
-				</div>
-
-				<div class="row">
-					<div class="parameter">Issue yield</div>
-					<div class="dots"></div>
-					<div id="v9" class="value">.</div>
-				</div>
-
-			</div>
+			<hr class="line2">
 		</div>
+		<div class="wrapper">
 
-		<div>
-			<h2>TIME & RATE</h2>
-			<div id="bloque4" class="agrupado">				
-				<div class="row">
-					<div class="parameter">Elapsed time</div>
-					<div class="dots"></div>
-					<div id="v10"class="value">.</div>
-				</div>
+			<div>
+				<h2>SYSTEM 420 </h2>
+				<div id="bloque1" class="agrupado">
 
-				<div class="row">
-					<div class="parameter">Test time</div>
-					<div class="dots"></div>
-					<div id="v11" class="value">.</div>
-				</div>
+					<div id="row1"class="row">
+						<div class="parameter">Relays tested</div>
+						<div class="dots"></div>
+						<div id="v1" class="value">A</div>
+					</div>
 
-				<div class="row">
-					<div class="parameter">Actual rate (RPH)</div>
-					<div class="dots"></div>
-					<div id="v12" class="value">.</div>
-				</div>
+					<div class="row">
+						<div class="parameter">Relays passed</div>
+						<div class="dots"></div>
+						<div id="v2" class="value">.</div>
+					</div>
 
-				<div class="row">
-					<div class="parameter">Avg. test rate (RPH)</div>
-					<div class="dots"></div>
-					<div id="v13" class="value">.</div>
+					<div class="row">
+						<div class="parameter">Relays failed</div>
+						<div class="dots"></div>
+						<div id="v3" class="value">.</div>
+					</div>
+
+					<div class="row">
+						<div class="parameter">Yield</div>
+						<div class="dots"></div>
+						<div id ="v4" class="value">.</div>
+					</div>
 				</div>
 			</div>
-		</div>
+
+			<div>
+				<h2>NON 420</h2>
+				<div id="bloque5" class="agrupado">				
+					<div class="row">
+						<div class="parameter">Non 420 rejects</div>
+						<div class="dots"></div>
+						<div id="v14" class="value">.</div>
+					</div>
+				</div>
+			</div>
+
+			<div>
+				<h2>FINAL YIELD</h2>
+				<div id="bloque2" class="agrupado">
+					<div class="row">
+						<div class="parameter">Total quantity</div>
+						<div class="dots"></div>
+						<div id="v5" class="value">.</div>
+					</div>
+					<div class="row">
+						<div class="parameter">Reject quantity</div>
+						<div class="dots"></div>
+						<div id="v6" class="value">.</div>
+					</div>
+					<div class="row">
+						<div class="parameter">Final yield</div>
+						<div class="dots"></div>
+						<div id="v7"class="value">.</div>
+					</div>
+				</div>
+			</div>
+
+			<div>
+				<h2>ISSUE YIELD</h2>
+				<div id="bloque3" class="agrupado">				
+					<div class="row">
+						<div class="parameter">Issue quantity</div>
+						<div class="dots"></div>
+						<div id="v8" class="value">.</div>
+					</div>
+
+					<div class="row">
+						<div class="parameter">Issue yield</div>
+						<div class="dots"></div>
+						<div id="v9" class="value">.</div>
+					</div>
+
+				</div>
+			</div>
+
+			<div>
+				<h2>TIME </h2>
+				<div id="bloque4" class="agrupado">		
+					<div class="row">
+						<div class="parameter">Elapsed time</div>
+						<div class="dots"></div>
+						<div id="v10" class="value">.</div>
+					</div>
+
+					<div class="row">
+						<div class="parameter">Idle time</div>
+						<div class="dots"></div>
+						<div id="v15" class="value">.</div>
+					</div>
+
+					<div class="row">
+						<div class="parameter">Test time</div>
+						<div class="dots"></div>
+						<div id="v11" class="value">.</div>
+					</div>
+				</div>
+			</div>
+
+			<div>
+				<h2>RATE</h2>
+				<div id="bloque6" class="agrupado">		
+					<div class="row">
+						<div class="parameter">Actual rate (RPH)</div>
+						<div class="dots"></div>
+						<div id="v12" class="value">.</div>
+					</div>
+
+					<div class="row">
+						<div class="parameter">Avg. test rate (RPH)</div>
+						<div class="dots"></div>
+						<div id="v13" class="value">.</div>
+					</div>
+				</div>
+			</div>
 	
+	
+		</div>
 	</div>
-	<button id="printpagebutton" type="button" onclick="javascript:genPDF()" style="width: 100px; height: 75px;">Download PDF</button>
+
 
 
 
@@ -141,18 +195,36 @@
 			"ElapsedTime": 5627,
 			"Ttime": 1906,
 			"Arate": 111,
-			"Atrate": 329
+			"Atrate": 329,
+			"Rejects": 1,
+			"Idletime": 3721,
+
+			"PN": "5000 - 0124",
+			"APPL": "FINAL",
+			"REV": 7,
+			"PLT": "1916 - 110",
+			"LOT": "1 / 15 / 19",
+			"DC": 1916,
+			"FILENAME": "D590733",
+			"TD": "08 / 27 / 19",
+			"ST": "10:33:23"
+
 		}
 
 		var elapsedtime = json.ElapsedTime
-		var ethours= Math.floor(elapsedtime/3600)
-		var etmins= Math.floor(elapsedtime/60)-(ethours*60)
-		var etsecs= elapsedtime-(ethours*3600)-(etmins*60)
+		var ethours = Math.floor(elapsedtime / 3600)
+		var etmins = Math.floor(elapsedtime / 60) - (ethours * 60)
+		var etsecs = elapsedtime - (ethours * 3600) - (etmins * 60)
 
 		var ttime = json.Ttime
 		var tthours = Math.floor(ttime / 3600)
 		var ttmins = Math.floor(ttime / 60) - (tthours * 60)
 		var ttsecs = ttime - (tthours * 3600) - (ttmins * 60)
+
+		var itime = json.Idletime
+		var ihours = Math.floor(itime / 3600)
+		var imins = Math.floor(itime / 60) - (ihours * 60)
+		var isecs = itime - (ihours * 3600) - (imins * 60)
 
 		var rtested = document.getElementById("v1");
 		rtested.innerHTML = json.Rtested;
@@ -164,7 +236,10 @@
 		rfailed.innerHTML = json.Rfailed;
 
 		var yield = document.getElementById("v4");
-		yield.innerHTML = json.Yield+"%";
+		yield.innerHTML = json.Yield + "%";
+
+		var rejects = document.getElementById("v14");
+		rejects.innerHTML = json.Rejects;
 
 		var tquantity = document.getElementById("v5");
 		tquantity.innerHTML = json.Tquantity;
@@ -173,7 +248,7 @@
 		rquantity.innerHTML = json.Rquantity;
 
 		var fyield = document.getElementById("v7");
-		fyield.innerHTML = json.FinalYield+"%";
+		fyield.innerHTML = json.FinalYield + "%";
 
 		var iquantity = document.getElementById("v8");
 		iquantity.innerHTML = json.Iquantity;
@@ -184,6 +259,9 @@
 		var etime = document.getElementById("v10");
 		etime.innerHTML = ethours + " hrs " + etmins + " mins " + etsecs + " secs"
 
+		var idtime = document.getElementById("v15");
+		idtime.innerHTML = ihours + " hrs " + imins + " mins " + isecs + " secs"
+
 		var rtested = document.getElementById("v11");
 		rtested.innerHTML = tthours + " hrs " + ttmins + " mins " + ttsecs + " secs"
 
@@ -192,6 +270,36 @@
 
 		var atrate = document.getElementById("v13");
 		atrate.innerHTML = json.Atrate;
+
+
+		//datos header
+		var valpn = document.getElementById("hd1");
+		valpn.innerHTML = json.PN;
+
+		var valapp = document.getElementById("hd2");
+		valapp.innerHTML = json.APPL;
+
+		var rrev = document.getElementById("hd3");
+		rrev.innerHTML = json.REV;
+
+		var valplt = document.getElementById("hd4");
+		valplt.innerHTML = json.PLT;
+
+		var vallot = document.getElementById("hd5");
+		vallot.innerHTML = json.LOT;
+
+		var valdc = document.getElementById("hd6");
+		valdc.innerHTML = json.DC;
+
+		var valfn = document.getElementById("hd7");
+		valfn.innerHTML = json.FILENAME;
+
+		var valtd = document.getElementById("hd8");
+		valtd.innerHTML = json.TD;
+
+		var valst = document.getElementById("hd9");
+		valst.innerHTML = json.ST;
+
 		
 		function dots() {
 			var x=""
@@ -205,20 +313,23 @@
 		function genPDF() {
 			var printButton = document.getElementById("printpagebutton");
 			printButton.style.visibility = 'hidden';
+			window.scrollTo(0, 0);
+
+			<!--var divWidth=$('#testDiv').width();-->
+			
 			html2canvas(document.querySelector("#testDiv")).then(canvas => {
-				var img = canvas.toDataURL("image/png");
+				var divwidth=window.innerWidth;
+				var img = canvas.toDataURL("image/jpeg", 1.0);
+				
+				<!--doc = new jsPDF('p', 'pt', [canvas.width, canvas.height]);-->
+				doc = new jsPDF('p', 'cm', [21.59, 27.94]);
+				
 
-				if (canvas.width > canvas.height) {
-					//doc = new jsPDF('p');
-					doc = new jsPDF('p', 'pt', [canvas.width, canvas.height]);
-				}
-				else {
-					doc = new jsPDF('p', 'mm', [canvas.height, canvas.width]);
-				}
-
-				//var doc = new jsPDF();
-				doc.addImage(img, 'JPEG', 120, 10); //60,10
-				doc.save("test.pdf");
+				<!--var height = doc.internal.pageSize.getHeight();-->
+				
+				doc.addImage(img, 'JPEG', 0.79, 0.5, 20, 15); //60,10
+				<!--doc.save("test.pdf");-->
+				doc.output('dataurlnewwindow');
 				printButton.style.visibility = 'visible';
 			});
 		}
