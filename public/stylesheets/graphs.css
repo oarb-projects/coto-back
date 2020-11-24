@@ -892,7 +892,7 @@ ul {
 
 .graph-content {
     display: grid;
-    grid-template-columns: 4% 75% 15%;
+    grid-template-columns: 4% 75% 20%;
 }
 
 .graph-title {

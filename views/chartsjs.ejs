@@ -21,6 +21,7 @@
 
 <body>
     <%- include(navbar) %>
+        <script src=" /js/GraficasJs/parameters.js"></script>
 
         <div class="main-container">
             <div class="second-container">
@@ -31,16 +32,11 @@
                                 <%- include(chart_legend, {title: "Operate Time", id: "OT"}) %>
                                     <%- include(chart_legend, {title: "Release Time", id: "RT"}) %>
 
-                                        <script src=" /js/GraficasJs/CoilR.js "></script>
-                                        <script src=" /js/GraficasJs/OpV.js "></script>
-                                        <script src=" /js/GraficasJs/ReV.js "></script>
-                                        <script src=" /js/GraficasJs/SCRe.js "></script>
-                                        <script src=" /js/GraficasJs/OpT.js "></script>
-                                        <script src=" /js/GraficasJs/RelT.js "></script>
+                                        <script src=" /js/GraficasJs/graph.js"></script>
             </div>
         </div>
 
-        <script src="/js/GraficasJs/letsDoItResponsive.js "></script>
+        <script src="/js/GraficasJs/letsDoItResponsive.js"></script>
 
         <div class="buttons dropdown col-5">
             <select id="select" onchange="changeVisibility()">
