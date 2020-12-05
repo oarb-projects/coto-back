@@ -31,23 +31,15 @@
                             <%- include(chart_legend, {title: "Static CR", id: "SCR"}) %>
                                 <%- include(chart_legend, {title: "Operate Time", id: "OT"}) %>
                                     <%- include(chart_legend, {title: "Release Time", id: "RT"}) %>
-
-                                        <script src=" /js/GraficasJs/graph.js"></script>
             </div>
         </div>
 
-        <script src="/js/GraficasJs/letsDoItResponsive.js"></script>
-
         <div class="buttons dropdown col-5">
-            <select id="select" onchange="changeVisibility()">
-                <option value="CR">Coil Resistance</option>
-                <option value="OV">Operate Voltage</option>
-                <option value="RV">Release Voltage</option>
-                <option value="OT">Operate Time</option>
-                <option value="RT">Release Time</option>
-                <option value="SCR">Static Contact Resistance</option>
-            </select>
+            <select id="select" onchange="changeVisibility()"></select>
         </div>
+
+        <script src="/js/GraficasJs/letsDoItResponsive.js"></script>
+        <script src=" /js/GraficasJs/graph.js"></script>
 
         <%- include(footer) %>
 </body>
