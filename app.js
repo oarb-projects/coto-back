@@ -1,13 +1,15 @@
 const express = require('express')
 const app = express()
 var cors = require('cors')
+var mysql = require('mysql');
 
 require('dotenv').config()
 
 const hostname = '127.0.0.1';
 var port = process.env.PORT || 8080;
-var mysql = require('mysql');
 const axios = require('axios');
+
+const queries = require('./queries')
 
 // body parser
 var bodyParser = require('body-parser')
@@ -17,39 +19,23 @@ app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.static(__dirname + '/public'));
+
 let objConnection = require('./config/db.config.js').objConnection;
-
 var connection = mysql.createConnection(objConnection);
-console.log(objConnection)
-
-
-var con = mysql.createConnection({
-    host: "coto-1.cjlxz9e5sgts.us-west-1.rds.amazonaws.com",
-    user: "admin",
-    database: 'Coto',
-    password: "cfpfk5qf"
-});
-
-con.connect(function(err) {
-    if (err) {
-        throw err;
-    } else {
-        console.log('Data Base connected!');
-    }
-});
 
 app.get('/', (req, res) => {
     res.render("menu.ejs");
-
 })
 
 app.get('/pareto', (req, res) => {
-    res.render("pareto.ejs", {
-        navbar: 'navbar.ejs',
-        footer: 'footer.ejs',
-        title: 'Pareto Analysis',
-        faults: faults,
-        total: total
+    queries.getFaults().then(faults => {
+        res.render("pareto.ejs", {
+            navbar: 'navbar.ejs',
+            footer: 'footer.ejs',
+            title: 'Pareto Analysis',
+            faults: faults.array,
+            total: faults.total
+        });
     });
 })
 
@@ -165,35 +151,3 @@ app.use(function(req, res) {
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
-
-
-//Pareto
-const tables = [{ name: 'Actuate Time', acces: 'actuate_time' }, { name: 'Coils Resistance', acces: 'coil_resistance' }, { name: 'CRS', acces: 'crs' }, { name: 'DCR', acces: 'dcr' }, { name: 'Operate Current', acces: 'operate_current' }, { name: 'Operate Time', acces: 'operate_time' }, { name: 'Operate Voltage', acces: 'operate_voltage' }];
-var faults = [];
-var total = 0;
-
-for (var table of tables) {
-    var text = `SELECT * FROM \`${table.acces}\` WHERE \`flag\` = "1"`;
-    getFaults(table);
-
-    text = `SELECT * FROM \`${table.acces}\``;
-    getQuantity(table);
-}
-
-function getFaults(table) {
-    con.query(text, function(error, results, fields) {
-        if (error)
-            throw error;
-
-        faults.push({ name: `Falla ${table.name}`, quantity: results.length });
-    });
-}
-
-function getQuantity(table) {
-    con.query(text, function(error, results, fields) {
-        if (error)
-            throw error;
-
-        total += results.length;
-    });
-}
