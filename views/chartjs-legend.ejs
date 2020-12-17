@@ -1,0 +1,39 @@
+<div class="graphicdata-container" id="<%=id%>-main-container">
+    <div class="graph-title">
+        <p class="btn btn-danger" id="left<%=id%>">
+            <-</p>
+                <p>
+                    <%=title%>
+                </p>
+                <p class="btn btn-danger" id="right<%=id%>">-></p>
+    </div>
+
+    <div class="graph-content">
+        <div></div>
+
+        <div class="col-sm graph-container" id="<%=id%>container">
+            <div id="<%=id%>sub-container">
+                <canvas id="<%=id%>" height="350"></canvas>
+            </div>
+        </div>
+
+        <div class="legend-container">
+            <div>
+                <p class="little-box bg-blue"></p>
+                <p id="mean<%=id%>">Mean: </p>
+            </div>
+            <div>
+                <p class="little-box bg-orange"></p>
+                <p id="Sgma<%=id%>">Sgma: </p>
+            </div>
+            <div>
+                <p class="little-box bg-green"></p>
+                <p id="VcPk<%=id%>">VcPk: </p>
+            </div>
+            <div>
+                <p class="little-box bg-red"></p>
+                <p id="LcPk<%=id%>">LcPk: </p>
+            </div>
+        </div>
+    </div>
+</div>
