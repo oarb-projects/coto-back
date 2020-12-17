@@ -1,58 +1,101 @@
 <!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=s, initial-scale=1.0">
-	<title>File Selection Criteria</title>
-	<link rel="stylesheet" type="text/css" href="/stylesheets/header.css">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/footer.css">
-	<link rel="stylesheet" href="stylesheets/filter.css">
-	<script src="js/DateTime.js"></script>
-</head>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=s, initial-scale=1.0" />
+    <title>File Selection Criteria</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/header.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/footer.css" />
+    <link rel="stylesheet" href="stylesheets/filter.css" />
+    <script src="js/DateTime.js"></script>
+  </head>
 
-<body onload = "startTime()">
-	<!-- <body id="testDiv"> -->
-	<%- include(navbar) %>
-	<div class="newtitle">
-		<h1 style="text-align: center">File Selection Criteria</h1>
-	</div>
-	<div>
-		<hr class="line2">
-	</div>
-	<div class="fsbox" style="margin-bottom:20px">
-		<div class="wrapper">
-			<div class="div1">
-				<p>Part number</p>
-				<p>Application</p>
-				<p>Filename</p>
-				<p>Test date</p>
-				<p>PLT number</p>
-				<p>Date code</p>
-				<p>Yield</p>
-				<p>Min lot size</p>
+  <body onload="startTime()">
+    <!-- <body id="testDiv"> -->
+    <%- include(navbar) %>
+    <div class="newtitle">
+      <h1 style="text-align: center">File Selection Criteria</h1>
+    </div>
+    <div>
+      <hr class="line2" />
+    </div>
+    <div class="fsbox" style="margin-bottom: 20px">
+      <div class="wrapper">
+        <div class="div1">
+          <p>Part number</p>
+          <p>Application</p>
+          <p>Filename</p>
+          <p>Test date</p>
+          <p>PLT number</p>
+          <p>Date code</p>
+          <p>Yield</p>
+          <p>Min lot size</p>
+        </div>
+        <div class="div2">
+          <p>
+            <input type="text" class="txt" placeholder="" name="" value="" />
+          </p>
+          <p>
+            <input type="text" class="txt" placeholder="" name="" value="" />
+          </p>
+          <p>
+            <input type="text" class="txt" placeholder="" name="" value="" />
+          </p>
+          <p>
+            <input type="text" class="txt2" placeholder="" name="" value="" />
+            <input type="text" class="txt2" placeholder="" name="" value="" />
+          </p>
+          <p>
+            <input type="text" class="txt2" placeholder="" name="" value="" />
+            <input type="text" class="txt2" placeholder="" name="" value="" />
+          </p>
+          <p>
+            <input type="text" class="txt2" placeholder="" name="" value="" />
+            <input type="text" class="txt2" placeholder="" name="" value="" />
+          </p>
+          <p>
+            <input type="text" class="txt2" placeholder="" name="" value="" />
+            <input type="text" class="txt2" placeholder="" name="" value="" />
+          </p>
+          <p>
+            <input type="text" class="txt" placeholder="" name="" value="" />
+          </p>
+        </div>
+      </div>
+      <div class="divbtn">
+        <input class="btn" type="button" name="" value="OK" onclick="stuff()" />
+      </div>
+    </div>
+    <%- include(footer) %>
 
-			</div>
-			<div class="div2">
-				<p><input type="text" class="txt" placeholder="" name="" value="" /></p>
-				<p><input type="text" class="txt" placeholder="" name="" value="" /></p>
-				<p><input type="text" class="txt" placeholder="" name="" value="" /></p>
-				<p><input type="text" class="txt2" placeholder="" name="" value="" /> <input type="text" class="txt2" placeholder="" name="" value="" /></p>
-				<p><input type="text" class="txt2" placeholder="" name="" value="" /> <input type="text" class="txt2" placeholder="" name="" value="" /></p>
-				<p><input type="text" class="txt2" placeholder="" name="" value="" /> <input type="text" class="txt2" placeholder="" name="" value="" /></p>
-				<p><input type="text" class="txt2" placeholder="" name="" value="" /> <input type="text" class="txt2" placeholder="" name="" value="" /></p>
-				<p><input type="text" class="txt" placeholder="" name="" value="" /></p>
-			</div>
-		</div>
-		<div class="divbtn"><input class="btn" type="button" name="" value="OK" onclick="stuff()" /></div>
-	</div>
-	<%- include(footer) %>
-
-	<script>
-		function stuff(){
-			window.location.href="/summary"
-		}
-	</script>
-
-</body>
+    <script>
+      function stuff() {
+        const sentData = {
+          date1: "2020-10-10 12:00:00",
+          date2: "2020-10-10 12:00:20",
+          //   part_no: 123,
+          part_no: "",
+          application: "Normal Pro",
+          //   application: "Salvage",
+          plt: "91011",
+        };
+        // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+        fetch("/filterdb", {
+          method: "POST",
+          body: JSON.stringify(sentData),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then(function (res) {
+            return res.json();
+          })
+          .then(function (data) {
+            console.log(data);
+          });
+        // window.location.href = "/summary";
+      }
+    </script>
+  </body>
 </html>

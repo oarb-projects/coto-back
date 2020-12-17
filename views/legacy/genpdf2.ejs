@@ -1,0 +1,40 @@
+<script type="text/javascript" src="js/jspdf.min.js"></script>
+<script type="text/javascript" src="js/html2canvas.js"></script>
+
+<script type="text/javascript">
+    // Plotly.plot('OV', data, layout).then(function() {
+    //     window.requestAnimationFrame(function() {
+    //         window.requestAnimationFrame(function() {
+    //         window.alert('Your plot is done.');
+    //         });
+    //     });
+    // });
+
+    function genPDF() {
+        var printButton = document.getElementById("printpagebutton");
+        console.log(printButton)
+        // printButton.style.visibility = 'hidden';
+        // window.scrollTo(0, 0);
+
+        // <!--var divWidth=$('#testDiv').width();-->
+        
+        // html2canvas(document.querySelector("#testDiv")).then(canvas => {
+        //     var divwidth=window.innerWidth;
+        //     var img = canvas.toDataURL("image/jpeg", 1.0);
+            
+        //     <!--doc = new jsPDF('p', 'pt', [canvas.width, canvas.height]);-->
+        //     doc = new jsPDF('p', 'cm', [21.59, 27.94]);
+            
+
+        //     <!--var height = doc.internal.pageSize.getHeight();-->
+            
+        //     doc.addImage(img, 'JPEG', 0.79, 0.5, 20, 15); //60,10
+        //     doc.addPage('a4','p')
+        //     doc.setPage(2);
+        //     doc.addImage(img, 'JPEG', 0.79, 0.5, 20, 15); //60,10
+        //     <!--doc.save("test.pdf");-->
+        //     doc.output('dataurlnewwindow');
+        //     printButton.style.visibility = 'visible';
+        // });
+    }
+</script>

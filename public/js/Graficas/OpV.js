@@ -221,7 +221,15 @@ api.onreadystatechange = function() {
             }
         });
 
-        Plotly.newPlot('OV', data, layout, { responsive: true });
+        Plotly.newPlot('OV', data, layout, { responsive: true }).then(function() {
+            window.requestAnimationFrame(function() {
+                window.requestAnimationFrame(function() {
+                    charts.ov=!0;
+                    console.log(charts)
+                });
+            });
+        });
+
         $(window).resize(function() {
             Plotly.newPlot('CR', data, layout, { responsive: true });
         });
