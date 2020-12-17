@@ -39,5 +39,4 @@ async function MultipleFilter(filterData) {
   return results;
 }
 
-// exports.getData = getData;
 exports.getData = MultipleFilter;
