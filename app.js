@@ -34,8 +34,8 @@ app.use("/", nonauthRoutes);
 app.use("/", authenticatedRoutes);
 app.use("/api/", apiRoutes);
 
-/* Invalid routes */
-app.use(function (req, res) {
+/* Invalid routes final middleware */
+app.use(function (_, res) {
   res.status(404).render("404.ejs");
 });
 

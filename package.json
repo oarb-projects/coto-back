@@ -1,7 +1,7 @@
 {
   "name": "coto-movil",
   "version": "1.0.0",
-  "description": "paginawebmovil",
+  "description": "Sistema de reporteo web desarrollado para Coto Technologies",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
