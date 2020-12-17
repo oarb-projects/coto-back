@@ -50,6 +50,7 @@ router.get("/chartsjs", middlewares.convertQueryMiddle, (req, res) => {
 });
 
 router.get("/testinfo", middlewares.convertQueryMiddle, (req, res) => {
+  console.log(res.locals.resArr);
   res.render("testinfo.ejs", {
     navbar: "navbar.ejs",
     footer: "footer.ejs",
