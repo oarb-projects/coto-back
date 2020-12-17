@@ -168,6 +168,14 @@ div.div1{
 	}
 }
 
+@media screen and (max-width: 362px) {
+	p.dc {
+		font-size: .65em;
+		margin-top: 10px;
+		margin-bottom: 12px;
+	}
+}
+
 @media screen and (max-width: 350px) {
 	.fsbox {
 		width: 80%;
@@ -198,5 +206,19 @@ div.div1{
 
 	.txt2 {
 		width: 35%;
+	}
+}
+
+@media screen and (max-width: 327px) {
+	p.pno {
+		font-size: .68em;
+		margin-top: 9px;
+		margin-bottom: 14px;
+	}
+
+	p.dc {
+		font-size: .6em;
+		margin-top: 10px;
+		margin-bottom: 14px;
 	}
 }
