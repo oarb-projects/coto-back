@@ -39,9 +39,9 @@ app.use(function (_, res) {
   res.status(404).render("404.ejs");
 });
 
-const server = app.listen(port, hostname, () =>
+const server = app.listen(port, () =>
   console.log(
-    `Coto Report Generator App is running at host:${
+    `Coto Report Generator App is running at host: ${
       server.address().address
     } port: ${server.address().port}!`
   )
