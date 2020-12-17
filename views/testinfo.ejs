@@ -10,7 +10,7 @@
       <link rel="stylesheet" type="text/css" href="/stylesheets/footer.css">
       <link rel="stylesheet" type="text/css" href="/stylesheets/testinfo.css">
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-      <script src="js/DateTime.js"></script>
+      <!-- <script src="js/DateTime.js"></script> -->
 
   </head>
   <body  onload = "startTime()">
@@ -56,16 +56,16 @@
     script.onload = function(){
       var baseurl = window.location.origin;
       // +window.location.pathname
-      console.log(baseurl)
-      $.get(`${baseurl}/api/test_specifications`,(res)=>{
-        console.log(res)
-      })
-      $.get(`${baseurl}/api/test_description`,(res)=>{
-        console.log(res)
-      })
-      $.get(`${baseurl}/api/test_results`,(res)=>{
-        console.log(res)
-      })
+      // console.log(baseurl)
+      // $.get(`${baseurl}/api/test_specifications`,(res)=>{
+      //   console.log(res)
+      // })
+      // $.get(`${baseurl}/api/test_description`,(res)=>{
+      //   console.log(res)
+      // })
+      // $.get(`${baseurl}/api/test_results`,(res)=>{
+      //   console.log(res)
+      // })
     } 
 
 </script>

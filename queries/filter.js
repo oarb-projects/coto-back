@@ -29,7 +29,7 @@ async function getData() {
   return results;
 }
 
-async function selectMultiple(filterData) {
+async function MultipleFilter(filterData) {
   let paramsCounter = 0;
   const table = "test_description";
   let newQuery = "";
@@ -44,19 +44,11 @@ async function selectMultiple(filterData) {
       }
     }
   }
-  // console.log(newQuery);
-
-  console.log(paramsCounter);
-  // const dateQuery = `test_description.date_time BETWEEN '${filterData.d1}' AND '${filterData.d2}'`;
-  // const partQuery = `(test_description.part_no = '${filterData.part_number}')`;
-  // const applicationFilter = `(test_description.test_type = '${filterData.application}')`;
-  // const query = `	SELECT * FROM ${table} WHERE ${dateQuery} AND ${partQuery} AND ${applicationFilter};`;
-  // console.log(query);
-  const query = `	SELECT * FROM ${table} ${newQuery}`;
-  console.log(query);
-  let results = await queryPromise(query);
+  const finalQuery = `	SELECT * FROM ${table} ${newQuery}`;
+  // console.log(finalQuery);
+  let results = await queryPromise(finalQuery);
   return results;
 }
 
-exports.getData = getData;
-exports.getData2 = selectMultiple;
+// exports.getData = getData;
+exports.getData = MultipleFilter;

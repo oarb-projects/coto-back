@@ -3,16 +3,14 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=s, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>File Selection Criteria</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/header.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/footer.css" />
     <link rel="stylesheet" href="stylesheets/filter.css" />
-    <script src="js/DateTime.js"></script>
   </head>
 
   <body onload="startTime()">
-    <!-- <body id="testDiv"> -->
     <%- include(navbar) %>
     <div class="newtitle">
       <h1 style="text-align: center">File Selection Criteria</h1>
@@ -23,54 +21,86 @@
     <div class="fsbox" style="margin-bottom: 20px">
       <div class="wrapper">
         <div class="div1">
-          <p>Part number</p>
-          <p>Application</p>
-          <p>Filename</p>
-          <p>Test date</p>
-          <p>PLT number</p>
-          <p>Date code</p>
-          <p>Yield</p>
-          <p>Min lot size</p>
+          <p class="des pno">Part number</p>
+          <p class="des">Application</p>
+          <p class="des">Filename</p>
+          <p class="des">Test date</p>
+          <p class="des dc">Datecode-sw</p>
+          <p class="des dc">Datecode-rel</p>
+          <p class="des">Yield</p>
+          <p class="des">Min lot size</p>
         </div>
         <div class="div2">
           <p>
-            <input type="text" class="txt" placeholder="" name="" value="" />
+            <input
+              type="text"
+              class="txt"
+              placeholder="0000-0000"
+              name=""
+              value=""
+            />
+          </p>
+          <p>
+            <input
+              type="text"
+              class="txt"
+              placeholder="Final, Engineering..."
+              name=""
+              value=""
+            />
           </p>
           <p>
             <input type="text" class="txt" placeholder="" name="" value="" />
           </p>
           <p>
-            <input type="text" class="txt" placeholder="" name="" value="" />
+            <input type="date" class="txt2" placeholder="" name="" value="" /> -
+            <input
+              type="date"
+              class="txt2"
+              placeholder="mm/dd/yyyy"
+              name=""
+              value=""
+            />
           </p>
           <p>
-            <input type="text" class="txt2" placeholder="" name="" value="" />
-            <input type="text" class="txt2" placeholder="" name="" value="" />
+            <input type="text" class="txt2" placeholder="0" name="" value="" />
+            -
+            <input type="text" class="txt2" placeholder="0" name="" value="" />
           </p>
           <p>
-            <input type="text" class="txt2" placeholder="" name="" value="" />
-            <input type="text" class="txt2" placeholder="" name="" value="" />
+            <input type="text" class="txt2" placeholder="0" name="" value="" />
+            -
+            <input type="text" class="txt2" placeholder="0" name="" value="" />
           </p>
           <p>
-            <input type="text" class="txt2" placeholder="" name="" value="" />
-            <input type="text" class="txt2" placeholder="" name="" value="" />
+            <input type="text" class="txt2" placeholder="0" name="" value="" />
+            -
+            <input type="text" class="txt2" placeholder="0" name="" value="" />
           </p>
           <p>
-            <input type="text" class="txt2" placeholder="" name="" value="" />
-            <input type="text" class="txt2" placeholder="" name="" value="" />
+            <input type="text" class="txt2" placeholder="0" name="" value="" />
+            -
+            <input type="text" class="txt2" placeholder="0" name="" value="" />
           </p>
           <p>
-            <input type="text" class="txt" placeholder="" name="" value="" />
+            <input type="text" class="txt" placeholder="0" name="" value="" />
           </p>
         </div>
       </div>
       <div class="divbtn">
-        <input class="btn" type="button" name="" value="OK" onclick="stuff()" />
+        <input
+          class="btn"
+          type="button"
+          name=""
+          value="OK"
+          onclick="filter()"
+        />
       </div>
     </div>
     <%- include(footer) %>
 
     <script>
-      function stuff() {
+      function filter() {
         const sentData = {
           date1: "2020-10-10 12:00:00",
           date2: "2020-10-10 12:00:20",
@@ -93,9 +123,22 @@
           })
           .then(function (data) {
             console.log(data);
+            var queryString = Object.keys(sentData)
+              .map((key) => {
+                return (
+                  encodeURIComponent(key) +
+                  "=" +
+                  encodeURIComponent(sentData[key])
+                );
+              })
+              .join("&");
+            console.log(queryString);
+            // debugger;
+            window.location.href = "/summary?" + queryString;
           });
         // window.location.href = "/summary";
       }
     </script>
   </body>
 </html>
+<!DOCTYPE html>

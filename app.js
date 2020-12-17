@@ -12,7 +12,12 @@ var port = process.env.PORT || 8080;
 const axios = require("axios");
 
 const queries = require("./queries");
-const filter = require("./queries/filter");
+const middlewares = require("./middlewares/queryConversion");
+
+const favicon = require("serve-favicon");
+const path = require("path");
+
+app.use(favicon(path.join(__dirname, "public", "assets", "favicon.png")));
 
 // body parser
 var bodyParser = require("body-parser");
@@ -30,43 +35,11 @@ app.get("/", (req, res) => {
   res.render("menu.ejs");
 });
 
-app.get("/pareto", (req, res) => {
-  queries.getFaults().then((faults) => {
-    res.render("pareto.ejs", {
-      navbar: "navbar.ejs",
-      footer: "footer.ejs",
-      title: "Pareto Analysis",
-      faults: faults.array,
-      total: faults.total,
-    });
-  });
-});
-
-app.get("/filterdb", async (req, res) => {
-  //   resArr = await filter.getData();
-  resArr = await filter.getData2();
-  res.json(resArr);
-});
 app.post("/filterdb", async (req, res) => {
   console.log(req.body);
-  const filterData = {
-    date_time: ` BETWEEN '${req.body.date1}' AND '${req.body.date2}' `,
-    part_no: req.body.part_no != "" ? ` = '${req.body.part_no}'` : "",
-    plt: req.body.plt != "" ? ` = '${req.body.plt}'` : "",
-    test_type: req.body.application != "" ? ` = '${req.body.application}'` : "",
-  };
-  //   resArr = await filter.getData();
-  resArr = await filter.getData2(filterData);
+  const filterData = DTO.convertData(req.body);
+  const resArr = await filter.getData(filterData);
   res.json(resArr);
-});
-
-app.get("/summary", (req, res) => {
-  res.render("summary.ejs", {
-    navbar: "navbar.ejs",
-    footer: "footer.ejs",
-    // pdfGenerator: "genpdf2.ejs",
-    title: "Summary",
-  });
 });
 
 app.get("/charts", (req, res) => {
@@ -78,12 +51,43 @@ app.get("/charts", (req, res) => {
   });
 });
 
-app.get("/chartsjs", (req, res) => {
+app.get("/pareto", middlewares.convertQueryMiddle, (req, res) => {
+  console.log(res.locals.resArr);
+  queries.getFaults().then((faults) => {
+    res.render("pareto.ejs", {
+      navbar: "navbar.ejs",
+      footer: "footer.ejs",
+      title: "Pareto Analysis",
+      faults: faults.array,
+      total: faults.total,
+    });
+  });
+});
+
+app.get("/summary", middlewares.convertQueryMiddle, async (req, res) => {
+  console.log(res.locals.resArr);
+  res.render("summary.ejs", {
+    navbar: "navbar.ejs",
+    footer: "footer.ejs",
+    title: "Summary",
+  });
+});
+
+app.get("/chartsjs", middlewares.convertQueryMiddle, (req, res) => {
+  console.log(res.locals.resArr);
   res.render("chartsjs.ejs", {
     navbar: "navbar.ejs",
     footer: "footer.ejs",
     chart_legend: "chartjs-legend.ejs",
     title: "Chart",
+  });
+});
+
+app.get("/testinfo", middlewares.convertQueryMiddle, (req, res) => {
+  res.render("testinfo.ejs", {
+    navbar: "navbar.ejs",
+    footer: "footer.ejs",
+    title: "Test Information",
   });
 });
 
@@ -129,14 +133,6 @@ app.get("/filter", (req, res) => {
     navbar: "navbar.ejs",
     footer: "footer.ejs",
     title: "File Selection Criteria",
-  });
-});
-
-app.get("/testinfo", (req, res) => {
-  res.render("testinfo.ejs", {
-    navbar: "navbar.ejs",
-    footer: "footer.ejs",
-    title: "Test Information",
   });
 });
 
