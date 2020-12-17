@@ -7,6 +7,8 @@ const helpers = require("./helpers/pdfgenerator");
 /* app setup */
 const port = process.env.PORT || 8080;
 const hostname = "127.0.0.1";
+require("./config/db.config");
+
 // const os = require("os");
 // const hostname = os.hostname();
 

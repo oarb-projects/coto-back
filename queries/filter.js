@@ -1,16 +1,5 @@
-var mysql = require("mysql");
-
-let objConnection = require("../config/db.config.js").objConnection;
-var con = mysql.createConnection(objConnection);
-console.log(objConnection);
-
-con.connect(function (err) {
-  if (err) {
-    throw err;
-  } else {
-    console.log("Data Base connected!");
-  }
-});
+const dbHelpers = require("../config/db.config");
+const con = dbHelpers.getConnection;
 
 const query =
   "CALL `Coto`.`filterbyDate`('2020-10-10 12:00:00','2020-10-10 12:00:02');";

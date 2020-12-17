@@ -1,12 +1,9 @@
 const express = require("express");
 const router = express.Router();
-var mysql = require("mysql");
 
 /* Route specific middlewares */
 const middlewares = require("../middlewares/queryConversion");
 const queries = require("../queries");
-let objConnection = require("../config/db.config.js").objConnection;
-var connection = mysql.createConnection(objConnection);
 // TODO auth middleware
 
 router.get("/filter", (req, res) => {

@@ -1,27 +1,9 @@
-var mysql = require("mysql");
-
-let objConnection = require("../config/db.config.js").objConnection;
-var connection = mysql.createConnection(objConnection);
-console.log(objConnection);
-
-var con = mysql.createConnection({
-  host: "coto-1.cjlxz9e5sgts.us-west-1.rds.amazonaws.com",
-  user: "admin",
-  database: "Coto",
-  password: "cfpfk5qf",
-});
-
-con.connect(function (err) {
-  if (err) {
-    throw err;
-  } else {
-    console.log("Data Base connected!");
-  }
-});
+const dbHelpers = require("../config/db.config");
+const con = dbHelpers.getConnection;
 
 //Pareto
 const tables = [
-  { name: "Actuate Time", accesss: "actuate_time" },
+  { name: "Actuate Time", access: "actuate_time" },
   { name: "Coils Resistance", access: "coil_resistance" },
   { name: "CRS", access: "crs" },
   { name: "DCR", access: "dcr" },
