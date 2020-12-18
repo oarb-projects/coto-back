@@ -4,16 +4,19 @@ USE Coto2;
 CREATE TABLE IF NOT EXISTS test_description (
     test_no INT AUTO_INCREMENT PRIMARY KEY,
     part_no varchar (10) NOT NULL,
-    lot varchar (10) not null,
+    selection varchar (10) not null,
+    work_order varchar (10),
+    plt varchar (10) not null,
+    datecode_sw varchar (10) not null,
+    datecode_rel varchar (10) not null,
     test_type varchar (10) not null,
     fixture varchar (10) not null,
-	date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )  ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS test_results (
-    dut_no INT AUTO_INCREMENT PRIMARY KEY,
+    test_no INT AUTO_INCREMENT PRIMARY KEY,
     part_no varchar (10) NOT NULL,
-    test_no int not null,
     final_yield float(8,4),
     relays_tested int
 )  ENGINE=INNODB;
