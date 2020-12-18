@@ -12,24 +12,31 @@ const tables = [
   { name: "Operate Voltage", access: "operate_voltage" },
 ];
 
-async function getFaults() {
+async function getFaults(resArr) {
   var total = 0;
   var array = [];
+
+  var textCondition = "(";
+    for (var i= 0; i < resArr.length; i++) {
+      textCondition += ` \`test_no\` = "${resArr[i].dut_no}"`;
+
+      if(i < resArr.length - 1){
+        textCondition += ' OR';
+      }
+    }
+    textCondition += ")";
+
   for (var table of tables) {
-    var text = `SELECT * FROM \`${table.access}\` WHERE \`flag\` = "1"`;
-    array = array.concat(await getFault(table, text));
-    text = `SELECT * FROM \`${table.access}\``;
+    array.push({ name: `Falla ${table.name}`, quantity: 0 });
+    
+    var text = `SELECT * FROM \`${table.access}\` WHERE \`flag\` = "1" AND ${textCondition}`;
+    array[array.length - 1].quantity = await getQuantity(text);
+
+    text = `SELECT * FROM \`${table.access}\` WHERE ${textCondition}`;
     total += await getQuantity(text);
   }
 
   return { array: array, total: total };
-}
-
-async function getFault(table, text) {
-  let array = [];
-  let results = await queryPromise(text);
-  array.push({ name: `Falla ${table.name}`, quantity: results.length });
-  return array;
 }
 
 async function getQuantity(text) {

@@ -16,7 +16,7 @@ router.get("/filter", (req, res) => {
 
 router.get("/pareto", middlewares.convertQueryMiddle, (req, res) => {
   console.log(res.locals.resArr);
-  queries.getFaults().then((faults) => {
+  queries.getFaults(res.locals.resArr).then((faults) => {
     res.render("pareto.ejs", {
       navbar: "navbar.ejs",
       footer: "footer.ejs",
