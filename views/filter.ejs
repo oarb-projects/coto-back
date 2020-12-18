@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="/stylesheets/header.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/footer.css" />
     <link rel="stylesheet" href="stylesheets/filter.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   </head>
 
   <body onload="startTime()">
@@ -23,8 +24,9 @@
         <div class="div1">
           <p class="des pno">Part number</p>
           <p class="des">Application</p>
-          <p class="des">Filename</p>
+          <p class="des">Selection</p>
           <p class="des">Test date</p>
+          <p class="des">PLT number</p>
           <p class="des dc">Datecode-sw</p>
           <p class="des dc">Datecode-rel</p>
           <p class="des">Yield</p>
@@ -35,6 +37,7 @@
             <input
               type="text"
               class="txt"
+              id="part_num"
               placeholder="0000-0000"
               name=""
               value=""
@@ -44,46 +47,48 @@
             <input
               type="text"
               class="txt"
+              id="app"
               placeholder="Final, Engineering..."
               name=""
               value=""
             />
           </p>
           <p>
-            <input type="text" class="txt" placeholder="" name="" value="" />
+            <input type="text" class="txt" id="sel" placeholder="" name="" value="" />
           </p>
           <p>
-            <input type="date" class="txt2" placeholder="" name="" value="" /> -
+            <input type="date" class="txt2" id="Date1" placeholder="" name="" value="" /> -
             <input
               type="date"
               class="txt2"
+              id="Date2"
               placeholder="mm/dd/yyyy"
               name=""
               value=""
             />
           </p>
           <p>
-            <input type="text" class="txt2" placeholder="0" name="" value="" />
+            <input type="text" class="txt2" id="Plt1" placeholder="0" name="" value="" />
             -
-            <input type="text" class="txt2" placeholder="0" name="" value="" />
+            <input type="text" class="txt2" id="Plt2" placeholder="0" name="" value="" />
           </p>
           <p>
-            <input type="text" class="txt2" placeholder="0" name="" value="" />
+            <input type="text" class="txt2" id="dcs1" placeholder="0" name="" value="" />
             -
-            <input type="text" class="txt2" placeholder="0" name="" value="" />
+            <input type="text" class="txt2" id="dcs2" placeholder="0" name="" value="" />
           </p>
           <p>
-            <input type="text" class="txt2" placeholder="0" name="" value="" />
+            <input type="text" class="txt2" id="dcr1" placeholder="0" name="" value="" />
             -
-            <input type="text" class="txt2" placeholder="0" name="" value="" />
+            <input type="text" class="txt2" id="dcr2" placeholder="0" name="" value="" />
           </p>
           <p>
-            <input type="text" class="txt2" placeholder="0" name="" value="" />
+            <input type="text" class="txt2" id="yld1" placeholder="0" name="" value="" />
             -
-            <input type="text" class="txt2" placeholder="0" name="" value="" />
+            <input type="text" class="txt2" id="yld2" placeholder="0" name="" value="" />
           </p>
           <p>
-            <input type="text" class="txt" placeholder="0" name="" value="" />
+            <input type="text" class="txt" id="lot" placeholder="0" name="" value="" />
           </p>
         </div>
       </div>
@@ -101,42 +106,75 @@
 
     <script>
       function filter() {
-        const sentData = {
-          date1: "2020-10-10 12:00:00",
-          date2: "2020-10-10 12:00:20",
-          //   part_no: 123,
-          part_no: "",
-          application: "Normal Pro",
-          //   application: "Salvage",
-          plt: "91011",
-        };
-        // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-        fetch("/filterdb", {
-          method: "POST",
-          body: JSON.stringify(sentData),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then(function (res) {
-            return res.json();
+        var pno_length = document.getElementById("part_num").value.length;
+        var app_length = document.getElementById("app").value.length;
+        var sel_length = document.getElementById("sel").value.length;
+        var date1_length = document.getElementById("Date1").value.length;
+        var date2_length = document.getElementById("Date2").value.length;
+        var plt1_length = document.getElementById("Plt1").value.length;
+        var plt2_length = document.getElementById("Plt2").value.length;
+        var dcs1_length = document.getElementById("dcs1").value.length;
+        var dcs2_length = document.getElementById("dcs2").value.length;
+        var dcr1_length = document.getElementById("dcr1").value.length;
+        var dcr2_length = document.getElementById("dcr2").value.length;
+        var yld1_length = document.getElementById("yld1").value.length;
+        var yld2_length = document.getElementById("yld2").value.length;
+        var lot_length = document.getElementById("lot").value.length;	
+        
+        if(!pno_length && !app_length && !sel_length && !date1_length && !date2_length && !plt1_length && !plt2_length &&
+			   !dcs1_length && !dcs2_length && !dcr1_length && !dcr2_length && !yld1_length && !yld2_length && !lot_length){
+				
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Select at least one parameter',				
           })
-          .then(function (data) {
-            console.log(data);
-            var queryString = Object.keys(sentData)
-              .map((key) => {
-                return (
-                  encodeURIComponent(key) +
-                  "=" +
-                  encodeURIComponent(sentData[key])
-                );
-              })
-              .join("&");
-            // console.log(`\n\n${queryString}\n\n`);
-            // debugger;
-            window.location.href = "/summary?" + queryString;
-          });
-        // window.location.href = "/summary";
+        }
+        else{
+          const sentData = {
+             part_no: document.getElementById("part_num").value,
+             application: document.getElementById("app").value,
+             selection: document.getElementById("sel").value,
+             date1: document.getElementById("Date1").value,
+             date2: document.getElementById("Date2").value,
+             plt1: document.getElementById("Plt1").value,
+             plt2: document.getElementById("Plt2").value,
+             datecode_sw1: document.getElementById("dcs1").value,
+             datecode_sw2: document.getElementById("dcs2").value,
+             datecode_rel1: document.getElementById("dcr1").value,
+             datecode_rel2: document.getElementById("dcr2").value,
+             yield1: document.getElementById("yld1").value,
+             yield2: document.getElementById("yld2").value,
+             lot_size: document.getElementById("lot").value
+          };
+          // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+          fetch("/filterdb", {
+            method: "POST",
+            body: JSON.stringify(sentData),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then(function (res) {
+              return res.json();
+            })
+            .then(function (data) {
+              console.log(data);
+              var queryString = Object.keys(sentData)
+                .map((key) => {
+                  return (
+                    encodeURIComponent(key) +
+                    "=" +
+                    encodeURIComponent(sentData[key])
+                  );
+                })
+                .join("&");
+              console.log(queryString);
+              // debugger;
+              window.location.href = "/summary?" + queryString;
+            });
+           window.location.href = "/summary";
+        }
       }
     </script>
   </body>
