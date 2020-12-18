@@ -100,7 +100,7 @@ for (let actual of parameters) {
                             barPercentage: 1.0,
                             scaleLabel: {
                                 display: true,
-                                labelString: 'Ohms',
+                                labelString: actual.scaleUnits,
                             }
                         }]
                     },
@@ -145,32 +145,40 @@ for (let actual of parameters) {
                         }]
                     }
                 },
-
+                
             };
+
+            document.getElementById(`${actual.id}-main-container`).className  = "d-block";
 
             var ctx = document.getElementById(actual.id).getContext("2d");
             var myChart = new Chart(ctx, barChartData);
+
+            document.getElementById(`${actual.id}-main-container`).className  = "disapear-md";
         }
     }
 
     document.getElementById(`left${actual.id}`).addEventListener("click", function() {
-        displace(-(2 * actual.width), actual);
+        displace(-(actual.width), actual);
     });
     document.getElementById(`right${actual.id}`).addEventListener("click", function() {
-        displace((2 * actual.width), actual);
+        displace((actual.width), actual);
     });
 
+    $('select').append(`<option value="${actual.id}">${actual.name}</option>`);
 }
 
 
 function displace(step, actual) {
-    if (actual.viewLimitA + step > 0 && actual.viewLimitB + step < actual.max) {
+    if (actual.viewLimitA + step >= 0 && actual.viewLimitB + step <= actual.max) {
         actual.viewLimitA += step;
         actual.viewLimitB += step;
 
+        actual.viewLimitA = actual.viewLimitA < 0 ? 0 : actual.viewLimitA;
+        actual.viewLimitB = actual.viewLimitB > actual.max ? actual.max : actual.viewLimitB;
+
+        var scroll = document.documentElement.scrollTop;
         $(`#${actual.id}`).remove();
         $(`#${actual.id}sub-container`).append(`<canvas id="${actual.id}" height="472" width="615" class="chartjs-render-monitor" style="display: block; height: 350px; width: 456px;"></canvas>`);
-
 
         var barChartData = {
             type: 'bar',
@@ -208,7 +216,7 @@ function displace(step, actual) {
                         barPercentage: 1.0,
                         scaleLabel: {
                             display: true,
-                            labelString: 'Ohms',
+                            labelString: actual.scaleUnits,
                         }
                     }]
                 },
@@ -258,5 +266,7 @@ function displace(step, actual) {
 
         var ctx = document.getElementById(actual.id).getContext("2d");
         var myChart = new Chart(ctx, barChartData);
+
+        document.documentElement.scrollTop = scroll;
     }
 }

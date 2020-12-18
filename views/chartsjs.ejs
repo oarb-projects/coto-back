@@ -55,15 +55,19 @@
     </div>
 
     <div class="buttons dropdown col-5">
-      <select id="select" onchange="changeVisibility()"></select>
+      <select id="select" onchange="changeVisibility()">
+        <option value="SELECT" selected disabled>SELECT</option>
+      </select>
+      
     </div>
 
-    <script src="/js/GraficasJs/letsDoItResponsive.js"></script>
+    <%- include(footer) %>
+
     <script src=" /js/GraficasJs/graph.js"></script>
+    <script src=" /js/GraficasJs/letsDoItResponsive.js"></script>
     <script src="/js/GraficasJs/socketio.js" charset="utf-8"></script>
     <script src=" /js/GraficasJs/socketcomms.js "></script>
     <button id="send" class="float">Descargar pdf</button>
 
-    <%- include(footer) %>
   </body>
 </html>
