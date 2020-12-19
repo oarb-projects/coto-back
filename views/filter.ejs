@@ -54,10 +54,25 @@
             />
           </p>
           <p>
-            <input type="text" class="txt" id="sel" placeholder="" name="" value="" />
+            <input
+              type="text"
+              class="txt"
+              id="sel"
+              placeholder=""
+              name=""
+              value=""
+            />
           </p>
           <p>
-            <input type="date" class="txt2" id="Date1" placeholder="" name="" value="" /> -
+            <input
+              type="date"
+              class="txt2"
+              id="Date1"
+              placeholder=""
+              name=""
+              value=""
+            />
+            -
             <input
               type="date"
               class="txt2"
@@ -68,27 +83,90 @@
             />
           </p>
           <p>
-            <input type="text" class="txt2" id="Plt1" placeholder="0" name="" value="" />
+            <input
+              type="text"
+              class="txt2"
+              id="Plt1"
+              placeholder="0"
+              name=""
+              value=""
+            />
             -
-            <input type="text" class="txt2" id="Plt2" placeholder="0" name="" value="" />
+            <input
+              type="text"
+              class="txt2"
+              id="Plt2"
+              placeholder="0"
+              name=""
+              value=""
+            />
           </p>
           <p>
-            <input type="text" class="txt2" id="dcs1" placeholder="0" name="" value="" />
+            <input
+              type="text"
+              class="txt2"
+              id="dcs1"
+              placeholder="0"
+              name=""
+              value=""
+            />
             -
-            <input type="text" class="txt2" id="dcs2" placeholder="0" name="" value="" />
+            <input
+              type="text"
+              class="txt2"
+              id="dcs2"
+              placeholder="0"
+              name=""
+              value=""
+            />
           </p>
           <p>
-            <input type="text" class="txt2" id="dcr1" placeholder="0" name="" value="" />
+            <input
+              type="text"
+              class="txt2"
+              id="dcr1"
+              placeholder="0"
+              name=""
+              value=""
+            />
             -
-            <input type="text" class="txt2" id="dcr2" placeholder="0" name="" value="" />
+            <input
+              type="text"
+              class="txt2"
+              id="dcr2"
+              placeholder="0"
+              name=""
+              value=""
+            />
           </p>
           <p>
-            <input type="text" class="txt2" id="yld1" placeholder="0" name="" value="" />
+            <input
+              type="text"
+              class="txt2"
+              id="yld1"
+              placeholder="0"
+              name=""
+              value=""
+            />
             -
-            <input type="text" class="txt2" id="yld2" placeholder="0" name="" value="" />
+            <input
+              type="text"
+              class="txt2"
+              id="yld2"
+              placeholder="0"
+              name=""
+              value=""
+            />
           </p>
           <p>
-            <input type="text" class="txt" id="lot" placeholder="0" name="" value="" />
+            <input
+              type="text"
+              class="txt"
+              id="lot"
+              placeholder="0"
+              name=""
+              value=""
+            />
           </p>
         </div>
       </div>
@@ -119,33 +197,55 @@
         var dcr2_length = document.getElementById("dcr2").value.length;
         var yld1_length = document.getElementById("yld1").value.length;
         var yld2_length = document.getElementById("yld2").value.length;
-        var lot_length = document.getElementById("lot").value.length;	
-        
-        if(!pno_length && !app_length && !sel_length && !date1_length && !date2_length && !plt1_length && !plt2_length &&
-			   !dcs1_length && !dcs2_length && !dcr1_length && !dcr2_length && !yld1_length && !yld2_length && !lot_length){
-				
+        var lot_length = document.getElementById("lot").value.length;
+
+        if (
+          !pno_length &&
+          !app_length &&
+          !sel_length &&
+          !date1_length &&
+          !date2_length &&
+          !plt1_length &&
+          !plt2_length &&
+          !dcs1_length &&
+          !dcs2_length &&
+          !dcr1_length &&
+          !dcr2_length &&
+          !yld1_length &&
+          !yld2_length &&
+          !lot_length
+        ) {
           Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Select at least one parameter',				
-          })
-        }
-        else{
+            icon: "error",
+            title: "Oops...",
+            text: "Select at least one parameter",
+          });
+        } else {
+          // const sentData = {
+          //   date1: "2020-10-10 12:00:00",
+          //   date2: "2020-10-10 12:00:20",
+          //   //   part_no: 123,
+          //   part_no: "",
+          //   application: "Normal Pro",
+          //   //   application: "Salvage",
+          //   plt: "91011",
+          // };
           const sentData = {
-             part_no: document.getElementById("part_num").value,
-             application: document.getElementById("app").value,
-             selection: document.getElementById("sel").value,
-             date1: document.getElementById("Date1").value,
-             date2: document.getElementById("Date2").value,
-             plt1: document.getElementById("Plt1").value,
-             plt2: document.getElementById("Plt2").value,
-             datecode_sw1: document.getElementById("dcs1").value,
-             datecode_sw2: document.getElementById("dcs2").value,
-             datecode_rel1: document.getElementById("dcr1").value,
-             datecode_rel2: document.getElementById("dcr2").value,
-             yield1: document.getElementById("yld1").value,
-             yield2: document.getElementById("yld2").value,
-             lot_size: document.getElementById("lot").value
+            part_no: document.getElementById("part_num").value,
+            application: document.getElementById("app").value,
+            selection: document.getElementById("sel").value,
+            date1: document.getElementById("Date1").value + " 12:00:00",
+            date2: document.getElementById("Date2").value + " 12:00:00",
+            plt1: document.getElementById("Plt1").value,
+            plt2: document.getElementById("Plt2").value,
+            datecode_sw1: document.getElementById("dcs1").value,
+            datecode_sw2: document.getElementById("dcs2").value,
+            datecode_rel1: document.getElementById("dcr1").value,
+            datecode_rel2: document.getElementById("dcr2").value,
+            yield1: document.getElementById("yld1").value,
+            yield2: document.getElementById("yld2").value,
+            lot_size: document.getElementById("lot").value,
+            plt: "",
           };
           // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
           fetch("/filterdb", {
@@ -170,10 +270,10 @@
                 })
                 .join("&");
               console.log(queryString);
-              // debugger;
+              debugger;
               window.location.href = "/summary?" + queryString;
             });
-           window.location.href = "/summary";
+          // window.location.href = "/summary";
         }
       }
     </script>
