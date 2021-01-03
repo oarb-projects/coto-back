@@ -24,11 +24,17 @@
             <div>
                 <hr class="line2">
             </div>
+
+            <div class="w-50 text-center ml-auto mr-auto">
+                <label for="">Selecciona un Numero de Parte:</label>
+                <select id="test-no-selecter" class="custom-select custom-select-lg mb-3"></select>
+            </div>
+
             <div id="content">
-                <p>Cantidad de piezas analizadas: <span><%=total%></span></p>
+                <p>Cantidad de piezas analizadas: <span id="pieces-quantity">0</span></p>
             </div>
             <div id="tableContainer" class="mb-4">
-                <table id="example" class="display" style="width:100%">
+                <table id="content-table" class="display" style="width:100%">
                     <thead>
                         <tr>
                             <th>Defecto</th>
@@ -36,33 +42,30 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% faults.forEach(function (entry) { %>
-                            <tr>
-                                <td>
-                                    <%= entry.name %>
-                                </td>
-                                <td>
-                                    <%= entry.quantity %>
-                                </td>
-                            </tr>
-                            <% }) %>
                     </tbody>
                 </table>
             </div>
         </div>
         <%-include(footer)%>
-            <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-            <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-            <script>
-                $(document).ready(function() {
-                    $('#example').DataTable({
-                        "order": [
-                            [1, "desc"]
-                        ],
-                        "lengthChange": false
-                    });
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#content-table').DataTable({
+                    "order": [
+                        [1, "desc"]
+                    ],
+                    "lengthChange": false
                 });
-            </script>
+            });
+        </script>
+        
+        <script>
+            var str = <%- faults %>;
+            var data = new Map(str.value);  
+        </script>
+        <script src=" /js/pareto.js"></script>
+
 </body>
 
 </html>

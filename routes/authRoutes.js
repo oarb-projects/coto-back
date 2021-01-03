@@ -21,8 +21,7 @@ router.get("/pareto", middlewares.convertQueryMiddle, (req, res) => {
       navbar: "navbar.ejs",
       footer: "footer.ejs",
       title: "Pareto Analysis",
-      faults: faults.array,
-      total: faults.total,
+      faults: faults,
     });
   });
 });
@@ -38,11 +37,14 @@ router.get("/summary", middlewares.convertQueryMiddle, async (req, res) => {
 
 router.get("/chartsjs", middlewares.convertQueryMiddle, (req, res) => {
   console.log(res.locals.resArr);
-  res.render("chartsjs.ejs", {
-    navbar: "navbar.ejs",
-    footer: "footer.ejs",
-    chart_legend: "chartjs-legend.ejs",
-    title: "Chart",
+  queries.getChartData(res.locals.resArr).then((data) => {
+    res.render("chartsjs.ejs", {
+      navbar: "navbar.ejs",
+      footer: "footer.ejs",
+      chart_legend: "chartjs-legend.ejs",
+      title: "Chart",
+      data: data,
+    });
   });
 });
 

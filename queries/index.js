@@ -2,47 +2,102 @@ const dbHelpers = require("../config/db.config");
 const con = dbHelpers.getConnection;
 
 //Pareto
-const tables = [
-  { name: "Actuate Time", access: "actuate_time" },
-  { name: "Coils Resistance", access: "coil_resistance" },
-  { name: "CRS", access: "crs" },
-  { name: "DCR", access: "dcr" },
-  { name: "Operate Current", access: "operate_current" },
-  { name: "Operate Time", access: "operate_time" },
-  { name: "Operate Voltage", access: "operate_voltage" },
+const parameters = [
+  {
+    id: "CR",
+    name: "Coil Resistance",
+    access: "coil_resistance",
+    scaleUnits: "Ohms",
+    limitA: 35,
+    limitB: 45,
+    width: 0.5,
+  },
+  {
+    id: "OV",
+    name: "Operate Voltage",
+    access: "operate_voltage",
+    scaleUnits: "Volts",
+    limitA: 1.1,
+    limitB: 3.7,
+    width: 0.1,
+  },
+  {
+    id: "RV",
+    name: "Release Voltage",
+    access: "release_voltage",
+    scaleUnits: "Volts",
+    limitA: 1.1,
+    limitB: 3.7,
+    width: 0.1,
+  },
+  {
+    id: "SCR",
+    name: "Static CR",
+    access: "scr",
+    scaleUnits: "Ohms",
+    limitA: 0.02,
+    limitB: 0.2,
+    width: 0.025,
+  },
+  {
+    id: "AT",
+    name: "Actuate Time",
+    access: "actuate_time",
+    scaleUnits: "Usecs",
+    limitA: 30,
+    limitB: 50,
+    width: 0.5,
+  },
+  {
+    id: "RT",
+    name: "Release Time",
+    access: "release_time",
+    scaleUnits: "Usecs",
+    limitA: 40,
+    limitB: 60,
+    width: 1,
+  },
 ];
 
 async function getFaults(resArr) {
-  var total = 0;
-  var array = [];
+  var map = new Map();
 
-  var textCondition = "(";
-    for (var i= 0; i < resArr.length; i++) {
-      textCondition += ` \`test_no\` = "${resArr[i].dut_no}"`;
+  for(var element of resArr){
+    var array = [];
 
-      if(i < resArr.length - 1){
-        textCondition += ' OR';
-      }
+    for(var table of parameters){
+      var quantity = await getQuantity(`SELECT * FROM \`${table.access}\` WHERE \`flag\` = "1" AND \`test_no\` = "${element.dut_no}"`);
+      array.push({ name: `Falla ${table.name}`, quantity: quantity });
     }
-    textCondition += ")";
 
-  for (var table of tables) {
-    array.push({ name: `Falla ${table.name}`, quantity: 0 });
-    
-    var text = `SELECT * FROM \`${table.access}\` WHERE \`flag\` = "1" AND ${textCondition}`;
-    array[array.length - 1].quantity = await getQuantity(text);
-
-    text = `SELECT * FROM \`${table.access}\` WHERE ${textCondition}`;
-    total += await getQuantity(text);
+    map.set(element.dut_no, {total: resArr.length, array: array});
   }
 
-  return { array: array, total: total };
+  return JSON.stringify(map, replacer);  
 }
 
 async function getQuantity(text) {
   let results = await queryPromise(text);
   let total = results.length;
+
   return total;
+}
+
+async function getChartData(resArr) {
+  var map = new Map();
+  
+  for(var element of resArr){
+    var tables = JSON.parse(JSON.stringify(parameters));
+
+    for(var table of tables){
+      table.data = await queryPromise(`SELECT result1 FROM \`${table.access}\` WHERE \`test_no\` = "${element.dut_no}"`);
+      table.measures = await queryPromise(`SELECT AVG(result1), MIN(result1), MAX(result1) FROM \`${table.access}\` WHERE \`test_no\` = "${element.dut_no}"`);
+    }
+
+    map.set(element.dut_no, tables);
+  }
+
+  return JSON.stringify(map, replacer);
 }
 
 function queryPromise(str) {
@@ -54,4 +109,17 @@ function queryPromise(str) {
   });
 }
 
+function replacer(key, value) {
+  const originalObject = this[key];
+  if(originalObject instanceof Map) {
+    return {
+      dataType: 'Map',
+      value: Array.from(originalObject.entries()), // or with spread: value: [...originalObject]
+    };
+  } else {
+    return value;
+  }
+}
+
 exports.getFaults = getFaults;
+exports.getChartData = getChartData;
