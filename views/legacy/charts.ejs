@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="refresh" content="500" />
+    <title>Graficas</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/Responsive.css" />
+  </head>
+
+  <body>
+    <style>
+      .float {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        bottom: 40px;
+        right: 20%;
+        z-index: 100;
+        background-color: #0c9;
+        color: #fff;
+        border-radius: 50px;
+        text-align: center;
+        box-shadow: 2px 2px 3px #999;
+        /* transform: translateX(-10%); */
+        max-width: inherit;
+      }
+    </style>
+    <button
+      id="printpagebutton"
+      type="button"
+      onclick="javascript:genPDF()"
+      style="width: 150px; height: 60px"
+      class="float"
+    >
+      Download PDF
+    </button>
+    <%- include(navbar) %>
+    <script>
+      let charts = { ov: false };
+    </script>
+    <div class="l grafica1 grafica" id="CR">
+      <script src="/js/Graficas/CoilR.js"></script>
+    </div>
+    <div class="r grafica" id="OV">
+      <script src="/js/Graficas/OpV.js"></script>
+    </div>
+    <div class="l grafica" id="RV">
+      <script src="/js/Graficas/ReV.js"></script>
+    </div>
+    <div class="r grafica" id="SCR">
+      <script src="/js/Graficas/SCRe.js"></script>
+    </div>
+    <div class="l grafica" id="OT">
+      <script src="/js/Graficas/OpT.js"></script>
+    </div>
+    <div class="r grafica" id="RT">
+      <script src="/js/Graficas/RelT.js"></script>
+    </div>
+
+    <div class="scontainer">
+      <div class="square1"></div>
+      <div class="results results1" id="Mean">
+        Mean: <span id="mean"></span>
+      </div>
+      <div class="square2"></div>
+      <div class="results results2" id="Sigma">Sigma:</div>
+      <div class="square3"></div>
+      <div class="results results3" id="VcPK">VcPK:</div>
+      <div class="square4"></div>
+      <div class="results results4" id="LcPK">LcPK:</div>
+    </div>
+
+    <div class="buttons dropdown col-5">
+      <select id="select">
+        <option value="CR">Coil Resistance</option>
+        <option value="OV">Operate Voltage</option>
+        <option value="RV">Release Voltage</option>
+        <option value="OT">Operate Time</option>
+        <option value="RT">Release Time</option>
+        <option value="SCR">Static Contact Resistance</option>
+      </select>
+    </div>
+
+    <script src="/js/legend.js"></script>
+    <script>
+      $(window).resize(function () {
+        location.reload();
+      });
+    </script>
+    <%- include(footer) %>
+    <!-- <div class="footer col-12">
+          <p>Footer</p>
+        </div> -->
+    <%- include(pdfGenerator) %>
+  </body>
+</html>

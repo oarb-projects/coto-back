@@ -131,6 +131,10 @@ api.onreadystatechange = function() {
             },
         }
 
+        console.log(x);
+        console.log(y);
+        console.log(z);
+
         var data = [trace1, sigma, vc, lc];
         var layout = {
             title: "Coil Resistance",

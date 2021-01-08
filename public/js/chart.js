@@ -124,11 +124,20 @@ var img_jpg = d3.select('#jpg-export');
     function(gd)
      {
       Plotly.toImage(gd,{height:300,width:300})
-         .then(
-             function(url)
-         {
-             img_jpg.attr("src", url);
-             return Plotly.toImage(gd,{format:'jpeg',height:400,width:400});
-         }
+         .then( function(url)
+            {
+                img_jpg.attr("src", url);
+                console.log(Plotly.toImage(gd,{format:'jpeg',height:400,width:400}))
+                return Plotly.toImage(gd,{format:'jpeg',height:400,width:400});
+            }
          )
     });
+
+
+  // Plotly.plot('OV', data, layout).then(function() {
+  //     window.requestAnimationFrame(function() {
+  //         window.requestAnimationFrame(function() {
+  //         window.alert('Your plot is done.');
+  //         });
+  //     });
+  // });
