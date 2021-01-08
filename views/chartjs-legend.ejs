@@ -1,11 +1,14 @@
 <div class="disapear-md" id="<%=id%>-main-container">
     <div class="graph-title">
-        <p class="btn btn-danger" id="left<%=id%>">
-            <-</p>
+        <button type="button" class="btn btn-danger" id="left<%=id%>">
+            <i class="icon-arrow-left"></i> 
+        </button>
                 <p>
                     <%=title%>
                 </p>
-                <p class="btn btn-danger" id="right<%=id%>">-></p>
+        <button type="button" class="btn btn-danger" id="right<%=id%>">
+            <i class="icon-arrow-right"></i>
+        </button>
     </div>
 
     <div class="graph-content">
@@ -18,22 +21,17 @@
         </div>
 
         <div class="legend-container">
-            <div>
                 <p class="little-box bg-blue"></p>
                 <p id="mean<%=id%>">Mean: </p>
-            </div>
-            <div>
+            
                 <p class="little-box bg-orange"></p>
                 <p id="Sgma<%=id%>">Sgma: </p>
-            </div>
-            <div>
+            
                 <p class="little-box bg-green"></p>
                 <p id="VcPk<%=id%>">VcPk: </p>
-            </div>
-            <div>
+            
                 <p class="little-box bg-red"></p>
                 <p id="LcPk<%=id%>">LcPk: </p>
-            </div>
         </div>
     </div>
 </div>

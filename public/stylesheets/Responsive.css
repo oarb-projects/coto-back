@@ -43,6 +43,24 @@ body {
     display: block;
 }
 
+/* Utilities */
+.border-5 {
+    border-width: 5px !important;
+}
+.border-gray {
+    border-color:#aeb0af !important;
+}
+.appear-md{
+    display: none;
+}
+@media (max-width: 764px){
+    .appear-md{
+        display: unset;
+    }
+}
+.font-weight-bold{
+    font-weight: bold;
+}
 
 /*Login form */
 
@@ -112,7 +130,6 @@ img {
 
 div.header {
     text-align: center;
-    background-color: #000000;
     color: #ffffff;
     font-size: 2em;
     font-family: Berlin Sans FB Demi;
@@ -297,6 +314,12 @@ option {
 }
 
 a {
+    font-family: Berlin Sans FB Demi;
+    font-size: 1.5em;
+    color: #ffffff;
+    text-decoration: none;
+}
+.link-text{
     font-family: Berlin Sans FB Demi;
     font-size: 1.5em;
     color: #ffffff;
