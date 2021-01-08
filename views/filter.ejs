@@ -5,9 +5,14 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=s, initial-scale=1.0">
 	<title>File Selection Criteria</title>
-	<link rel="stylesheet" type="text/css" href="/stylesheets/header.css">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/footer.css">
-	<link rel="stylesheet" href="stylesheets/filter.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/header.css"/>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/footer.css"/>
+	<link rel="stylesheet" href="stylesheets/filter.css"/>
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>  
+	<link rel="stylesheet" href="stylesheets/materialize.css"/>
+	<link rel="stylesheet" href="stylesheets/materialize.min.css"/>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	<script src="js/DateTime.js"></script>
 </head>
 
@@ -21,39 +26,217 @@
 		<hr class="line2">
 	</div>
 	<div class="fsbox" style="margin-bottom:20px">
-		<div class="wrapper">
-			<div class="div1">
-				<p class="des pno">Part number</p>
-				<p class="des">Application</p>
-				<p class="des">Filename</p>
-				<p class="des">Test date</p>
-				<p class="des dc">Datecode-sw</p>
-				<p class="des dc">Datecode-rel</p>
-				<p class="des">Yield</p>
-				<p class="des">Min lot size</p>
+		<div class="container">  
+			<div class="row">
+				<div class="input-field col s12">				
+					<input placeholder="0000-0000" type="text" id="part_num" class="autocomplete">
+					<label for="part_num" class="active">Part Number</label>
+				</div>
+				
+			</div>
 
+			<div class="row">
+				<label>Application</label>
+				 <select class="browser-default" id="app">
+					<option value="" disabled selected>Choose your option</option>
+					<option value="1">FINAL</option>
+					<option value="2">CUSTOMER</option>
+					<option value="3">INCOMING</option>
+					<option value="4">PRETEST</option>
+					<option value="5">RESET</option>
+					<option value="6">SORT</option>
+					<option value="7">SET</option>
+				 </select>
 			</div>
-			<div class="div2">
-				<p><input type="text" class="txt" placeholder="0000-0000" name="" value="" /></p>
-				<p><input type="text" class="txt" placeholder="Final, Engineering..." name="" value="" /></p>
-				<p><input type="text" class="txt" placeholder="" name="" value="" /></p>
-				<p><input type="date" class="txt2" placeholder="" name="" value="" /> - <input type="date" class="txt2" placeholder="mm/dd/yyyy" name="" value="" /></p>
-				<p><input type="text" class="txt2" placeholder="0" name="" value="" /> - <input type="text" class="txt2" placeholder="0" name="" value="" /></p>
-				<p><input type="text" class="txt2" placeholder="0" name="" value="" /> - <input type="text" class="txt2" placeholder="0" name="" value="" /></p>
-				<p><input type="text" class="txt2" placeholder="0" name="" value="" /> - <input type="text" class="txt2" placeholder="0" name="" value="" /></p>
-				<p><input type="text" class="txt2" placeholder="0" name="" value="" /> - <input type="text" class="txt2" placeholder="0" name="" value="" /></p>
-				<p><input type="text" class="txt" placeholder="0" name="" value="" /></p>
+
+			<div class="row">
+				<label>Selection</label>
+				  <select class="browser-default" id="sel">
+					<option value="" disabled selected>Choose your option</option>
+					<option value="1">System 1</option>
+					<option value="2">System 2</option>
+					<option value="3">System 3</option>
+					<option value="4">System 4</option>
+					<option value="5">System 5</option>
+				  </select>
 			</div>
-		</div>
-		<div class="divbtn"><input class="btn" type="button" name="" value="OK" onclick="stuff()" /></div>
+
+			<div class="row">			  
+				<div class="input-field col s6">
+				  <input placeholder="dd-mm-yy" id="Date1" type="text" class="datepicker">
+				  <label class="active active2">Test date</label>
+				</div>
+				<div class="input-field col s6">
+				  <input placeholder="dd-mm-yy" id="Date2" type="text" class="datepicker">
+				  
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="input-field col s6">
+				  <input placeholder="0" id="Plt1" type="text" class="validate">
+				  <label for="Plt1" class="active">PLT number</label>
+				</div>
+				<div class="input-field col s6">
+				  <input placeholder="0" id="Plt2" type="text" class="validate">
+				  <label for="Plt2"></label>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="input-field col s6">
+				  <input placeholder="0" id="dcs1" type="text" class="validate">
+				  <label for="dcs1" class="active">Datecode switch</label>
+				</div>
+				<div class="input-field col s6">
+				  <input placeholder="0" id="dcs2" type="text" class="validate">
+				  <label for="dcs2"></label>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="input-field col s6">
+				  <input placeholder="0" id="dcr1" type="text" class="validate">
+				  <label for="dcr1" class="active">Datecode relay</label>
+				</div>
+				<div class="input-field col s6">
+				  <input placeholder="0" id="dcr2" type="text" class="validate">
+				  <label for="dcr2"></label>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="input-field col s6">
+				  <input placeholder="0" id="yld1" type="text" class="validate">
+				  <label for="yld1" class="active">Yield</label>
+				</div>
+				<div class="input-field col s6">
+				  <input placeholder="0" id="yld2" type="text" class="validate">
+				  <label for="yld2"></label>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="input-field col s12">
+				  <input placeholder="0" id="lot" type="text" class="validate">
+				  <label for="lot" class="active">Min lot size</label>
+				</div>
+			</div>
+		</div>	
+		<div class="divbtn"><input class="btn" type="button" name="" value="OK" onclick="filter()" /></div>
 	</div>
 	<%- include(footer) %>
 
 	<script>
-		function stuff(){
-			window.location.href="/summary"
+		document.addEventListener('DOMContentLoaded', function() {
+			var elems = document.querySelectorAll('.datepicker');
+			var instances = M.Datepicker.init(elems, {
+								format: 'dd-mm-yy',
+								showClearBtn:true
+							});
+		});
+	
+		
+		$(document).ready(function(){
+		$('input.autocomplete').autocomplete({
+			data: {
+			  "8000-0004": null,
+			  "8000-0007": null,
+			  "8000-0008": null,
+			  "8000-0012": null,
+			  "8000-0013": null,
+			  "8041-05-000": null,
+			  "8041-05-001": null,
+			  "8041-05-011": null,
+			  "8041-05-100": null,
+			  "8041-05-101": null,
+			  "8041-05-110": null,
+			  "8041-05-111": null,
+			  "0122-0015-0000": null,
+			  "0150-0005-0102": null,
+			  "0150-0011-0102": null,
+			  "0150-0011-0304": null
+			}
+		  });
+		});
+
+  
+
+
+		function filter(){
+			var pno_length = document.getElementById("part_num").value.length;
+			var app_length = document.getElementById("app").value.length;
+			var sel_length = document.getElementById("sel").value.length;
+			var date1_length = document.getElementById("Date1").value.length;
+			var date2_length = document.getElementById("Date2").value.length;
+			var plt1_length = document.getElementById("Plt1").value.length;
+			var plt2_length = document.getElementById("Plt2").value.length;
+			var dcs1_length = document.getElementById("dcs1").value.length;
+			var dcs2_length = document.getElementById("dcs2").value.length;
+			var dcr1_length = document.getElementById("dcr1").value.length;
+			var dcr2_length = document.getElementById("dcr2").value.length;
+			var yld1_length = document.getElementById("yld1").value.length;
+			var yld2_length = document.getElementById("yld2").value.length;
+			var lot_length = document.getElementById("lot").value.length;		
+			
+			if(!pno_length && !app_length && !sel_length && !date1_length && !date2_length && !plt1_length && !plt2_length &&
+			   !dcs1_length && !dcs2_length && !dcr1_length && !dcr2_length && !yld1_length && !yld2_length && !lot_length){
+				
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Select at least one parameter',				
+				})
+			}
+			else{
+				const sentData = {
+					 part_no: document.getElementById("part_num").value,
+					 application: document.getElementById("app").value,
+					 selection: document.getElementById("sel").value,
+					 date1: document.getElementById("Date1").value,
+					 date2: document.getElementById("Date2").value,
+					 plt1: document.getElementById("Plt1").value,
+					 plt2: document.getElementById("Plt2").value,
+					 datecode_sw1: document.getElementById("dcs1").value,
+					 datecode_sw2: document.getElementById("dcs2").value,
+					 datecode_rel1: document.getElementById("dcr1").value,
+					 datecode_rel2: document.getElementById("dcr2").value,
+					 yield1: document.getElementById("yld1").value,
+					 yield2: document.getElementById("yld2").value,
+					 lot_size: document.getElementById("lot").value
+
+				};
+				// https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+				fetch("/filterdb", {
+				  method: "POST",
+				  body: JSON.stringify(sentData),
+				  headers: {
+					"Content-Type": "application/json",
+				  },
+				})
+				  .then(function (res) {
+					return res.json();
+				  })
+				  .then(function (data) {
+					console.log(data);
+					var queryString = Object.keys(sentData)
+					  .map((key) => {
+						return (
+						  encodeURIComponent(key) +
+						  "=" +
+						  encodeURIComponent(sentData[key])
+						);
+					  })
+					  .join("&");
+					console.log(queryString);
+					// debugger;
+					window.location.href = "/summary?" + queryString;
+				  });
+				 window.location.href = "/summary";
+			}		
+			
 		}
 	</script>
-
+	<script type="text/javascript" src="js/materialize.min.js"></script>
 </body>
 </html>
