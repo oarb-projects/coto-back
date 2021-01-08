@@ -151,9 +151,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 
             };
 
-            document.getElementById(`${actual.id}-main-container`).className  = "d-block";
+            document.getElementById(`${actual.id}-main-container`).style.display  = "block";
+            
             let ctx = document.getElementById(actual.id).getContext("2d");        
             let myChart = new Chart(ctx, barChartData);
+
+            document.getElementById(`${actual.id}-main-container`).style.display  = "";
 
             let leftButton = document.getElementById(`left${actual.id}`);
             let rightButton = document.getElementById(`right${actual.id}`);

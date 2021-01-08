@@ -62,18 +62,30 @@ const parameters = [
 async function getFaults(resArr) {
   var map = new Map();
 
-  for(var element of resArr){
+  for (var element of resArr) {
     var array = [];
 
-    for(var table of parameters){
-      var quantity = await getQuantity(`SELECT * FROM \`${table.access}\` WHERE \`flag\` = "1" AND \`test_no\` = "${element.dut_no}"`);
+    for (var table of parameters) {
+      var quantity = await getQuantity(
+        `SELECT * FROM \`${table.access}\` WHERE \`flag\` = "1" AND \`test_no\` = "${element.dut_no}"`
+      );
       array.push({ name: `Falla ${table.name}`, quantity: quantity });
     }
 
-    map.set(element.dut_no, {total: resArr.length, array: array});
+    map.set(element.dut_no, { total: resArr.length, array: array });
   }
 
-  return JSON.stringify(map, replacer);  
+  var array = [];
+  for (var i = 0; i < parameters.length; i++) {
+    var quantity = 0;
+    map.forEach(function (value, key, map) {
+      quantity += value.array[i].quantity;
+    });
+    array.push({ name: `Falla ${parameters[i].name}`, quantity: quantity });
+  }
+  map.set("TOTAL", { total: resArr.length, array: array });
+
+  return JSON.stringify(map, replacer);
 }
 
 async function getQuantity(text) {
@@ -85,13 +97,17 @@ async function getQuantity(text) {
 
 async function getChartData(resArr) {
   var map = new Map();
-  
-  for(var element of resArr){
+
+  for (var element of resArr) {
     var tables = JSON.parse(JSON.stringify(parameters));
 
-    for(var table of tables){
-      table.data = await queryPromise(`SELECT result1 FROM \`${table.access}\` WHERE \`test_no\` = "${element.dut_no}"`);
-      table.measures = await queryPromise(`SELECT AVG(result1), MIN(result1), MAX(result1) FROM \`${table.access}\` WHERE \`test_no\` = "${element.dut_no}"`);
+    for (var table of tables) {
+      table.data = await queryPromise(
+        `SELECT result1 FROM \`${table.access}\` WHERE \`test_no\` = "${element.dut_no}"`
+      );
+      table.measures = await queryPromise(
+        `SELECT AVG(result1), MIN(result1), MAX(result1) FROM \`${table.access}\` WHERE \`test_no\` = "${element.dut_no}"`
+      );
     }
 
     map.set(element.dut_no, tables);
@@ -111,9 +127,9 @@ function queryPromise(str) {
 
 function replacer(key, value) {
   const originalObject = this[key];
-  if(originalObject instanceof Map) {
+  if (originalObject instanceof Map) {
     return {
-      dataType: 'Map',
+      dataType: "Map",
       value: Array.from(originalObject.entries()), // or with spread: value: [...originalObject]
     };
   } else {

@@ -1,5 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
     let selector = document.querySelector('#test-no-selecter');
+    let table = $('#content-table').DataTable({
+        "order": [
+            [1, "desc"]
+        ],
+        "lengthChange": false
+    });
 
     data.forEach(function(value, key, map){
         let node = document.createElement("option");
@@ -8,29 +14,17 @@ document.addEventListener("DOMContentLoaded", function () {
         selector.appendChild(node);
     });
 
-    let updatePageDate = function(){
+    function updatePageDate(){
         let totalSpan = document.querySelector('#pieces-quantity');
-        let tableContent = document.querySelector('#content-table tbody');
-        let value = data.get(parseInt(selector.value));
+        let value = data.get(parseInt(selector.value)) || data.get(selector.value);
 
-        let tableNewContent = document.createElement("tbody");
+        table.clear();
 
         for(let element of value.array){
-            let row = document.createElement("tr");
-            let nameCell = document.createElement("td");
-            let quantityCell = document.createElement("td");
-            let nameText = document.createTextNode(element.name); 
-            let quantityText = document.createTextNode(element.quantity); 
-
-            nameCell.appendChild(nameText);
-            quantityCell.appendChild(quantityText);
-            row.appendChild(nameCell);
-            row.appendChild(quantityCell);
-
-            tableNewContent.appendChild(row);
+            table.row.add([element.name, element.quantity]);
         }
 
-        tableContent.parentNode.replaceChild(tableNewContent, tableContent);
+        table.draw();
         totalSpan.innerText = value.total;
     }
 
