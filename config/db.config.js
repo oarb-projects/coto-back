@@ -1,12 +1,10 @@
 var mysql = require("mysql");
 
 const dbconnection = mysql.createPool({
-  connectionLimit: 100,
-  host: process.env.HOST,
-  user: process.env.USER,
-  password: process.env.PASSWORD,
-  database: "Coto",
-  debug: false,
+  host: "coto-1.cjlxz9e5sgts.us-west-1.rds.amazonaws.com",
+    user: "admin",
+    database: 'Coto',
+    password: "cfpfk5qf"
 });
 
 // Attempt to catch disconnects

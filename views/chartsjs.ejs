@@ -6,6 +6,9 @@
     <meta http-equiv="refresh" content="500" />
     <title>Graficas</title>
 
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -22,52 +25,55 @@
   </head>
 
   <body>
-    <style>
-      .float {
-        position: fixed;
-        /* width: 60px; */
-        padding: 10px 20px;
-        height: 60px;
-        bottom: 40px;
-        right: 20%;
-        z-index: 100;
-        background-color: #0c9;
-        color: #fff;
-        border-radius: 50px;
-        text-align: center;
-        box-shadow: 2px 2px 3px #999;
-        /* transform: translateX(-10%); */
-        /* max-width: inherit; */
-      }
-    </style>
     <%- include(navbar) %>
-    <script src=" /js/GraficasJs/parameters.js"></script>
+    
+    <% function reviver(key, value) {
+      if(typeof value === 'object' && value !== null) {
+        if (value.dataType === 'Map') {
+          return new Map(value.value);
+        }
+      }
+      return value;
+    } 
+
+    var parts = JSON.parse(data, reviver);
+    var tables = parts.values().next().value;
+    %>
 
     <div class="main-container">
+      <div id="test-no-container">
+        <label for="test-no-selecter">Selecciona un Numero de Parte:</label>
+        <select id="test-no-selecter" class="custom-select custom-select-lg mb-3">
+          <% parts.forEach(function(value, key, map){ %>
+            <option><%-key%></option>
+          <% }); %>
+        </select>
+      </div>
+
       <div class="second-container">
-        <%- include(chart_legend, {title: "Coil Resistance",id: "CR"}) %> <%-
-        include(chart_legend, {title: "Operate Voltage",id: "OV"}) %> <%-
-        include(chart_legend, {title: "Release Voltage", id: "RV"}) %> <%-
-        include(chart_legend, {title: "Static CR", id: "SCR"}) %> <%-
-        include(chart_legend, {title: "Operate Time", id: "OT"}) %> <%-
-        include(chart_legend, {title: "Release Time", id: "RT"}) %>
+        <% for(var table of tables){ %>
+          <%- include(chart_legend, {title: table.name,id: table.id}) %>
+        <% } %>
       </div>
     </div>
 
     <div class="buttons dropdown col-5">
-      <select id="select" onchange="changeVisibility()">
-        <option value="SELECT" selected disabled>SELECT</option>
+      <select id="select">
+        <% for(var table of tables){ %>
+          <option value="<%-table.id%>"><%-table.name%></option>
+        <% } %>
       </select>
-      
     </div>
 
     <%- include(footer) %>
-
+    
+    <script>
+      var str = <%- data %>;
+      var data = new Map(str.value);
+    </script>
     <script src=" /js/GraficasJs/graph.js"></script>
-    <script src=" /js/GraficasJs/letsDoItResponsive.js"></script>
     <script src="/js/GraficasJs/socketio.js" charset="utf-8"></script>
     <script src=" /js/GraficasJs/socketcomms.js "></script>
     <button id="send" class="float">Descargar pdf</button>
-
   </body>
 </html>
