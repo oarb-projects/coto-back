@@ -122,10 +122,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let params = new URLSearchParams(window.location.search);
   if (params.get("pdf") == "true") {
+    let title = document.createElement('h1');
+    let text = document.createTextNode('Test Info');
+    title.appendChild(text);
+    title.style.textAlign = 'center';
+
     let content = document.getElementById('testDiv');
     content.style.width = '100%';
 
     document.body.innerHTML = '';
+    document.body.appendChild(title);
     document.body.appendChild(content);
   }
 });

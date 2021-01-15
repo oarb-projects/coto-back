@@ -57,24 +57,6 @@ const parameters = [
     limitB: 60,
     width: 1,
   },
-  // {
-  //   id: "K",
-  //   name: "Actuate Time",
-  //   access: "actuate_time",
-  //   scaleUnits: "Usecs",
-  //   limitA: 30,
-  //   limitB: 50,
-  //   width: 0.5,
-  // },
-  // {
-  //   id: "P",
-  //   name: "Release Time",
-  //   access: "release_time",
-  //   scaleUnits: "Usecs",
-  //   limitA: 40,
-  //   limitB: 60,
-  //   width: 1,
-  // }
 ];
 
 async function getFaults(resArr) {

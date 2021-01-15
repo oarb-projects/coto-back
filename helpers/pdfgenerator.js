@@ -23,14 +23,13 @@ const sendPdf = (socket, browser, chartsImages) => {
   const location = path.join(__dirname, "../pdfpreviews/output.pdf");
   try {
     fs.unlinkSync(location);
-    //file removed
   } catch (err) {
     console.error(err);
   }
   const writeStream = fs.createWriteStream("./pdfpreviews/output.pdf");
   doc.pipe(writeStream);
   doc.image("./pdfpreviews/summary.png", {
-    width: 510,
+    width: 512,
     align: "center",
   });
 
@@ -38,11 +37,14 @@ const sendPdf = (socket, browser, chartsImages) => {
     align: 'center'
   });
 
-  //Images mesures
   const width = 252;
   const height = 169;
 
   for(let table of chartsImages){
+    if(doc.x != 50){
+      doc.x = 50;
+      doc.y += height;
+    }
     if(doc.y > 700 - height){
       doc.addPage();
     }
@@ -100,13 +102,12 @@ const chartScreenshot = async (socket, url) => {
 
   const page = await browser.newPage();
 
-  // wait until every network connection is over (network idle 0)
+  // Charts
   await page.goto(
     `http://localhost:8080/chartsjs${url}&pdf=true`,
     { waitUntil: "networkidle0" }
   );
   await page.waitForSelector(".second-container");
-
 
   const values = await page.$$eval('#test-no-selecter > option', options => options.map(op => op.value));
   const chartsContainers = await page.$$eval('.second-container > div', containters => containters.map(cont => cont.id));
@@ -128,6 +129,7 @@ const chartScreenshot = async (socket, url) => {
   console.log("Charts images generated");
 
 
+  //Summary
   await page.goto(
     `http://localhost:8080/summary${url}&pdf=true`,
     { waitUntil: "networkidle0" }
@@ -138,6 +140,7 @@ const chartScreenshot = async (socket, url) => {
     omitBackground: true,
     fullPage: true
   });
+  
   
   console.log("Summary image generated");
 
