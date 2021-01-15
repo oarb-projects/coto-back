@@ -642,7 +642,7 @@ option {
 
 .graph-content {
     display: grid;
-    grid-template-columns: 4% 75% 20%;
+    grid-template-columns: 80% 20%;
 }
 @media only screen and (max-width: 764px) {
     .graph-content {
@@ -653,12 +653,17 @@ option {
 }
 
 .graph-title {
-    margin: 2rem auto 1rem auto;
+    margin: 2rem 12% 1rem auto;
     font-size: 1rem;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     text-align: center;
+}
+@media only screen and (max-width: 764px) {
+    .graph-title {
+        margin: 2rem auto 1rem auto;
+    }
 }
 
 .graph-container {

@@ -24,28 +24,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if(params.get('pdf') == 'true'){
         let content = document.querySelector('.second-container');
 
-        document.body.style.backgroundColor = 'white';
-        document.querySelector(".second-container").style = "background-color:white; margin: 0; width: 100%;";
         content.style = "background-color:white; margin: 0; width: 100%";
         $('.btn-danger').css('display', 'none');
-        $('.d-unset').css('height', '500px');
-        $('.disapear-md').css('height', '');
-        noSelector.style.display = 'none';
-
-        let title = document.createElement('h1');
-        let text = document.createTextNode(`No. Part: ${noSelector.value}`);
-        title.style = "background-color:white; text-align: center; font-weight: bold; width: 100%; height: 3vh; "
-        title.appendChild(text);
-
-        document.body.innerHTML = '';
-        document.body.appendChild(noSelector);
-        document.body.appendChild(title);
-        document.body.appendChild(content);
-
-        noSelector.addEventListener('change', function(){
-            updatePageData();
-            title.innerHTML = `No. Part: ${noSelector.value}`;
-        });
+        $('#send').css('display', 'none');
     }
 
     function updatePageData(){

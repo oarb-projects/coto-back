@@ -15,9 +15,10 @@ const sendPngImage = (screenshotBuffer, socket, browser) => {
   });
 };
 
-const sendPdf = (socket, browser) => {
+const sendPdf = (socket, browser, chartsImages) => {
   const doc = new PDFDocument({
-    size: [1260, 1635],
+    size: [612, 792],
+    margin: 50
   });
   const location = path.join(__dirname, "../pdfpreviews/output.pdf");
   try {
@@ -29,16 +30,44 @@ const sendPdf = (socket, browser) => {
   const writeStream = fs.createWriteStream("./pdfpreviews/output.pdf");
   doc.pipe(writeStream);
   doc.image("./pdfpreviews/summary.png", {
-    // fit: [500, 400],
-    width: 1130,
+    width: 510,
     align: "center",
-    valign: "center",
   });
-  doc.addPage().image("./pdfpreviews/charts.png", {
-    // fit: [500,400],
-    align: "center",
-    valign: "center",
+
+  doc.addPage().fontSize(30).font('Helvetica-Bold').text(`Charts`, {
+    align: 'center'
   });
+
+  //Images mesures
+  const width = 252;
+  const height = 169;
+
+  for(let table of chartsImages){
+    if(doc.y > 700 - height){
+      doc.addPage();
+    }
+
+    doc.fontSize(18).font('Helvetica').text(`Part no: ${table.noPart}`, {align: 'center'});  
+
+    for(let img of table.images){
+      if(doc.y > 742 - height){
+        doc.addPage();
+      }
+
+      doc.image(img, {
+        width,
+        height,
+      });
+
+      doc.x = (doc.x + width) % (2 * width);
+
+      if(doc.x != 50){
+        doc.y -= height;
+      }
+    }
+
+    doc.y += 30;
+  }
   doc.end();
 
   writeStream.on("finish", function () {
@@ -78,12 +107,25 @@ const chartScreenshot = async (socket, url) => {
   );
   await page.waitForSelector(".second-container");
 
-  await page.screenshot({
-    path: "./pdfpreviews/charts.png",
-    omitBackground: true,
-    fullPage: true
-  });
-  console.log("Charts image generated");
+
+  const values = await page.$$eval('#test-no-selecter > option', options => options.map(op => op.value));
+  const chartsContainers = await page.$$eval('.second-container > div', containters => containters.map(cont => cont.id));
+
+  let chartsImages = [];
+  
+  for(let noPart of values){
+    await page.select('#test-no-selecter', noPart);
+
+    let images = [];
+    for(let i of chartsContainers){
+      let chart = await page.$(`#${i}`);
+  
+      images.push(await chart.screenshot());
+    }
+    
+    chartsImages.push({noPart, images});
+  }  
+  console.log("Charts images generated");
 
 
   await page.goto(
@@ -96,10 +138,11 @@ const chartScreenshot = async (socket, url) => {
     omitBackground: true,
     fullPage: true
   });
+  
   console.log("Summary image generated");
 
   // sendPngImage(screenshotBuffer,socket,browser);
-  sendPdf(socket, browser);
+  sendPdf(socket, browser, chartsImages);
 };
 
 exports.chartGenerator = chartScreenshot;
