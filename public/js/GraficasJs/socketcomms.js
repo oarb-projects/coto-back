@@ -16,6 +16,14 @@ window.onload = function (event) {
   }
 
   btn.addEventListener("click", function () {
+    swal({
+      title: "Loading...",
+      showConfirmButton: false,
+    });
+    document.querySelector('.sweet-alert').style.top = '45%';
+    document.querySelector(".sa-custom").style = "width: 4rem; height: 4rem;";
+    document.querySelector(".sa-custom").className = "spinner-border text-primary d-inline-flex my-3";
+
     socket.emit("generate-pdf", window.location.search);
   });
 
@@ -30,10 +38,13 @@ window.onload = function (event) {
   });
 
   socket.on("pdf", function (info) {
+    swal("Done!", "", "success");
+    document.querySelector('.sweet-alert').style.top = '55%';
+    document.querySelector(".spinner-border").className = "sa-icon sa-custom d-none";
+
     console.log(info);
     let pdfBlob = new Blob([info.buffer], { type: "application/pdf" });
     let url = webkitURL.createObjectURL(pdfBlob);
     window.open(url);
   });
-
 };
