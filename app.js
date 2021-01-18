@@ -55,6 +55,6 @@ const io = socket(server);
 io.on("connection", (socket) => {
   console.log("a user connected");
   socket.on("generate-pdf", (arg) => {
-    helpers.chartGenerator(1500, 1600, socket);
+    helpers.chartGenerator(socket, arg);
   });
 });

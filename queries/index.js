@@ -116,6 +116,16 @@ async function getChartData(resArr) {
   return JSON.stringify(map, replacer);
 }
 
+async function getTestInfo(resArr) {
+  var map = new Map();
+
+  for (var element of resArr) {
+    map.set(element.dut_no, element);
+  }
+
+  return JSON.stringify(map, replacer);
+}
+
 function queryPromise(str) {
   return new Promise((resolve, reject) => {
     con.query(str, (error, results, fields) => {
@@ -139,3 +149,4 @@ function replacer(key, value) {
 
 exports.getFaults = getFaults;
 exports.getChartData = getChartData;
+exports.getTestInfo = getTestInfo;

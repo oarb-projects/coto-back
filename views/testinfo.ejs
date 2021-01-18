@@ -15,7 +15,7 @@
     />
     <link rel="stylesheet" type="text/css" href="/stylesheets/testinfo.css" />
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   </head>
   <body>
     <%- include(navbar) %>
@@ -24,7 +24,12 @@
       <hr class="line2" />
     </div>
     <main>
-      <div id="main-container">
+      <div id="test-no-container">
+        <label for="test-no-selector">Selecciona un Numero de Parte:</label>
+        <select id="test-no-selector" class="custom-select custom-select-lg mb-3">
+        </select>
+      </div>
+      <div id="main-container">        
         <div class="column">
           <p>Filename: <span id="filename">D5900733</span></p>
           <p>TEST DATE: <span id="test_date">8/27/19</span></p>
@@ -44,8 +49,10 @@
     </main>
     <%- include(footer) %>
 
+    <script>
+      var str = <%- data %>;
+      var data = new Map(str.value);
+    </script>
     <script src=" /js/testinfo.js"></script>
   </body>
-
-  <script></script>
 </html>

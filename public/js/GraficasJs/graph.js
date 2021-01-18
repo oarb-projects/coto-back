@@ -19,7 +19,16 @@ document.addEventListener("DOMContentLoaded", function () {
     noSelector.addEventListener('change', updatePageData);
     updatePageData();
 
-    //TODO: Confirm that limitA and limitB are given values
+    //PDF
+    let params = new URLSearchParams(window.location.search);
+    if(params.get('pdf') == 'true'){
+        let content = document.querySelector('.second-container');
+
+        content.style = "background-color:white; margin: 0; width: 100%";
+        $('.btn-danger').css('display', 'none');
+        $('#send').css('display', 'none');
+    }
+
     function updatePageData(){
         let actualArray = data.get(parseInt(noSelector.value));
     

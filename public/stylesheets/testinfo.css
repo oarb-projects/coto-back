@@ -14,3 +14,22 @@
    
 }
 
+#test-no-container{
+    width: 50%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+@media only screen and (max-width: 764px) {
+    #test-no-container{
+        width: 70%;
+
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+#test-no-container label{
+    color: #222;
+}
+
