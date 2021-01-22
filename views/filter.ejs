@@ -4,10 +4,10 @@
 
 <head>
 	<meta charset="utf-8" />
-	<meta name="viewport" content="width=s, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>File Selection Criteria</title>
 	<link rel="stylesheet" type="text/css" href="/stylesheets/header.css"/>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/footer.css"/>
+    	<link rel="stylesheet" type="text/css" href="/stylesheets/footer.css"/>
 	<link rel="stylesheet" href="stylesheets/filter.css"/>
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>  
@@ -52,23 +52,33 @@
 
 			<div class="row">
 				<label>Selection</label>
-				  <select class="browser-default" id="sel">
-					<option value="" disabled selected>Choose your option</option>
-					<option value="1">System 1</option>
-					<option value="2">System 2</option>
-					<option value="3">System 3</option>
-					<option value="4">System 4</option>
-					<option value="5">System 5</option>
-				  </select>
+				<select multiple class="select_all" id="sel">
+					<!--<option value="" disabled selected>Choose your option</option>-->
+					<option value = "1">System 1</option>
+					<option value = "2">System 2</option>
+					<option value = "3">System 3</option>
+					<option value = "4">System 4</option>
+					<option value = "5">System 5</option>
+					<option value = "6">System 6</option>
+					<option value = "7">System 7</option>
+					<option value = "8">System 8</option>
+					<option value = "9">System 9</option>
+					<option value = "10">System 10</option>
+					<option value = "11">System 11</option>
+					<option value = "12">System 12</option>
+					<option value = "13">System 13</option>
+					<option value = "14">System 14</option>
+					<option value = "15">System 15</option>
+				</select> 
 			</div>
 
 			<div class="row">			  
 				<div class="input-field col s6">
-				  <input placeholder="dd-mm-yy" id="Date1" type="text" class="datepicker">
+				  <input placeholder="yyyy-mm-dd" id="Date1" type="date">
 				  <label class="active active2">Test date</label>
 				</div>
 				<div class="input-field col s6">
-				  <input placeholder="dd-mm-yy" id="Date2" type="text" class="datepicker">
+				  <input placeholder="yyyy-mm-dd" id="Date2" type="date">
 				  
 				</div>
 			</div>
@@ -86,40 +96,40 @@
 
 			<div class="row">
 				<div class="input-field col s6">
-				  <input placeholder="0" id="dcs1" type="text" class="validate">
+				  <input placeholder="0" id="dcs1" type="number" onchange="document.getElementById('dcs2').min=parseInt(this.value)+1;" onkeyup="if(this.value<0){this.value= this.value * -1}" min="0" class="validate">
 				  <label for="dcs1" class="active">Datecode switch</label>
 				</div>
 				<div class="input-field col s6">
-				  <input placeholder="0" id="dcs2" type="text" class="validate">
+				  <input placeholder="0" id="dcs2" type="number" onchange="document.getElementById('dcs1').max=parseInt(this.value)-1;" onkeyup="if(this.value<0){this.value= this.value * -1}" min="0" class="validate">
 				  <label for="dcs2"></label>
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="input-field col s6">
-				  <input placeholder="0" id="dcr1" type="text" class="validate">
+				  <input placeholder="0" id="dcr1" type="number" onchange="document.getElementById('dcr2').min=parseInt(this.value)+1;" onkeyup="if(this.value<0){this.value= this.value * -1}" min="0" class="validate">
 				  <label for="dcr1" class="active">Datecode relay</label>
 				</div>
 				<div class="input-field col s6">
-				  <input placeholder="0" id="dcr2" type="text" class="validate">
+				  <input placeholder="0" id="dcr2" type="number" onchange="document.getElementById('dcr1').max=parseInt(this.value)-1;" onkeyup="if(this.value<0){this.value= this.value * -1}" min="0" class="validate">
 				  <label for="dcr2"></label>
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="input-field col s6">
-				  <input placeholder="0" id="yld1" type="text" class="validate">
+				  <input placeholder="0" id="yld1" type="number" onchange="document.getElementById('yld2').min=parseFloat(this.value)+.01;" onkeyup="if(this.value<0){this.value= this.value * -1}" min="0" class="validate" step=".01">
 				  <label for="yld1" class="active">Yield</label>
 				</div>
 				<div class="input-field col s6">
-				  <input placeholder="0" id="yld2" type="text" class="validate">
+				  <input placeholder="0" id="yld2" type="number" onchange="document.getElementById('yld1').max=parseFloat(this.value)-.01;" onkeyup="if(this.value<0){this.value= this.value * -1}" min="0" class="validate" step=".01">
 				  <label for="yld2"></label>
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="input-field col s12">
-				  <input placeholder="0" id="lot" type="text" class="validate">
+				  <input placeholder="0" id="lot" type="number" onkeyup="if(this.value<0){this.value= this.value * -1}" min="0" class="validate">
 				  <label for="lot" class="active">Min lot size</label>
 				</div>
 			</div>
@@ -129,15 +139,6 @@
 	<%- include(footer) %>
 
 	<script>
-		document.addEventListener('DOMContentLoaded', function() {
-			var elems = document.querySelectorAll('.datepicker');
-			var instances = M.Datepicker.init(elems, {
-								format: 'dd-mm-yy',
-								showClearBtn:true
-							});
-		});
-	
-		
 		$(document).ready(function(){
 		$('input.autocomplete').autocomplete({
 			data: {
@@ -162,8 +163,78 @@
 		});
 
   
+  		$(document).ready(function() {
+			$("#sel").val([1]);
+			$('select').formSelect();
+			$('select.select_all').siblings('ul').prepend('<li id=sm_select_all><span>Select All</span></li>');
+			$('li#sm_select_all').on('click', function () {
+			  var jq_elem = $(this), 
+				  jq_elem_span = jq_elem.find('span'),
+				  select_all = jq_elem_span.text() == 'Select All',
+				  set_text = select_all ? 'Select None' : 'Select All';
+			  jq_elem_span.text(set_text);
+			  jq_elem.siblings('li').filter(function() {
+				return $(this).find('input').prop('checked') != select_all;
+			  }).click();
+			});
+		})
+
+		function validRanges() {
+			fDate = Date.parse(document.getElementById("Date1").value);
+			lDate = Date.parse(document.getElementById("Date2").value);
+			fdcs = document.getElementById("dcs1").value;
+			ldcs = document.getElementById("dcs2").value;
+			fdcr = document.getElementById("dcr1").value;
+			ldcr = document.getElementById("dcr2").value;
+			fyld = document.getElementById("yld1").value;
+			lyld = document.getElementById("yld2").value;
+
+			if(fDate >lDate){
+				//alert("Please enter proper duration range");
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'First date must be before second date',				
+				})
+				return false;
+			}   
 
 
+			if(document.getElementById("dcs1").value.length>0 && document.getElementById("dcs2").value.length>0 && fdcs >ldcs){
+				//alert("Please enter proper duration range");
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'First date code switch must be smaller than second date code switch',				
+				})
+				return false;
+			}   
+
+			if(document.getElementById("dcr1").value.length>0 && document.getElementById("dcr2").value.length>0 && fdcr >ldcr){
+				//alert("Please enter proper duration range");
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'First date code relay must be smaller than second date code relay',				
+				})
+				return false;
+			}   
+
+			if(document.getElementById("yld1").value.length>0 && document.getElementById("yld2").value.length>0 && fyld >lyld){
+				//alert("Please enter proper duration range");
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'First yield must be smaller than second yield',				
+				})
+				return false;
+			}   
+			else{
+				return true;
+			}
+
+		}
+  
 		function filter(){
 			var pno_length = document.getElementById("part_num").value.length;
 			var app_length = document.getElementById("app").value.length;
@@ -190,335 +261,67 @@
 				})
 			}
 			else{
-				const sentData = {
-					 part_no: document.getElementById("part_num").value,
-					 application: document.getElementById("app").value,
-					 selection: document.getElementById("sel").value,
-					 date1: document.getElementById("Date1").value,
-					 date2: document.getElementById("Date2").value,
-					 plt1: document.getElementById("Plt1").value,
-					 plt2: document.getElementById("Plt2").value,
-					 datecode_sw1: document.getElementById("dcs1").value,
-					 datecode_sw2: document.getElementById("dcs2").value,
-					 datecode_rel1: document.getElementById("dcr1").value,
-					 datecode_rel2: document.getElementById("dcr2").value,
-					 yield1: document.getElementById("yld1").value,
-					 yield2: document.getElementById("yld2").value,
-					 lot_size: document.getElementById("lot").value
+				if(validRanges()){
+					if(!date1_length){
+						var datetime1=document.getElementById("Date1").value;
+					}
+					else{
+						var datetime1=document.getElementById("Date1").value+" 00:00:00";
+					}
+					if(!date2_length){
+						var datetime2=document.getElementById("Date2").value;
+					}
+					else{
+						var datetime2=document.getElementById("Date2").value+" 23:59:59";
+					}			
+					const sentData = {
+						 part_no: document.getElementById("part_num").value,
+						 application: document.getElementById("app").value,
+						 selection: document.getElementById("sel").value,
+						 date1:datetime1,
+						 date2:datetime2,
+						 plt1: document.getElementById("Plt1").value,
+						 plt2: document.getElementById("Plt2").value,
+						 datecode_sw1: document.getElementById("dcs1").value,
+						 datecode_sw2: document.getElementById("dcs2").value,
+						 datecode_rel1: document.getElementById("dcr1").value,
+						 datecode_rel2: document.getElementById("dcr2").value,
+						 yield1: document.getElementById("yld1").value,
+						 yield2: document.getElementById("yld2").value,
+						 lot_size: document.getElementById("lot").value
 
-				};
-				// https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-				fetch("/filterdb", {
-				  method: "POST",
-				  body: JSON.stringify(sentData),
-				  headers: {
-					"Content-Type": "application/json",
-				  },
-				})
-				  .then(function (res) {
-					return res.json();
-				  })
-				  .then(function (data) {
-					console.log(data);
-					var queryString = Object.keys(sentData)
-					  .map((key) => {
-						return (
-						  encodeURIComponent(key) +
-						  "=" +
-						  encodeURIComponent(sentData[key])
-						);
+					};
+					// https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+					fetch("/filterdb", {
+					  method: "POST",
+					  body: JSON.stringify(sentData),
+					  headers: {
+						"Content-Type": "application/json",
+					  },
+					})
+					  .then(function (res) {
+						return res.json();
 					  })
-					  .join("&");
-					console.log(queryString);
-					// debugger;
-					window.location.href = "/summary?" + queryString;
-				  });
-				 window.location.href = "/summary";
-			}		
-			
+					  .then(function (data) {
+						console.log(data);
+						var queryString = Object.keys(sentData)
+						  .map((key) => {
+							return (
+							  encodeURIComponent(key) +
+							  "=" +
+							  encodeURIComponent(sentData[key])
+							);
+						  })
+						  .join("&");
+						console.log(queryString);
+						debugger;
+						window.location.href = "/summary?" + queryString;
+					  });
+					 //window.location.href = "/summary";
+				} 
+			}					
 		}
 	</script>
 	<script type="text/javascript" src="js/materialize.min.js"></script>
 </body>
 </html>
-
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>File Selection Criteria</title>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/header.css" />
-    <link rel="stylesheet" type="text/css" href="/stylesheets/footer.css" />
-    <link rel="stylesheet" href="stylesheets/filter.css" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-  </head>
-
-  <body onload="startTime()">
-    <%- include(navbar) %>
-    <div class="newtitle">
-      <h1 style="text-align: center">File Selection Criteria</h1>
-    </div>
-    <div>
-      <hr class="line2" />
-    </div>
-    <div class="fsbox" style="margin-bottom: 20px">
-      <div class="wrapper">
-        <div class="div1">
-          <p class="des pno">Part number</p>
-          <p class="des">Application</p>
-          <p class="des">Selection</p>
-          <p class="des">Test date</p>
-          <p class="des">PLT number</p>
-          <p class="des dc">Datecode-sw</p>
-          <p class="des dc">Datecode-rel</p>
-          <p class="des">Yield</p>
-          <p class="des">Min lot size</p>
-        </div>
-        <div class="div2">
-          <p>
-            <input
-              type="text"
-              class="txt"
-              id="part_num"
-              placeholder="0000-0000"
-              name=""
-              value=""
-            />
-          </p>
-          <p>
-            <input
-              type="text"
-              class="txt"
-              id="app"
-              placeholder="Final, Engineering..."
-              name=""
-              value=""
-            />
-          </p>
-          <p>
-            <input
-              type="text"
-              class="txt"
-              id="sel"
-              placeholder=""
-              name=""
-              value=""
-            />
-          </p>
-          <p>
-            <input
-              type="date"
-              class="txt2"
-              id="Date1"
-              placeholder=""
-              name=""
-              value=""
-            />
-            -
-            <input
-              type="date"
-              class="txt2"
-              id="Date2"
-              placeholder="mm/dd/yyyy"
-              name=""
-              value=""
-            />
-          </p>
-          <p>
-            <input
-              type="text"
-              class="txt2"
-              id="Plt1"
-              placeholder="0"
-              name=""
-              value=""
-            />
-            -
-            <input
-              type="text"
-              class="txt2"
-              id="Plt2"
-              placeholder="0"
-              name=""
-              value=""
-            />
-          </p>
-          <p>
-            <input
-              type="text"
-              class="txt2"
-              id="dcs1"
-              placeholder="0"
-              name=""
-              value=""
-            />
-            -
-            <input
-              type="text"
-              class="txt2"
-              id="dcs2"
-              placeholder="0"
-              name=""
-              value=""
-            />
-          </p>
-          <p>
-            <input
-              type="text"
-              class="txt2"
-              id="dcr1"
-              placeholder="0"
-              name=""
-              value=""
-            />
-            -
-            <input
-              type="text"
-              class="txt2"
-              id="dcr2"
-              placeholder="0"
-              name=""
-              value=""
-            />
-          </p>
-          <p>
-            <input
-              type="text"
-              class="txt2"
-              id="yld1"
-              placeholder="0"
-              name=""
-              value=""
-            />
-            -
-            <input
-              type="text"
-              class="txt2"
-              id="yld2"
-              placeholder="0"
-              name=""
-              value=""
-            />
-          </p>
-          <p>
-            <input
-              type="text"
-              class="txt"
-              id="lot"
-              placeholder="0"
-              name=""
-              value=""
-            />
-          </p>
-        </div>
-      </div>
-      <div class="divbtn">
-        <input
-          class="btn"
-          type="button"
-          name=""
-          value="OK"
-          onclick="filter()"
-        />
-      </div>
-    </div>
-    <%- include(footer) %>
-
-    <script>
-      function filter() {
-        var pno_length = document.getElementById("part_num").value.length;
-        var app_length = document.getElementById("app").value.length;
-        var sel_length = document.getElementById("sel").value.length;
-        var date1_length = document.getElementById("Date1").value.length;
-        var date2_length = document.getElementById("Date2").value.length;
-        var plt1_length = document.getElementById("Plt1").value.length;
-        var plt2_length = document.getElementById("Plt2").value.length;
-        var dcs1_length = document.getElementById("dcs1").value.length;
-        var dcs2_length = document.getElementById("dcs2").value.length;
-        var dcr1_length = document.getElementById("dcr1").value.length;
-        var dcr2_length = document.getElementById("dcr2").value.length;
-        var yld1_length = document.getElementById("yld1").value.length;
-        var yld2_length = document.getElementById("yld2").value.length;
-        var lot_length = document.getElementById("lot").value.length;
-
-        if (
-          !pno_length &&
-          !app_length &&
-          !sel_length &&
-          !date1_length &&
-          !date2_length &&
-          !plt1_length &&
-          !plt2_length &&
-          !dcs1_length &&
-          !dcs2_length &&
-          !dcr1_length &&
-          !dcr2_length &&
-          !yld1_length &&
-          !yld2_length &&
-          !lot_length
-        ) {
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Select at least one parameter",
-          });
-        } else {
-          // const sentData = {
-          //   date1: "2020-10-10 12:00:00",
-          //   date2: "2020-10-10 12:00:20",
-          //   //   part_no: 123,
-          //   part_no: "",
-          //   application: "Normal Pro",
-          //   //   application: "Salvage",
-          //   plt: "91011",
-          // };
-          const sentData = {
-            part_no: document.getElementById("part_num").value,
-            application: document.getElementById("app").value,
-            selection: document.getElementById("sel").value,
-            date1: document.getElementById("Date1").value + " 12:00:00",
-            date2: document.getElementById("Date2").value + " 12:00:00",
-            plt1: document.getElementById("Plt1").value,
-            plt2: document.getElementById("Plt2").value,
-            datecode_sw1: document.getElementById("dcs1").value,
-            datecode_sw2: document.getElementById("dcs2").value,
-            datecode_rel1: document.getElementById("dcr1").value,
-            datecode_rel2: document.getElementById("dcr2").value,
-            yield1: document.getElementById("yld1").value,
-            yield2: document.getElementById("yld2").value,
-            lot_size: document.getElementById("lot").value,
-            plt: "",
-          };
-          // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-          fetch("/filterdb", {
-            method: "POST",
-            body: JSON.stringify(sentData),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          })
-            .then(function (res) {
-              return res.json();
-            })
-            .then(function (data) {
-              console.log(data);
-              var queryString = Object.keys(sentData)
-                .map((key) => {
-                  return (
-                    encodeURIComponent(key) +
-                    "=" +
-                    encodeURIComponent(sentData[key])
-                  );
-                })
-                .join("&");
-              console.log(queryString);
-              debugger;
-              window.location.href = "/summary?" + queryString;
-            });
-          // window.location.href = "/summary";
-        }
-      }
-    </script>
-  </body>
-</html>
-<!DOCTYPE html>
-
