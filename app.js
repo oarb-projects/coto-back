@@ -48,7 +48,6 @@ const server = app.listen(port, () =>
     } port: ${server.address().port}!`
   )
 );
-
 /* Socket connection */
 const io = socket(server);
 
