@@ -18,7 +18,7 @@ const sendPngImage = (screenshotBuffer, socket, browser) => {
 const sendPdf = (socket, browser, chartsImages) => {
   const doc = new PDFDocument({
     size: [612, 792],
-    margin: 50
+    margin: 50,
   });
   const location = path.join(__dirname, "../pdfpreviews/output.pdf");
   try {
@@ -33,26 +33,29 @@ const sendPdf = (socket, browser, chartsImages) => {
     align: "center",
   });
 
-  doc.addPage().fontSize(30).font('Helvetica-Bold').text(`Charts`, {
-    align: 'center'
+  doc.addPage().fontSize(30).font("Helvetica-Bold").text(`Charts`, {
+    align: "center",
   });
 
   const width = 252;
   const height = 169;
 
-  for(let table of chartsImages){
-    if(doc.x != 50){
+  for (let table of chartsImages) {
+    if (doc.x != 50) {
       doc.x = 50;
       doc.y += height;
     }
-    if(doc.y > 700 - height){
+    if (doc.y > 700 - height) {
       doc.addPage();
     }
 
-    doc.fontSize(18).font('Helvetica').text(`Part no: ${table.noPart}`, {align: 'center'});  
+    doc
+      .fontSize(18)
+      .font("Helvetica")
+      .text(`Part no: ${table.noPart}`, { align: "center" });
 
-    for(let img of table.images){
-      if(doc.y > 742 - height){
+    for (let img of table.images) {
+      if (doc.y > 742 - height) {
         doc.addPage();
       }
 
@@ -63,7 +66,7 @@ const sendPdf = (socket, browser, chartsImages) => {
 
       doc.x = (doc.x + width) % (2 * width);
 
-      if(doc.x != 50){
+      if (doc.x != 50) {
         doc.y -= height;
       }
     }
@@ -88,64 +91,71 @@ const sendPdf = (socket, browser, chartsImages) => {
 };
 
 const chartScreenshot = async (socket, url) => {
-  let width = 1130;
-  let height = 1600;
+  try {
+    let width = 1130;
+    let height = 1600;
 
-  console.log("Pdf generation process initiated");
-  const browser = await puppeteer.launch({
-    headless: true,
-    defaultViewport: {
-      width,
-      height,
-    },
-  });
+    console.log("Pdf generation process initiated");
+    const browser = await puppeteer.launch({
+      headless: true,
+      defaultViewport: {
+        width,
+        height,
+      },
+    });
 
-  const page = await browser.newPage();
+    const page = await browser.newPage();
 
-  // Charts
-  await page.goto(
-    `http://localhost:8080/chartsjs${url}&pdf=true`,
-    { waitUntil: "networkidle0" }
-  );
-  await page.waitForSelector(".second-container");
+    // Charts
+    await page.goto(`http://${socket.handshake.headers.host}/chartsjs${url}&pdf=true`, {
+      waitUntil: "networkidle0",
+    });
+    await page.waitForSelector(".second-container");
 
-  const values = await page.$$eval('#test-no-selecter > option', options => options.map(op => op.value));
-  const chartsContainers = await page.$$eval('.second-container > div', containters => containters.map(cont => cont.id));
+    const values = await page.$$eval("#test-no-selecter > option", (options) =>
+      options.map((op) => op.value)
+    );
+    const chartsContainers = await page.$$eval(
+      ".second-container > div",
+      (containters) => containters.map((cont) => cont.id)
+    );
 
-  let chartsImages = [];
-  
-  for(let noPart of values){
-    await page.select('#test-no-selecter', noPart);
+    let chartsImages = [];
 
-    let images = [];
-    for(let i of chartsContainers){
-      let chart = await page.$(`#${i}`);
-  
-      images.push(await chart.screenshot());
+    for (let noPart of values) {
+      await page.select("#test-no-selecter", noPart);
+
+      let images = [];
+      for (let i of chartsContainers) {
+        let chart = await page.$(`#${i}`);
+
+        images.push(await chart.screenshot());
+      }
+
+      chartsImages.push({ noPart, images });
     }
-    
-    chartsImages.push({noPart, images});
-  }  
-  console.log("Charts images generated");
+    console.log("Charts images generated");
 
+    //Summary
+    await page.goto(`http://${socket.handshake.headers.host}/summary${url}&pdf=true`, {
+      waitUntil: "networkidle0",
+    });
+    await page.waitForSelector("#testDiv");
+    const screenshotBuffer = await page.screenshot({
+      path: "./pdfpreviews/summary.png",
+      omitBackground: true,
+      fullPage: true,
+    });
 
-  //Summary
-  await page.goto(
-    `http://localhost:8080/summary${url}&pdf=true`,
-    { waitUntil: "networkidle0" }
-  );
-  await page.waitForSelector("#testDiv");
-  const screenshotBuffer = await page.screenshot({
-    path: "./pdfpreviews/summary.png",
-    omitBackground: true,
-    fullPage: true
-  });
-  
-  
-  console.log("Summary image generated");
+    console.log("Summary image generated");
 
-  // sendPngImage(screenshotBuffer,socket,browser);
-  sendPdf(socket, browser, chartsImages);
+    // sendPngImage(screenshotBuffer,socket,browser);
+    sendPdf(socket, browser, chartsImages);
+  }
+  catch(err){
+    console.log(err);
+    socket.emit("error");
+  }
 };
 
 exports.chartGenerator = chartScreenshot;

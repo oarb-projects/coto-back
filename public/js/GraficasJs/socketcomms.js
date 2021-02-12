@@ -47,4 +47,10 @@ window.onload = function (event) {
     let url = webkitURL.createObjectURL(pdfBlob);
     window.open(url);
   });
+
+  socket.on("error", function (info) {
+    swal("Error!", "", "error");
+    document.querySelector('.sweet-alert').style.top = '55%';
+    document.querySelector(".spinner-border").className = "sa-icon sa-custom d-none";
+  });
 };
