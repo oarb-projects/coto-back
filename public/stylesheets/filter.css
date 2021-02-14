@@ -85,8 +85,9 @@ p{
 	margin-left:auto;
 	margin-right:auto;
 	background: #eeeeee;	
-	padding: 6px 6px 6px 6px;
+	padding: 30px 6px;
 	font-size: 1.2em;
+	margin-top: 30px;
 }
 
 .top_image {
@@ -331,14 +332,14 @@ p {
 	font-size: 3.25vw;
 } */
 
-.fsbox {
+/* .fsbox {
   width: 40%;
   margin-left: auto;
   margin-right: auto;
   background: #c4c4c4;
   padding: 6px 6px 6px 6px;
   font-size: 1.2em;
-}
+} */
 
 .top_image {
   width: 196px;

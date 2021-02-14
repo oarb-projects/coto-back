@@ -1,8 +1,15 @@
 const express = require("express");
-const app = express();
+var session = require('express-session');
 var cors = require("cors");
 const socket = require("socket.io");
 const helpers = require("./helpers/pdfgenerator");
+
+const app = express();
+app.use(session({
+	secret: 'coto-secret-code',
+	resave: true,
+	saveUninitialized: true
+}));
 
 /* app setup */
 const port = process.env.PORT || 8080;
@@ -43,7 +50,7 @@ app.use(function (_, res) {
 
 const server = app.listen(port, () =>
   console.log(
-    `Coto Report Generator App is running at host: ${
+    `Coto Report Generator App is running at hosts: ${
       server.address().address
     } port: ${server.address().port}!`
   )
