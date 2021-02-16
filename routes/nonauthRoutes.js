@@ -28,6 +28,11 @@ router.get("/login", (req, res) => {
   });
 });
 
+router.get("/logout", (req, res) => {
+  req.session.destroy();
+  res.redirect("/login");
+});
+
 const getUsers = () => {
   return new Promise((resolve, reject) => {
     con.query(`SELECT * FROM Coto.users;`, function (error, rows, fields) {
