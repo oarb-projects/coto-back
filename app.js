@@ -1,8 +1,3 @@
-process.env.HOST = 'cotomysqldb.cufmdqjnyfma.us-east-1.rds.amazonaws.com';
-process.env.USER = 'admin';
-process.env.PASSWORD = 'admin123';
-
-
 const express = require("express");
 var session = require('express-session');
 var cors = require("cors");
