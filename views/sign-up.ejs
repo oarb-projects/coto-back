@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="refresh" content="500" />
+    <title>Sign Up</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/Responsive.css" />
+  </head>
+  <body>
+    <div class="header col-12">
+      <img src="assets/cotoLogoHeader.png" alt="Logo" />
+      <p><span id="datetime"></span></p>
+    </div>
+    <div class="col-12 titled">
+      <p>420 System</p>
+      <p>Lean Reports</p>
+    </div>
+    <form class="f" action="/signup" method="post">
+      <h1 style="text-align: center">Register</h1>
+
+      <fieldset>
+        <div class="container">
+          <label class="col-12" for="name"><b>Username</b></label>
+          <input
+            class="col-12"
+            id="username"
+            type="text"
+            name="name"
+            placeholder="Enter Username"
+            required
+          />
+
+          <label class="col-12" for="pass"><b>Password</b></label>
+          <input
+            class="col-12"
+            id="password"
+            type="password"
+            name="pass"
+            placeholder="Enter Password"
+            required
+          />
+          <button id="submit" type="submit" class="col-12 button" href="">
+            Sign Up
+          </button>
+        </div>
+      </fieldset>
+    </form>
+
+    <%- include('footer.ejs') %>
+   
+  </body>
+</html>

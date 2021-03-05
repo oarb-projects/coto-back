@@ -105,6 +105,14 @@ const chartScreenshot = async (socket, url) => {
     });
 
     const page = await browser.newPage();
+    await page.goto(`http://${socket.handshake.headers.host}/login`, {
+      waitUntil: "networkidle0",
+    });
+    await page.waitForSelector("form");
+    await page.type('#username', 'aHqRJ!s^0Z46');
+    await page.type('#password', 'jrvHM&!@m@XF');
+    await page.click('#submit');
+    await page.waitForNavigation();
 
     // Charts
     await page.goto(`http://${socket.handshake.headers.host}/chartsjs${url}&pdf=true`, {

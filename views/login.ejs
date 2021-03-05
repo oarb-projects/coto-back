@@ -1,38 +1,116 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="500">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="refresh" content="500" />
     <title>Movil</title>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"> </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"> </script>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/Responsive.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.js"
+      integrity="sha512-MqEDqB7me8klOYxXXQlB4LaNf9V9S0+sG1i8LtPOYmHqICuEZ9ZLbyV3qIfADg2UJcLyCm4fawNiFvnYbcBJ1w=="
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css"
+      integrity="sha512-f8gN/IhfI+0E9Fc/LKtjVq4ywfhYAVeMGKsECzDUHcFJ5teVwvKTqizm+5a84FINhfrgdvjX8hEJbem2io1iTA=="
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/Responsive.css" />
   </head>
   <body>
     <div class="header col-12">
-      <img src = "assets/cotoLogoHeader.png" alt = "Logo">
+      <img src="assets/cotoLogoHeader.png" alt="Logo" />
       <p><span id="datetime"></span></p>
     </div>
     <div class="col-12 titled">
-      <p> 420 System </p>
-      <p> Lean Reports </p>
+      <p>420 System</p>
+      <p>Lean Reports</p>
     </div>
     <form class="f" action="/login" method="post">
       <fieldset>
         <div class="container">
           <label class="col-12" for="name"><b>Username</b></label>
-          <input class="col-12" type="text" name="name" placeholder="Enter Username" required>
+          <input
+            class="col-12"
+            id="username"
+            type="text"
+            name="name"
+            placeholder="Enter Username"
+            required
+          />
 
           <label class="col-12" for="pass"><b>Password</b></label>
-          <input class="col-12" type="password" name="pass" placeholder="Enter Password" required>
-          <button type="submit" class="col-12 button" href="">Log In</button>
+          <input
+            class="col-12"
+            id="password"
+            type="password"
+            name="pass"
+            placeholder="Enter Password"
+            required
+          />
+          <button id="submit" type="submit" class="col-12 button" href="">
+            Log In
+          </button>
+          <div style="text-align: center">
+            <a href="/signup" style="font-size: 1rem">Sign Up</a>
           </div>
-        </fieldset>
+        </div>
+      </fieldset>
     </form>
 
     <%- include('footer.ejs') %>
+    <script>
+      // Variable to hold request
+      var request;
 
+      // Bind to the submit event of our form
+      $(document).on("submit", "form", function (event) {
+        // $(".f").submit(function(event){
 
+        // Prevent default posting of form - put here to work in case of errors
+        event.preventDefault();
+
+        // Abort any pending request
+        if (request) {
+          request.abort();
+        }
+
+        console.log("requesting");
+        const name = $("#username").val().trim();
+        const password = $("#password").val().trim();
+        console.log(name, password);
+        request = $.ajax({
+          type: "POST",
+          url: "/login",
+          // The key needs to match your method's input parameter (case-sensitive).
+          data: JSON.stringify({ name, pass: password }),
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          success: function (data) {
+            console.log(data);
+            if (
+              data.status === "user not found" ||
+              data.status === "incorrect password"
+            ) {
+              // alert("User or password not found");"Error!", "", "User or password not found"
+              swal({
+                title: "Error!",
+                text: "User or password not found",
+                type: "error",
+              });
+            } else if (data.status === "ok") {
+              window.location = "/filter";
+            }
+          },
+          error: function (errMsg) {
+            // great ajax tut https://stackoverflow.com/questions/5004233/jquery-ajax-post-example-with-php
+            console.log("Error:", errMsg.statusText);
+          },
+        });
+      });
+    </script>
   </body>
 </html>

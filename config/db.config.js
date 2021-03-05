@@ -1,12 +1,5 @@
 var mysql = require("mysql");
 
-// const dbconnection = mysql.createPool({
-//   host: "coto-1.cjlxz9e5sgts.us-west-1.rds.amazonaws.com",
-//   user: "admin",
-//   database: 'Coto',
-//   password: "cfpfk5qf"
-// });
-
 const dbconnection = mysql.createPool({
   host: process.env.HOST,
   user: process.env.USER,

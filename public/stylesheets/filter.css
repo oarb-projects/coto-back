@@ -155,6 +155,11 @@ div.div1{
 	border: none;
 }
 
+	label {
+		color: black!important;
+		font-weight: bold;
+	}
+
 	/* label color */
 	.input-field label {
 		color: #000;

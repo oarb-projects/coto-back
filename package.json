@@ -4,13 +4,15 @@
   "description": "Sistema de reporteo web desarrollado para Coto Technologies",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "nodemon app.js",
     "start": "node app.js"
   },
   "author": "oscar rosete",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "ejs": "^2.7.1",
