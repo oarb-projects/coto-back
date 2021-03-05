@@ -3,6 +3,8 @@ const router = express.Router();
 const axios = require("axios");
 const dbHelpers = require("../config/db.config");
 const con = dbHelpers.getConnection;
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 router.get("/", (req, res) => {
   res.render("menu.ejs");
@@ -58,14 +60,16 @@ const getUsers = () => {
 
 const registerUser = (data) => {
   return new Promise((resolve, reject) => {
-    con.query(`INSERT INTO Coto.users (\`username\`, \`passwords\`) VALUES (?, ?)`,
-    [data.name, data.pass], 
-    function (error, rows, fields) {
-      if(error) reject(error);
-      resolve(rows);
-    });
+    con.query(
+      `INSERT INTO Coto.users (\`username\`, \`passwords\`) VALUES (?, ?)`,
+      [data.name, data.pass],
+      function (error, rows, fields) {
+        if (error) reject(error);
+        resolve(rows);
+      }
+    );
   });
-} 
+};
 
 router.post("/login", async (req, res) => {
   // var fullUrl = req.protocol + "://" + req.get("host");
@@ -79,17 +83,25 @@ router.post("/login", async (req, res) => {
   const { name, pass } = req.body;
   var item = users.findIndex((item) => item.username === name);
   if (item == -1) {
-    //user exists
-    res.redirect("/login");
+    res.json({ status: "user not found" });
   } else {
-    //user does not exist
-    console.log(users[item].passwords);
-    if (users[item].passwords == pass) {
-      req.session.loggedin = true;
-      req.session.username = name;
-      req.session.password = pass;
-      res.redirect("/filter");
-    } else {
+    try {
+      console.log(users[item].passwords, pass);
+      const match = await bcrypt.compare(pass, users[item].passwords);
+      console.log(match);
+      // need to have password column of 75 char
+      // https://security.stackexchange.com/questions/39849/does-bcrypt-have-a-maximum-password-length
+      if (match) {
+        req.session.loggedin = true;
+        req.session.username = name;
+        req.session.password = pass;
+        res.json({ status: "ok" }); // res.redirect("/filter");
+      } else {
+        res.json({ status: "incorrect password" }); // res.redirect("/login");
+      }
+    } catch (e) {
+      console.log("Error", e);
+      res.json({ status: "error while making request" });
       res.redirect("/login");
     }
   }
@@ -108,10 +120,13 @@ router.post("/signup", async (req, res) => {
   var item = users.findIndex((item) => item.username === name);
 
   if (item == -1) {
-    registerUser({ name, pass });
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hashedPassword = await bcrypt.hash(pass, salt);
+    console.log(`hashedPassword :${hashedPassword}`);
+    registerUser({ name, pass: hashedPassword });
     req.session.loggedin = true;
     req.session.username = name;
-    req.session.password = pass;
+    req.session.password = hashedPassword;
     res.redirect("/filter");
   } else {
     res.redirect("/login");
