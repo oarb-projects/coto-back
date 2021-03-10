@@ -1,8 +1,48 @@
-@media only screen and (max-width: 768px){
-    .footer{
-        display: none;
-    }
-    .logom {
-        text-align: center;
-    }
+.footer-container{
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+}
+
+div.footer {
+  background-color: #ed354e;
+  color: #ffffff;
+  text-align: center;
+  font-size: 12px;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+@media only screen and (max-width: 400px) {
+  div.footer {
+    padding: 12px;
+  }
+  .logom {
+    text-align: center;
+  }
+}
+@media only screen and (min-width: 768px) {
+  div.footer {
+    padding: 20px;
+  }
+  .footer p {
+    font-size: 1.3em;
+  }
+  .COTO {
+    position: absolute;
+    left: 5%;
+  }
+  .design {
+    position: relative;
+    margin-left: 80%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .footer {
+    display: none;
+  }
+  .logom {
+    text-align: center;
+  }
 }

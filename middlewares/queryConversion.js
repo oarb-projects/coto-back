@@ -4,11 +4,13 @@ const DTO = require("../queries/DTO");
 const convertQueryMiddle = async (req, res, next) => {
   try{
     if(Object.keys(req.query).length === 0) throw new Error('No parameters!'); 
+    
     console.log("converting");
     console.log(`req.query exists, #params: ${Object.keys(req.query).length}`);
+
     const filterData = DTO.convertData(req.query);
     const resArr = await filter.getData(filterData);
-    // console.log(resArr);
+    
     res.locals.resArr = resArr;
     next();
   }

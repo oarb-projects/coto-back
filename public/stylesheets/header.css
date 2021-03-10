@@ -1,4 +1,15 @@
-
+body{
+    position: relative;
+    min-height: 100vh;
+}
+.wrap{
+    padding-bottom: 15rem;
+}
+@media only screen and (max-width: 768px) {
+    .wrap{
+        padding-bottom: 10rem;
+    }
+}
 
 /* up border */
 hr.line {

@@ -1,80 +1,19 @@
-<style>
-    div.footer {
-        background-color: #ED354E;
-        color: #ffffff;
-        text-align: center;
-        font-size: 12px;
-        padding: 10px;
-        margin-top:20 px;
-        position: static;
-        bottom: 0;
-    }
-
-
-    @media only screen and (max-width: 400px) {
-        div.footer {
-            background-color: #ED354E;
-            color: #ffffff;
-            text-align: center;
-            font-size: 12px;
-            padding: 12px;
-            margin-top:20px;
-            position: fixed;
-            bottom: 0;
-        }
-        .logom{
-            text-align: center;
-        }
-    }
-    @media only screen and (min-width: 470px){
-        div.footer {
-            background-color: #ED354E;
-            color: #ffffff;
-            text-align: center;
-            font-size: 12px;
-            padding: 12px;
-            margin-top:20px;
-            position: fixed;
-            bottom: 0;
-        }
-    }
-    @media only screen and (min-width: 768px) {
-        div.footer {
-            background-color: #ED354E;
-            color: #ffffff;
-            text-align: center;
-            font-size: 12px;
-            padding: 20px;
-            margin-top:20px;
-            position: static;
-            bottom: 0;
-        }
-        .footer p {
-            font-size: 1.3em;
-        }
-        .COTO {
-            position: absolute;
-            left: 5%;
-        }
-        .design {
-            position: relative;
-            margin-left: 80%;
-        }
-    }
-</style>
-<div class="logom col-12 mb-4">
-    <a href="/"> <img src = "/assets/cotoLogoHeader.png" alt = "Logo"></a>
+<div class="footer-container">
+    <div class="logom col-12">
+        <a href="/"> <img src = "/assets/cotoLogoHeader.png" alt = "Logo"></a>
+    </div>
+    <div class="footer movil col-12">
+        <p class = "COTO">©2019 COTO TECHNOLOGY. ALL RIGHTS RESERVED.</p>
+        <p class = "design">DESIGNED BY:</p>
+    </div>
 </div>
-<div class="footer movil col-12">
-    <p class = "COTO">©2019 COTO TECHNOLOGY. ALL RIGHTS RESERVED.</p>
-    <p class = "design">DESIGNED BY:</p>
-</div>
+
 <script>
     function startTime() {
         var today = new Date();
         var year = today.getFullYear();
         var month = today.getMonth();
-        var months = new Array('January', 'February', 'March', 'April', 'May', 'June', 'Jully', 'August', 'September', 'October', 'November', 'December');
+        var months = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
         var day = today.getDay();
         var days = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
         var d = today.getDate();

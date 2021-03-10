@@ -18,6 +18,7 @@ async function getData() {
   return results;
 }
 
+
 async function MultipleFilter(filterData) {
   let paramsCounter = 0;
   const table = "test_description";
@@ -38,5 +39,6 @@ async function MultipleFilter(filterData) {
   let results = await queryPromise(finalQuery);
   return results;
 }
+
 
 exports.getData = MultipleFilter;

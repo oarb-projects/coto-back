@@ -16,11 +16,7 @@
     <link rel="stylesheet" href="stylesheets/materialize.css" />
     <link rel="stylesheet" href="stylesheets/materialize.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <!-- <script src="js/DateTime.js"></script> -->
   </head>
-
-  <!-- <body onload="startTime()"> -->
-  <!-- <body id="testDiv"> -->
   <body>
     <%- include(navbar) %>
     <div class="newtitle">
@@ -29,125 +25,127 @@
     <div>
       <hr class="line2" />
     </div>
-    <div class="fsbox" style="margin-bottom: 20px">
-      <div class="container">
-        <div class="row">
-          <div class="input-field col s12">
+    <div class="wrap">
+      <div class="fsbox">
+        <div class="container">
+          <div class="row">
+            <div class="input-field col s12">
+              <input
+                placeholder="0000-0000"
+                type="text"
+                id="part_num"
+                class="autocomplete"
+              />
+              <label for="part_num" class="active">Part Number</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <label>Application</label>
+            <select class="browser-default" id="app">
+              <option value="" disabled selected>Choose your option</option>
+              <option value="1">FINAL</option>
+              <option value="2">CUSTOMER</option>
+              <option value="3">INCOMING</option>
+              <option value="4">PRETEST</option>
+              <option value="5">RESET</option>
+              <option value="6">SORT</option>
+              <option value="7">SET</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <label>Selection</label>
+            <select class="browser-default" id="sel">
+              <option value="" disabled selected>Choose your option</option>
+              <option value="1">System 1</option>
+              <option value="2">System 2</option>
+              <option value="3">System 3</option>
+              <option value="4">System 4</option>
+              <option value="5">System 5</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6">
+              <input
+                placeholder="dd-mm-yy"
+                id="Date1"
+                type="text"
+                class="datepicker"
+              />
+              <label class="active active2">Test date</label>
+            </div>
+            <div class="input-field col s6">
+              <input
+                placeholder="dd-mm-yy"
+                id="Date2"
+                type="text"
+                class="datepicker"
+              />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6">
+              <input placeholder="0" id="Plt1" type="text" class="validate" />
+              <label for="Plt1" class="active">PLT number</label>
+            </div>
+            <div class="input-field col s6">
+              <input placeholder="0" id="Plt2" type="text" class="validate" />
+              <label for="Plt2"></label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6">
+              <input placeholder="0" id="dcs1" type="text" class="validate" />
+              <label for="dcs1" class="active">Datecode switch</label>
+            </div>
+            <div class="input-field col s6">
+              <input placeholder="0" id="dcs2" type="text" class="validate" />
+              <label for="dcs2"></label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6">
+              <input placeholder="0" id="dcr1" type="text" class="validate" />
+              <label for="dcr1" class="active">Datecode relay</label>
+            </div>
+            <div class="input-field col s6">
+              <input placeholder="0" id="dcr2" type="text" class="validate" />
+              <label for="dcr2"></label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6">
+              <input placeholder="0" id="yld1" type="text" class="validate" />
+              <label for="yld1" class="active">Yield</label>
+            </div>
+            <div class="input-field col s6">
+              <input placeholder="0" id="yld2" type="text" class="validate" />
+              <label for="yld2"></label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input placeholder="0" id="lot" type="text" class="validate" />
+              <label for="lot" class="active">Min lot size</label>
+            </div>
+          </div>
+
+          <div class="divbtn">
             <input
-              placeholder="0000-0000"
-              type="text"
-              id="part_num"
-              class="autocomplete"
-            />
-            <label for="part_num" class="active">Part Number</label>
-          </div>
-        </div>
-
-        <div class="row">
-          <label>Application</label>
-          <select class="browser-default" id="app">
-            <option value="" disabled selected>Choose your option</option>
-            <option value="1">FINAL</option>
-            <option value="2">CUSTOMER</option>
-            <option value="3">INCOMING</option>
-            <option value="4">PRETEST</option>
-            <option value="5">RESET</option>
-            <option value="6">SORT</option>
-            <option value="7">SET</option>
-          </select>
-        </div>
-
-        <div class="row">
-          <label>Selection</label>
-          <select class="browser-default" id="sel">
-            <option value="" disabled selected>Choose your option</option>
-            <option value="1">System 1</option>
-            <option value="2">System 2</option>
-            <option value="3">System 3</option>
-            <option value="4">System 4</option>
-            <option value="5">System 5</option>
-          </select>
-        </div>
-
-        <div class="row">
-          <div class="input-field col s6">
-            <input
-              placeholder="dd-mm-yy"
-              id="Date1"
-              type="text"
-              class="datepicker"
-            />
-            <label class="active active2">Test date</label>
-          </div>
-          <div class="input-field col s6">
-            <input
-              placeholder="dd-mm-yy"
-              id="Date2"
-              type="text"
-              class="datepicker"
+              class="btn"
+              type="button"
+              name=""
+              value="OK"
+              onclick="filter()"
             />
           </div>
-        </div>
-
-        <div class="row">
-          <div class="input-field col s6">
-            <input placeholder="0" id="Plt1" type="text" class="validate" />
-            <label for="Plt1" class="active">PLT number</label>
-          </div>
-          <div class="input-field col s6">
-            <input placeholder="0" id="Plt2" type="text" class="validate" />
-            <label for="Plt2"></label>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="input-field col s6">
-            <input placeholder="0" id="dcs1" type="text" class="validate" />
-            <label for="dcs1" class="active">Datecode switch</label>
-          </div>
-          <div class="input-field col s6">
-            <input placeholder="0" id="dcs2" type="text" class="validate" />
-            <label for="dcs2"></label>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="input-field col s6">
-            <input placeholder="0" id="dcr1" type="text" class="validate" />
-            <label for="dcr1" class="active">Datecode relay</label>
-          </div>
-          <div class="input-field col s6">
-            <input placeholder="0" id="dcr2" type="text" class="validate" />
-            <label for="dcr2"></label>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="input-field col s6">
-            <input placeholder="0" id="yld1" type="text" class="validate" />
-            <label for="yld1" class="active">Yield</label>
-          </div>
-          <div class="input-field col s6">
-            <input placeholder="0" id="yld2" type="text" class="validate" />
-            <label for="yld2"></label>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="input-field col s12">
-            <input placeholder="0" id="lot" type="text" class="validate" />
-            <label for="lot" class="active">Min lot size</label>
-          </div>
-        </div>
-
-        <div class="divbtn">
-          <input
-            class="btn"
-            type="button"
-            name=""
-            value="OK"
-            onclick="filter()"
-          />
         </div>
       </div>
     </div>

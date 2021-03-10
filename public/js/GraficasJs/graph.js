@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 let color = (i >= actual.limitA && i <= actual.limitB)? 'rgba(0, 0, 255, 1)' : 'rgba(255, 0, 0, 1)';
                 actual.colorArray.push(color);
 
-                actual.labelsArray.push(`${i} - ${(parseFloat(i) + actual.width - 0.01).toFixed(2)}`);
+                actual.labelsArray.push(i);
 
                 let actualItem = actual.x[Math.round((parseFloat(i) + actual.width) / actual.width)];
                 actual.maxViewY = actualItem > actual.maxViewY? actualItem : actual.maxViewY;
