@@ -90,10 +90,15 @@ const sendPdf = (socket, browser, chartsImages) => {
   });
 };
 
-const chartScreenshot = async (socket, url) => {
+const chartScreenshot = async (socket, data) => {
   try {
     let width = 1130;
     let height = 1600;
+    let url = "dut_no=";
+
+    for(let i of data){
+      url += i + ',';
+    }
 
     console.log("Pdf generation process initiated");
     const browser = await puppeteer.launch({
@@ -109,13 +114,13 @@ const chartScreenshot = async (socket, url) => {
       waitUntil: "networkidle0",
     });
     await page.waitForSelector("form");
-    await page.type('#username', 'aHqRJ!s^0Z46');
-    await page.type('#password', 'jrvHM&!@m@XF');
+    await page.type('#username', 'coto-admin');
+    await page.type('#password', 'password');
     await page.click('#submit');
     await page.waitForNavigation();
 
     // Charts
-    await page.goto(`http://${socket.handshake.headers.host}/chartsjs${url}&pdf=true`, {
+    await page.goto(`http://${socket.handshake.headers.host}/chartsjs?pdf=true&${url}`, {
       waitUntil: "networkidle0",
     });
     await page.waitForSelector(".second-container");
@@ -145,7 +150,7 @@ const chartScreenshot = async (socket, url) => {
     console.log("Charts images generated");
 
     //Summary
-    await page.goto(`http://${socket.handshake.headers.host}/summary${url}&pdf=true`, {
+    await page.goto(`http://${socket.handshake.headers.host}/summary?pdf=true&${url}`, {
       waitUntil: "networkidle0",
     });
     await page.waitForSelector("#testDiv");

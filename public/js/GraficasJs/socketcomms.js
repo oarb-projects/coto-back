@@ -3,28 +3,46 @@ window.onload = function (event) {
   var pdf = true;
 
   //DOM elements
-  var btn = document.querySelector("#send");
+  var windowBtn = document.querySelector("#send");
+  var generateBtn = document.querySelector("#generate-pdf");
 
-  function b64(e) {
-    var t = "";
-    var n = new Uint8Array(e);
-    var r = n.byteLength;
-    for (var i = 0; i < r; i++) {
-      t += String.fromCharCode(n[i]);
+  //Selector
+  windowBtn.addEventListener("click", function () {
+    $('#pdf-selection').css( "display", "flex" );
+  });
+
+  $('.fa-window-close').on('click', ()=>{
+    $('#pdf-selection').css( "display", "none" );
+  });
+  $("#btnLeft").click(function () {
+    var selectedItem = $("#rightValues option:selected");
+    $("#leftValues").append(selectedItem);
+  });
+
+  $("#btnRight").click(function () {
+      var selectedItem = $("#leftValues option:selected");
+      $("#rightValues").append(selectedItem);
+  });
+
+  //Send Data
+  generateBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    
+    var data = [];
+    for(let i of $('#rightValues option')){
+      data.push(i.value);
     }
-    return window.btoa(t);
-  }
 
-  btn.addEventListener("click", function () {
-    swal({
-      title: "Loading...",
-      showConfirmButton: false,
-    });
-    document.querySelector('.sweet-alert').style.top = '45%';
-    document.querySelector(".sa-custom").style = "width: 4rem; height: 4rem;";
-    document.querySelector(".sa-custom").className = "spinner-border text-primary d-inline-flex my-3";
-
-    socket.emit("generate-pdf", window.location.search);
+    if(data.length > 0){
+      swal({
+        title: "Loading...",
+        showConfirmButton: false,
+      });
+      document.querySelector('.sweet-alert').style.top = '45%';
+      document.querySelector(".sa-custom").style = "width: 4rem; height: 4rem;";
+      document.querySelector(".sa-custom").className = "spinner-border text-primary d-inline-flex my-3";
+      socket.emit("generate-pdf", data);
+    }
   });
 
   socket.on("image", function (info) {
@@ -36,6 +54,15 @@ window.onload = function (event) {
       document.querySelector(".main-container").appendChild(img);
     }
   });
+  function b64(e) {
+    var t = "";
+    var n = new Uint8Array(e);
+    var r = n.byteLength;
+    for (var i = 0; i < r; i++) {
+      t += String.fromCharCode(n[i]);
+    }
+    return window.btoa(t);
+  }
 
   socket.on("pdf", function (info) {
     swal("Done!", "", "success");

@@ -11,7 +11,10 @@ const convertData = (receivedData) => {
     filterData.test_type = ` = '${receivedData.plt}'`;
   }
   if(receivedData.dut_no){
-    filterData.dut_no = ` = '${receivedData.dut_no}'`;
+    receivedData.dut_no = receivedData.dut_no.replace(/^,/, "");
+    receivedData.dut_no = receivedData.dut_no.replace(/,$/, "");
+    
+    filterData.dut_no = ` in (${receivedData.dut_no})`;
   }
   if(receivedData.application){
     filterData.test_type = ` = '${receivedData.application}'`;

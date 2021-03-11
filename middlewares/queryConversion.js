@@ -15,7 +15,7 @@ const convertQueryMiddle = async (req, res, next) => {
     next();
   }
   catch(err){
-    // console.log(err);
+    console.log(err);
     console.log('Error while filter.');
     res.redirect('/filter');
   }

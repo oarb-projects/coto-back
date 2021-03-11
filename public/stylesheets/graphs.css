@@ -125,7 +125,6 @@ hr.lineg {
   top: 50%;
   right: 1em;
   margin-top: -4px;
-  z-index: 2;
   background: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 12'%3E%3Cpolygon fill='rgb(102,102,102)' points='8,12 0,0 16,0'/%3E%3C/svg%3E")
     0 0 no-repeat;
   pointer-events: none;
@@ -547,6 +546,9 @@ option {
 .center-text {
   text-align: center;
 }
+.w-10{
+  width: 10%;
+}
 
 .bg-blue {
   background-color: blue;
@@ -576,9 +578,50 @@ option {
     display: none;
   }
 }
+.pointer:hover{
+  cursor: pointer;
+}
+.hov-red:hover{
+  color: #ac0000;
+}
+
+/* Special Classes */
+.front-window {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.front-window .container{
+  width: 50%;
+  max-height: 50%;
+  z-index: 1;
+}
+@media (max-width: 764px) {
+  .front-window .container{
+    width: 95%;
+    max-height: 80%;
+    z-index: 1;
+    overflow-y: scroll;
+  }
+}
+
+.front-window .move-buttons .btn{
+  display: block;
+  margin-top: 1.5rem;
+}
+@media (max-width: 764px) {
+  .front-window .move-buttons .btn{
+    display: inline-block;
+    margin: 0.3rem auto;
+  }
+}
+
 
 /*Containers*/
-
 .main-container {
   background-color: #34353c;
   display: flex;
@@ -746,4 +789,9 @@ option {
     margin-left: auto;
     margin-right: auto;
   }
+}
+
+/*Corrections*/
+.form-check-label{
+  font-size: large;
 }
