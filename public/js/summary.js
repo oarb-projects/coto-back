@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   let params = new URLSearchParams(window.location.search);
-  if (params.get("pdf") == "true") {
+  if (params.get("pdf")) {
     let title = document.createElement('h1');
     let text = document.createTextNode('Test Info');
     title.appendChild(text);
