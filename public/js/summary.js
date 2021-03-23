@@ -51,8 +51,8 @@ document.addEventListener("DOMContentLoaded", function () {
   var rfailed = document.getElementById("v3");
   rfailed.innerHTML = json.Rfailed;
 
-  var yield = document.getElementById("v4");
-  yield.innerHTML = json.Yield + "%";
+  var vield = document.getElementById("v4");
+  vield.innerHTML = json.Yield + "%";
 
   var rejects = document.getElementById("v14");
   rejects.innerHTML = json.Rejects;
@@ -99,15 +99,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var valplt = document.getElementById("hd4");
   valplt.innerHTML = json.PLT;
-
-  var vallot = document.getElementById("hd5");
-  vallot.innerHTML = json.LOT;
-
+  
   var valdc = document.getElementById("hd6");
   valdc.innerHTML = json.DC;
-
-  var valfn = document.getElementById("hd7");
-  valfn.innerHTML = json.FILENAME;
 
   var valtd = document.getElementById("hd8");
   valtd.innerHTML = json.TD;
@@ -121,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   let params = new URLSearchParams(window.location.search);
-  if (params.get("pdf")) {
+  if (params.has("pdf")) {
     let title = document.createElement('h1');
     let text = document.createTextNode('Test Info');
     title.appendChild(text);

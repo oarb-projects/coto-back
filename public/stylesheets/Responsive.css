@@ -58,7 +58,6 @@ body {
         display: unset;
     }
 }
-
 .font-weight-bold{
     font-weight: bold;
 }
@@ -145,7 +144,6 @@ div.footer {
     font-size: 12px;
     padding: 10px;
     margin-top: 20 px;
-    position: static;
     bottom: 0;
 }
 
@@ -156,7 +154,6 @@ div.footerr {
     font-size: 12px;
     padding: 10px;
     margin-top: 50 px;
-    position: static;
     bottom: 0px;
 }
 
@@ -445,7 +442,6 @@ ul {
         font-size: 12px;
         padding: 12px;
         margin-top: 20px;
-        position: fixed;
         bottom: 0;
     }
     [class*="menu"] {
@@ -594,7 +590,6 @@ ul {
         font-size: 12px;
         padding: 12px;
         margin-top: 20px;
-        position: fixed;
         bottom: 0;
     }
     .titled {
@@ -747,7 +742,6 @@ ul {
         font-size: 12px;
         padding: 20px;
         margin-top: 20px;
-        position: static;
         bottom: 0;
     }
     .footer p {

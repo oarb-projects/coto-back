@@ -307,11 +307,6 @@ option {
   .header p {
     display: none;
   }
-  form {
-    top: 10px;
-    font-size: 1em;
-    height: 10%;
-  }
   div.footer {
     background-color: #ed354e;
     color: #ffffff;
@@ -383,11 +378,6 @@ option {
   .header img {
     position: absolute;
     left: 5%;
-  }
-  form {
-    margin-left: auto;
-    margin-right: auto;
-    width: 400px;
   }
   .scontainer {
     display: none;
@@ -565,6 +555,13 @@ option {
 .bg-red {
   background-color: red;
 }
+.material-icons:hover{
+  cursor: pointer;
+  transform: scale(1.1);
+}
+.hov-blue:hover{
+  color: #148494!important;
+}
 
 .d-unset {
   display: unset;
@@ -597,7 +594,7 @@ option {
 
 .front-window .container{
   width: 50%;
-  max-height: 50%;
+  max-height: 80%;
   z-index: 1;
 }
 @media (max-width: 764px) {

@@ -3,6 +3,8 @@ var session = require('express-session');
 var cors = require("cors");
 const socket = require("socket.io");
 const helpers = require("./helpers/pdfgenerator");
+const dotenv = require('dotenv').config();
+
 
 const app = express();
 app.use(session({
@@ -19,8 +21,6 @@ require("./config/db.config");
 // const os = require("os");
 // const hostname = os.hostname();
 
-/* Local env files*/
-/* require("dotenv").config(); */
 
 /*Setting favicon of our app*/
 const favicon = require("serve-favicon");

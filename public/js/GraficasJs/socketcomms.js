@@ -11,29 +11,42 @@ window.onload = function (event) {
     $('#pdf-selection').css( "display", "flex" );
   });
 
-  $('.fa-window-close').on('click', ()=>{
+  $('#close-download').on('click', ()=>{
     $('#pdf-selection').css( "display", "none" );
   });
   $("#btnLeft").click(function () {
-    var selectedItem = $("#rightValues option:selected");
-    $("#leftValues").append(selectedItem);
+    var selectedItem = $("#selected_part_num option:selected");
+    $("#non_selected_part_num").append(selectedItem);
   });
 
   $("#btnRight").click(function () {
-      var selectedItem = $("#leftValues option:selected");
-      $("#rightValues").append(selectedItem);
+      var selectedItem = $("#non_selected_part_num option:selected");
+      $("#selected_part_num").append(selectedItem);
   });
 
   //Send Data
   generateBtn.addEventListener("click", function (e) {
     e.preventDefault();
     
-    var data = [];
-    for(let i of $('#rightValues option')){
-      data.push(i.value);
+    let part_num = [];
+    let pareto = document.getElementById('option-pareto').checked;
+    let summary = document.getElementById('option-summary').checked;
+    let charts = document.getElementById('option-charts').checked;
+
+    for(let i of $('#selected_part_num option')){
+      part_num.push(i.value);
     }
 
-    if(data.length > 0){
+    if(part_num.length > 0){
+      let data = {
+        part_num,
+        pages : {
+          pareto, 
+          summary,
+          charts
+        }
+      }
+
       swal({
         title: "Loading...",
         showConfirmButton: false,
@@ -41,6 +54,7 @@ window.onload = function (event) {
       document.querySelector('.sweet-alert').style.top = '45%';
       document.querySelector(".sa-custom").style = "width: 4rem; height: 4rem;";
       document.querySelector(".sa-custom").className = "spinner-border text-primary d-inline-flex my-3";
+      $('#pdf-selection').css( "display", "none" );
       socket.emit("generate-pdf", data);
     }
   });

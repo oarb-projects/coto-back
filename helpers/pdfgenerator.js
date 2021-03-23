@@ -15,7 +15,7 @@ const sendPngImage = (screenshotBuffer, socket, browser) => {
   });
 };
 
-const sendPdf = (socket, browser, chartsImages) => {
+const sendPdf = (socket, browser, data) => {
   const doc = new PDFDocument({
     size: [612, 792],
     margin: 50,
@@ -28,50 +28,83 @@ const sendPdf = (socket, browser, chartsImages) => {
   }
   const writeStream = fs.createWriteStream("./pdfpreviews/output.pdf");
   doc.pipe(writeStream);
-  doc.image("./pdfpreviews/summary.png", {
-    width: 512,
-    align: "center",
-  });
 
-  doc.addPage().fontSize(30).font("Helvetica-Bold").text(`Charts`, {
-    align: "center",
-  });
+  if(data.pages.summary){
+    doc.image("./pdfpreviews/summary.png", {
+      width: 512,
+      align: "center",
+    });
+  }
 
-  const width = 252;
-  const height = 169;
-
-  for (let table of chartsImages) {
-    if (doc.x != 50) {
-      doc.x = 50;
-      doc.y += height;
-    }
-    if (doc.y > 700 - height) {
+  //Pareto
+  if(data.pages.pareto){
+    let height = 100;
+    
+    if(data.pages.summary){
       doc.addPage();
     }
 
-    doc
-      .fontSize(18)
-      .font("Helvetica")
-      .text(`Part no: ${table.noPart}`, { align: "center" });
+    doc.fontSize(30).font("Helvetica-Bold").text(`Pareto`, {
+      align: "center",
+    });
 
-    for (let img of table.images) {
-      if (doc.y > 742 - height) {
+    for (let table of data.paretoImages) {
+      doc
+        .fontSize(18)
+        .font("Helvetica")
+        .text(`Part no: ${table.noPart}`, { align: "center" })
+        .image(table.image, {width: 512});
+
+      doc.y += height;
+    }
+  }
+
+  //Charts
+  if(data.pages.charts){
+    if(data.pages.summary || data.pages.pareto){
+      doc.addPage();
+    }
+
+    doc.fontSize(30).font("Helvetica-Bold").text(`Charts`, {
+      align: "center",
+    });
+
+    const width = 252;
+    const height = 169;
+
+    for (let table of data.chartsImages) {
+      if (doc.x != 50) {
+        doc.x = 50;
+        doc.y += height;
+      }
+      if (doc.y > 700 - height) {
         doc.addPage();
       }
 
-      doc.image(img, {
-        width,
-        height,
-      });
+      doc
+        .fontSize(18)
+        .font("Helvetica")
+        .text(`Part no: ${table.noPart}`, { align: "center" });
 
-      doc.x = (doc.x + width) % (2 * width);
+      for (let img of table.images) {
+        if (doc.y > 742 - height) {
+          doc.addPage();
+        }
 
-      if (doc.x != 50) {
-        doc.y -= height;
+        doc.image(img, {
+          width,
+          height,
+        });
+
+        doc.x = (doc.x + width) % (2 * width);
+
+        if (doc.x != 50) {
+          doc.y -= height;
+        }
       }
-    }
 
-    doc.y += 30;
+      doc.y += 30;
+    }
   }
   doc.end();
 
@@ -79,9 +112,9 @@ const sendPdf = (socket, browser, chartsImages) => {
     console.log("pdf generated");
 
     console.log(`location ${location}`);
-    fs.readFile(location, async (err, data) => {
-      // console.log(data)
-      socket.emit("pdf", { pdf: true, buffer: data });
+    fs.readFile(location, async (err, info) => {
+      // console.log(info)
+      socket.emit("pdf", { pdf: true, buffer: info });
       console.log("pdf file was sent");
       await browser.close();
       console.log("browser closed");
@@ -96,7 +129,7 @@ const chartScreenshot = async (socket, data) => {
     let height = 1600;
     let url = "dut_no=";
 
-    for(let i of data){
+    for(let i of data.part_num){
       url += i + ',';
     }
 
@@ -120,50 +153,77 @@ const chartScreenshot = async (socket, data) => {
     await page.waitForNavigation();
 
     // Charts
-    await page.goto(`http://${socket.handshake.headers.host}/chartsjs?pdf=true&${url}`, {
-      waitUntil: "networkidle0",
-    });
-    await page.waitForSelector(".second-container");
+    if(data.pages.charts){
+      await page.goto(`http://${socket.handshake.headers.host}/chartsjs?pdf=true&${url}`, {
+        waitUntil: "networkidle0",
+      });
+      await page.waitForSelector(".second-container");
 
-    const values = await page.$$eval("#test-no-selecter > option", (options) =>
-      options.map((op) => op.value)
-    );
-    const chartsContainers = await page.$$eval(
-      ".second-container > div",
-      (containters) => containters.map((cont) => cont.id)
-    );
+      const values = await page.$$eval("#test-no-selecter > option", (options) =>
+        options.map((op) => op.value)
+      );
+      const chartsContainers = await page.$$eval(
+        ".second-container > div",
+        (containters) => containters.map((cont) => cont.id)
+      );
 
-    let chartsImages = [];
+      data.chartsImages = [];
 
-    for (let noPart of values) {
-      await page.select("#test-no-selecter", noPart);
+      for (let noPart of values) {
+        await page.select("#test-no-selecter", noPart);
 
-      let images = [];
-      for (let i of chartsContainers) {
-        let chart = await page.$(`#${i}`);
+        let images = [];
+        for (let i of chartsContainers) {
+          let chart = await page.$(`#${i}`);
 
-        images.push(await chart.screenshot());
+          images.push(await chart.screenshot());
+        }
+
+        data.chartsImages.push({ noPart, images });
       }
-
-      chartsImages.push({ noPart, images });
+      console.log("Charts images generated");
     }
-    console.log("Charts images generated");
+
+    // Pareto
+    if(data.pages.pareto){
+      await page.goto(`http://${socket.handshake.headers.host}/pareto?pdf=true&${url}`, {
+        waitUntil: "networkidle0",
+      });
+      await page.waitForSelector(".dataTables_wrapper");
+
+      const values = await page.$$eval("#test-no-selecter > option", (options) =>
+        options.map((op) => op.value)
+      );
+      
+      data.paretoImages = [];
+
+      for (let noPart of values) {
+        await page.select("#test-no-selecter", noPart);
+        let table = await page.$(`#content-table`);
+
+
+        data.paretoImages.push({ noPart, image: await table.screenshot()});
+      }
+      console.log("Pareto images generated");
+    }
 
     //Summary
-    await page.goto(`http://${socket.handshake.headers.host}/summary?pdf=true&${url}`, {
-      waitUntil: "networkidle0",
-    });
-    await page.waitForSelector("#testDiv");
-    const screenshotBuffer = await page.screenshot({
-      path: "./pdfpreviews/summary.png",
-      omitBackground: true,
-      fullPage: true,
-    });
+    if(data.pages.summary){
+      await page.goto(`http://${socket.handshake.headers.host}/summary?pdf=true&${url}`, {
+        waitUntil: "networkidle0",
+      });
+      await page.waitForSelector("#testDiv");
+      const screenshotBuffer = await page.screenshot({
+        path: "./pdfpreviews/summary.png",
+        omitBackground: true,
+        fullPage: true,
+      });
 
-    console.log("Summary image generated");
+      console.log("Summary image generated");
+    }
 
     // sendPngImage(screenshotBuffer,socket,browser);
-    sendPdf(socket, browser, chartsImages);
+    sendPdf(socket, browser, data);
   }
   catch(err){
     console.log(err);

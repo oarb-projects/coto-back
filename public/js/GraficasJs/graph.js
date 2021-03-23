@@ -167,16 +167,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
             document.getElementById(`${actual.id}-main-container`).style.display  = "";
 
-            let leftButton = document.getElementById(`left${actual.id}`);
-            let rightButton = document.getElementById(`right${actual.id}`);
+            let leftButton = $(`#left${actual.id}`);
+            let rightButton = $(`#right${actual.id}`);
             let meanDiv = document.getElementById(`mean${actual.id}`);
 
             meanDiv.innerHTML = actual.mean == null? `Mean: null` : `Mean: ${actual.mean.toFixed(2)}`;
             document.documentElement.scrollTop = scroll;
-            leftButton.addEventListener("click", function() {
+            leftButton.off('click').on('click', function() {
                 displace(-1, actual);
             });
-            rightButton.addEventListener("click", function() {
+            rightButton.off('click').on('click', function() {
                 displace(1, actual);
             });
 
@@ -297,4 +297,31 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     }
+
+
+    // Configuration
+    $('#configuration-btn').on('click', () => {
+        $('#chart-configuration').css( "display", "flex" );
+    });
+    $('#close-settings').on('click', ()=>{
+        $('#chart-configuration').css( "display", "none" );
+    });
+    $("#btnLeft-setting").click(function () {
+        var selectedItem = $("#selected_tests option:selected");
+        $("#non_selected_tests").append(selectedItem);
+    });
+    $("#btnRight-setting").click(function () {
+        var selectedItem = $("#non_selected_tests option:selected");
+        $("#selected_tests").append(selectedItem);
+    });
+    $('#apply-settings').on("click", function (e) {
+        e.preventDefault();
+        
+        for(let i of $('#selected_tests option')){
+            $(`#${i.value}-main-container`).show();
+        }
+        for(let i of $('#non_selected_tests option')){
+            $(`#${i.value}-main-container`).hide();
+        }
+    });
 });
