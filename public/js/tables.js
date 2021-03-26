@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
       "columns": [
           { "data": "dut_no" },
           { "data": "test_no" },
+          { "data": "test" },
           { "data": "flag" },
           { "data": "result1" },
           // { "data": "result2" },

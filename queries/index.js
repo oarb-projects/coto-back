@@ -98,6 +98,7 @@ async function getTables(resArr) {
       var temp = await queryPromise(
         `SELECT * FROM \`${p.access}\` WHERE \`test_no\` = "${element.dut_no}"`
       );
+      temp.forEach(e => e.test = p.name);
       data = data.concat(temp);
     }
 
