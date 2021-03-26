@@ -299,8 +299,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // Configuration
-    $('#configuration-btn').on('click', () => {
+    // Settings view
+    $('#setting-btn').on('click', () => {
         $('#chart-configuration').css( "display", "flex" );
     });
     $('#close-settings').on('click', ()=>{

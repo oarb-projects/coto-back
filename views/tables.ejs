@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Tables</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/header.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/footer.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"
+    />
+  </head>
+
+  <body>
+    <%- include(navbar) %>
+
+    <main class="wrap">
+      <div class="newtitle">
+        <h1 style="text-align: center">Pareto Analysis</h1>
+      </div>
+      <div>
+        <hr class="line2" />
+      </div>
+
+      <div class="w-50 text-center ml-auto mr-auto">
+        <label for="">Selecciona un Numero de Parte:</label>
+        <select
+          id="test-no-selecter"
+          class="custom-select custom-select-lg mb-3"
+        ></select>
+      </div>
+
+      <div id="content">
+        <p>
+          Cantidad de piezas analizadas: <span id="pieces-quantity">0</span>
+        </p>
+      </div>
+      <div id="tableContainer" class="mb-4">
+        <table id="content-table" class="display" style="width: 100%">
+          <thead>
+            <tr>
+              <th>Dut No.</th>
+              <th>Test No.</th>
+              <th>Flag</th>
+              <th>Result 1</th>
+              <!-- <th>Result 2</th>
+              <th>Result 3</th> -->
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </main>
+    <%-include(footer)%>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script>
+      var str = <%- data %>;
+      var data = new Map(str.value);
+      console.log(data);
+    </script>
+    <script src=" /js/tables.js"></script>
+
+</body>
+</html>

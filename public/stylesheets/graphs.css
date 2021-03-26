@@ -566,6 +566,11 @@ option {
 .d-unset {
   display: unset;
 }
+@media (max-width: 764px) {
+  .mb-w-100{
+    width: 100%!important;
+  }
+}
 
 .disapear-md {
   display: unset;
@@ -580,6 +585,22 @@ option {
 }
 .hov-red:hover{
   color: #ac0000;
+}
+
+/* Special IDs */
+#setting-btn{
+  color: white;
+  font-size: 3rem; 
+  top: 0; 
+  right: -15%;
+}
+@media (max-width: 764px) {
+  #setting-btn{
+    color: #222;
+    font-size: 1.5rem; 
+    top: 15%; 
+    right: -15%;
+  }
 }
 
 /* Special Classes */

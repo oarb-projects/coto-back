@@ -88,6 +88,25 @@ async function getFaults(resArr) {
   return JSON.stringify(map, replacer);
 }
 
+async function getTables(resArr) {
+  var tables = new Map();
+
+  for (var element of resArr) {
+    var data = [];
+
+    for (var p of parameters) {
+      var temp = await queryPromise(
+        `SELECT * FROM \`${p.access}\` WHERE \`test_no\` = "${element.dut_no}"`
+      );
+      data = data.concat(temp);
+    }
+
+    tables.set(element.dut_no, data);
+  }
+
+  return JSON.stringify(tables, replacer);
+}
+
 async function getQuantity(text) {
   let results = await queryPromise(text);
   let total = results.length;
@@ -150,3 +169,4 @@ function replacer(key, value) {
 exports.getFaults = getFaults;
 exports.getChartData = getChartData;
 exports.getTestInfo = getTestInfo;
+exports.getTables = getTables;

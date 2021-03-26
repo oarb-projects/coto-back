@@ -33,6 +33,23 @@ router.get(
 );
 
 router.get(
+  "/tables",
+  authMiddlewares.checkSession,
+  middlewares.convertQueryMiddle,
+  (req, res) => {
+    console.log(res.locals.resArr);
+    queries.getTables(res.locals.resArr).then((data) => {
+      res.render("tables.ejs", {
+        navbar: "navbar.ejs",
+        footer: "footer.ejs",
+        title: "Tables",
+        data,
+      });
+    });
+  }
+);
+
+router.get(
   "/summary",
   authMiddlewares.checkSession,
   middlewares.convertQueryMiddle,
