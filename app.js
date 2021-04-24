@@ -3,7 +3,7 @@ var session = require('express-session');
 var cors = require("cors");
 const socket = require("socket.io");
 const helpers = require("./helpers/pdfgenerator");
-const dotenv = require('dotenv').config();
+// const dotenv = require('dotenv').config();
 
 
 const app = express();
