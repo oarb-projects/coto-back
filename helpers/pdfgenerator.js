@@ -123,6 +123,10 @@ const chartScreenshot = async (socket, data) => {
 
     console.log("Pdf generation process initiated");
     const browser = await puppeteer.launch({
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+      ],
       headless: true,
       defaultViewport: {
         width,
