@@ -29,17 +29,32 @@ window.onload = function (event) {
     e.preventDefault();
     
     let part_num = [];
-    let pareto = document.getElementById('option-pareto').checked;
-    let summary = document.getElementById('option-summary').checked;
-    let charts = document.getElementById('option-charts').checked;
+    let tests = [];
+    let visualizationQuery = '';
 
     for(let i of $('#selected_part_num option')){
       part_num.push(i.value);
     }
+    for(let i of $('#selected_tests option')){
+      tests.push(i.value);
+    }
 
-    if(part_num.length > 0){
+    data.forEach((value, key, map) => {
+      for(let test of value){
+        visualizationQuery += `${test.id}_${key}_Alim=${test.viewLimitA}&`;
+        visualizationQuery += `${test.id}_${key}_Blim=${test.viewLimitB}&`;
+      }
+    });
+
+    let pareto = document.getElementById('option-pareto').checked;
+    let summary = document.getElementById('option-summary').checked;
+    let charts = tests.length > 0? document.getElementById('option-charts').checked : false;
+
+    if(part_num.length > 0 && (pareto || summary || charts)){
       let data = {
         part_num,
+        tests,
+        visualizationQuery,
         pages : {
           pareto, 
           summary,

@@ -3,18 +3,6 @@ const fs = require("fs"); // required for file serving
 const path = require("path");
 const PDFDocument = require("pdfkit");
 
-const sendPngImage = (screenshotBuffer, socket, browser) => {
-  const location = path.join(__dirname, "../pdfpreviews/summary.png");
-  console.log(`location ${location}`);
-  fs.readFile(location, async (err, screenshotBuffer) => {
-    console.log(screenshotBuffer);
-    socket.emit("image", { image: true, buffer: screenshotBuffer });
-    console.log("image file was sent");
-    await browser.close();
-    console.log("browser closed");
-  });
-};
-
 const sendPdf = (socket, browser, data) => {
   const doc = new PDFDocument({
     size: [612, 792],
@@ -127,8 +115,8 @@ const chartScreenshot = async (socket, data) => {
   try {
     let width = 1130;
     let height = 1600;
-    let url = "dut_no=";
 
+    let url = "dut_no=";
     for(let i of data.part_num){
       url += i + ',';
     }
@@ -142,6 +130,8 @@ const chartScreenshot = async (socket, data) => {
       },
     });
 
+    console.log(`http://${socket.handshake.headers.host}/chartsjs?pdf=true&${data.visualizationQuery + url}`);
+
     const page = await browser.newPage();
     await page.goto(`http://${socket.handshake.headers.host}/login`, {
       waitUntil: "networkidle0",
@@ -154,17 +144,13 @@ const chartScreenshot = async (socket, data) => {
 
     // Charts
     if(data.pages.charts){
-      await page.goto(`http://${socket.handshake.headers.host}/chartsjs?pdf=true&${url}`, {
+      await page.goto(`http://${socket.handshake.headers.host}/chartsjs?pdf=true&${data.visualizationQuery + url}`, {
         waitUntil: "networkidle0",
       });
       await page.waitForSelector(".second-container");
 
       const values = await page.$$eval("#test-no-selecter > option", (options) =>
         options.map((op) => op.value)
-      );
-      const chartsContainers = await page.$$eval(
-        ".second-container > div",
-        (containters) => containters.map((cont) => cont.id)
       );
 
       data.chartsImages = [];
@@ -173,12 +159,10 @@ const chartScreenshot = async (socket, data) => {
         await page.select("#test-no-selecter", noPart);
 
         let images = [];
-        for (let i of chartsContainers) {
-          let chart = await page.$(`#${i}`);
-
+        for (let i of data.tests) {
+          let chart = await page.$(`#${i}-main-container`);
           images.push(await chart.screenshot());
         }
-
         data.chartsImages.push({ noPart, images });
       }
       console.log("Charts images generated");
@@ -213,7 +197,7 @@ const chartScreenshot = async (socket, data) => {
         waitUntil: "networkidle0",
       });
       await page.waitForSelector("#testDiv");
-      const screenshotBuffer = await page.screenshot({
+      await page.screenshot({
         path: "./pdfpreviews/summary.png",
         omitBackground: true,
         fullPage: true,

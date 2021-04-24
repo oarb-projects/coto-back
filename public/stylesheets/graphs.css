@@ -562,6 +562,9 @@ option {
 .hov-blue:hover{
   color: #148494!important;
 }
+.hov-red:hover{
+  color: #ac0000;
+}
 
 .d-unset {
   display: unset;
@@ -572,19 +575,11 @@ option {
   }
 }
 
-.disapear-md {
-  display: unset;
-}
-@media (max-width: 764px) {
-  .disapear-md {
-    display: none;
-  }
-}
 .pointer:hover{
   cursor: pointer;
 }
 .hov-red:hover{
-  color: #ac0000;
+  color: #f0344c;
 }
 
 /* Special IDs */
@@ -635,6 +630,22 @@ option {
   .front-window .move-buttons .btn{
     display: inline-block;
     margin: 0.3rem auto;
+  }
+}
+.zoom-buttons{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 764px) {
+  .zoom-buttons{
+    flex-direction: row;
+  }
+  .main-complements-chart {
+    display: flex;
+    flex-direction: row;
+    margin: 0 2rem;
   }
 }
 
